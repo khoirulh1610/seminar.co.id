@@ -1,12 +1,12 @@
 // Pengaturan
+require('dotenv').config({path:'../.env'});
 const server_id = 1;
-const port = 7001;
+const port = process.env.APP_WA_PORT;
 const browsername = "SEMINAR.CO.ID";
 const deviceUrl = "https://seminar.co.id/api/v1/device?server_id="+server_id;
 const webhook = "";
 const webserver = "";
 const defaultDeviceID = 0;
-require('dotenv').config({path:'../.env'});
 
 // ------------------//
 var mysql = require('mysql');
