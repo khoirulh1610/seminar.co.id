@@ -1,6 +1,6 @@
 // Pengaturan
 const server_id = 1;
-const port = 5001;
+const port = 7001;
 const browsername = "SEMINAR.CO.ID";
 const deviceUrl = "https://seminar.co.id/api/v1/device?server_id="+server_id;
 const webhook = "";
