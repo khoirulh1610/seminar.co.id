@@ -89,7 +89,7 @@
     function reset() {
         $.ajax({
             "url" : "{{url('reset')}}/"+id,
-            "data" : {phone:'{{Auth::user()->phone}}'},
+            "data" : {},
             "success" : function (resp) {
                 console.log(resp);
                 loadQr();
@@ -100,7 +100,7 @@
     function logout() {
         $.ajax({
             "url" : "{{url('logout')}}/"+id,
-            "data" : {phone:'{{Auth::user()->phone}}'},
+            "data" : {},
             "success" : function (resp) {
                 console.log(resp);
                 location.reload();
