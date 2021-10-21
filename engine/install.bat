@@ -1,1 +1,1 @@
-npm i github:adiwajshing/baileys qrcode-terminal qrcode moment got fs node-fetch axios image-to-base64 mime-types url path mysql
+npm i github:adiwajshing/baileys qrcode-terminal qrcode moment got fs node-fetch axios image-to-base64 mime-types url path mysql dotenv

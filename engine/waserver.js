@@ -6,15 +6,17 @@ const deviceUrl = "https://seminar.co.id/api/v1/device?server_id="+server_id;
 const webhook = "";
 const webserver = "";
 const defaultDeviceID = 0;
+require('dotenv').config({path:'../.env'});
+
 // ------------------//
 var mysql = require('mysql');
 var con  = mysql.createPool({
   // connectionLimit : 500,
-  host            : 'localhost',
-  user            : 'mrquods',
-  password        : '@345Ga&_OkeB2ss',
-  database        : 'seminar',
-  port            : "33063"
+  host            : process.env.DB_HOST,
+  user            : process.env.DB_USERNAME,
+  password        : process.env.DB_PASSWORD,
+  database        : process.env.DB_DATABASE,
+  port            : process.env.DB_PORT
 });
 con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
   // should actually use an error-first callback to propagate the error, but anyway...

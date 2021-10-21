@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@adiwajshing/baileys": "^3.5.2",
+        "dotenv": "^10.0.0",
         "fs": "^0.0.1-security",
         "got": "^11.8.2",
         "image-to-base64": "^2.2.0",
