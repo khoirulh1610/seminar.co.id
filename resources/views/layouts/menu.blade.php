@@ -11,11 +11,15 @@
                     <span class="nav-text">Seminar</span>
                 </a>
                 <ul aria-expanded="false">
+                    
                     <?php
                      $event = App\Models\Event::where('status',1)->get();
                      foreach ($event as $e) {
                      ?>
+                     
                      <li><a class="has-arrow ai-icod-none" href="javascript:void()" aria-expanded="false">
+                         <span class="nav-text">ISA</span>
+                     </a>
                         <ul aria-expanded="false">
                             @if(Auth::user()->role_id<=4)
                             <li><a href="{{url('peserta/'.$e->kode_event)}}">Peserta {{$e->brand}}</a></li>
@@ -63,4 +67,11 @@
                 </ul>
             </li>
             @endif
-        </
+        </ul>
+        
+        <div class="copyright">
+            <p><strong>seminar.co.id</strong> © 2021</p>
+            <p>by MSD</p>
+        </div>
+    </div>
+</div>

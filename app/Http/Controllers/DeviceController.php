@@ -12,50 +12,34 @@ class DeviceController extends Controller
     // Device
     public function device(Request $request)
     {
-        $device = Device::where('user_id',Auth::id())->get();
-        $device_id = $request->id;
-        return view('whatsapp.device',compact('device','device_id'));
+        if(Auth::user()->role_id==1){
+            $device = Device::get();
+        }else{
+            $device = Device::where('user_id',Auth::id())->get();
+        }
+        
+        $title = "List Device";
+        return view('whatsapp.device',compact('device','title'));
+    }
+
+    public function show(Request $request)
+    {
+        $device = Device::where('id',$request->id)->first();
+        $title = "Whatsapp Service";
+        return view('whatsapp.show',compact('device','title'));
     }
 
     public function start(Request $request)
     {        
-        $device = Device::where('user_id',$request->id)->first();
+        $device = Device::where('id',$request->id)->first();
         if($device){
             return Whatsapp::start(["instance"=>(String)$device->id]);
         }        
     }
 
-    public function scanQr(Request $request)
+    public function qrcode(Request $request)
     {
-        $device = Device::where('user_id',$request->id)->first();
-        // return $device;
-        if($device){
-            if($device->server_id>=3){
-                $h = [  "status"    => true,
-                        "qrcode"    => $device->barcode
-                    ];
-                    return $h;
-            }else{
-                $data = ["req"=>"qrcode"];    
-                // return ApiWa($device->id,$data);                      
-                return response()->json(json_decode(ApiWa($device->id,$data)));
-            }
-            
-        }else {
-            return ["msg"=>"ERROR"];
-        }
+        return Device::where('id',$request->id)->first();        
     }
-
-    public function logout(Request $request)
-    {        
-        $device = Device::where('id',$request->id)->first();
-        if($device){
-            $device->phone = "";
-            $device->name = "";
-            $device->pic_url = "";
-            $device->save();
-            $data = ["req"=>"delete","device_id"=>$device->id];           
-            return response()->json(json_decode(ApiWa($device->id,$data)));
-        }  
-    }
+    
 }

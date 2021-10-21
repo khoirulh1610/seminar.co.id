@@ -64,9 +64,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/kirimpesan/process','KirimpesanController@process')->name('kirimpesan.process');
 
     Route::get('/device/device','DeviceController@device')->name('DeviceController.device');
+    Route::get('/device/show','DeviceController@show')->name('DeviceController.show');
     Route::get('/device/start','DeviceController@start')->name('DeviceController.device');
-    Route::get('/device/scan','DeviceController@scan')->name('DeviceController.scan');
-
+    Route::get('/device/scanqr','DeviceController@qrcode')->name('DeviceController.qrcode');
+    Route::get('/device/test','DeviceController@test')->name('DeviceController.test');
     
 
     Route::get('/eventbaru', function(){
@@ -82,26 +83,39 @@ Route::group(['middleware' => ['auth']], function () {
         return view('emails.mailprivew');
     });
 
+    Route::get('/test',function(){
+        return DB::table("seminars")->count();
+        // $notif = App\Helpers\Notifikasi::send(["device_key"=>"8niD7OgjZ737XWh","phone"=>"085232843165","message"=>"test & test","engine"=>"quods","delay"=>1]);
+        // return $notif;
+    });
+    
+    Route::get('/new/{id}',function($id){
+        $notif = App\Helpers\Whatsapp::start(["instance"=>(String)$id]);
+        return $notif;
+    });
+    
+    Route::get('/qrcode11/{id}',function($id){
+        $notif = App\Helpers\Whatsapp::new(["instance"=>(String)$id]);
+        return $notif;
+    });
+
+    Route::get('/logout/{id}',function($id){
+        $db = App\Models\Device::where('id',$id)->update(["status"=>"Start","phone"=>null,"profile_url"=>null,"nama"=>null]);
+        $notif = App\Helpers\Whatsapp::logout(["instance"=>(String)$id]);        
+        return $notif;
+    });
+
+    Route::get('/reset/{id}',function($id){
+        $db = App\Models\Device::where('id',$id)->update(["status"=>"Start","phone"=>null,"profile_url"=>null,"nama"=>null]);
+        $notif = App\Helpers\Whatsapp::reset(["instance"=>(String)$id]);
+        return $notif;
+    });
+    
+    Route::get('/send/{id}',function($id){
+        $req = \Request();
+        $notif = App\Helpers\Whatsapp::send(["instance"=>(String)$id,"number"=>$req->phone ?? "085232843165","message"=>"Test server whatsapp from seminar"]);
+        return $notif;
+    });
     
 });
 
-Route::get('/test',function(){
-    return DB::table("seminars")->count();
-    // $notif = App\Helpers\Notifikasi::send(["device_key"=>"8niD7OgjZ737XWh","phone"=>"085232843165","message"=>"test & test","engine"=>"quods","delay"=>1]);
-    // return $notif;
-});
-
-Route::get('/new{id}',function($id){
-    $notif = App\Helpers\Whatsapp::start(["instance"=>(String)$id]);
-    return $notif;
-});
-
-Route::get('/qrcode/{id}',function($id){
-    $notif = App\Helpers\Whatsapp::new(["instance"=>(String)$id]);
-    return $notif;
-});
-
-Route::get('/send/{id}',function($id){
-    $notif = App\Helpers\Whatsapp::send(["instance"=>(String)$id,"number"=>"085232843165","message"=>"test"]);
-    return $notif;
-});

@@ -139,7 +139,8 @@ app.post('/new', express.json(), async (req, res) => {
       res.json(log);
     } else {
         if(QR[id_device]!=''){
-          log = {"status": true, "instance": id_device, "qrcode": QR[id_device], "message": "Ready to Scan"}
+          const ress = await qrcode.toDataURL(QR[id_device]);
+          log = {"status": true, "instance": id_device, "qrcode": ress, "message": "Ready to Scan"}
           console.log(log);
           res.json(log);
         }else{
@@ -231,20 +232,18 @@ const newinstance = async (number, no) => {
     } catch (error) {
       PicProfile[number] = '';
     }
-    let qry_open = "update devices set status='AUTHENTICATED',qrcode=null,phone='"+ToPhone(mynumber[number])+"',profile_url='"+PicProfile[number]+"' where id="+number;
+    let qry_open = "update devices set status='AUTHENTICATED',nama='"+(json.user.name || null )+"',qrcode=null,phone='"+ToPhone(mynumber[number])+"',profile_url='"+PicProfile[number]+"' where id="+number;
     // console.log(qry_open);
     con.query(qry_open);
-    con.query("insert into devicelogs(device_id,log)values("+number+",'Online')");
-    
   });
 
   log = "";
   conn[number].on('qr',async(qr) =>
   {    
     QR[number] = qr;
-    const ress = await qrcode.toDataURL(qr,{small: true});
-    qrcodeT.generate(qr);
-    con.query("update devices set barcode='"+ress+"',status='Device Start',status_device_key='SCANNING',port="+port+" where id="+number);        
+    const ress = await qrcode.toDataURL(qr);
+    // qrcodeT.generate(qr,{small: true});    
+    con.query("update devices set qrcode='"+ress+"',status='Start' where id="+number);        
   });
   
 
@@ -585,8 +584,7 @@ const newinstance = async (number, no) => {
     if(conn[token]) {
         conn[token].clearAuthInfo();
         QR[token] = null;
-        conn[token].close()
-        conn[token] = null;
+        conn[token].close()        
         log = {"status": true, "instance": token, "message": "Sukses close"}
         res.send(log);
     } else {
@@ -595,23 +593,7 @@ const newinstance = async (number, no) => {
     }
   })
 
-  app.get('/delete', async (req, res) => {
-    var token = req.body.instance;
-    if(conn[token]) {
-        deleteSession(`./auth_info/${token}.json`);
-        //deleteSession(`./auth_info/${token}.config5.json`);
-        conn[token].clearAuthInfo();
-        QR[token] = null;
-        
-        conn[token].close();
-        conn[token]=null;          
-        log = {"status": true, "instance": token, "message": "Sukses close!" }
-        res.send(log);
-    } else {
-        log = {"status": false, "message": "Instance salah!"}
-        res.send(log);
-    }
-  })
+  
 
   app.get('/reset', async (req, res) => {
     var token = req.body.instance;
@@ -1311,7 +1293,8 @@ app.post('/send', async(req, res) => {
   var type_message = req.body.type_message || "default";    
   // console.log(phone,msg,port);
   // console.log(req.body);
-  if(conn[token].phoneConnected) {
+  try {
+    if(conn[token].phoneConnected) {
       if (phone && msg && port){
           if(conn[token]) {
             const exists = await conn[token].isOnWhatsApp (phone)
@@ -1434,6 +1417,9 @@ app.post('/send', async(req, res) => {
           "data": {}
       });
     }
+  } catch (error) {
+    console.log(error);
+  }
    
 
 });
