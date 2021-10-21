@@ -1,0 +1,1 @@
+npm i qrcode-terminal qrcode moment got fs node-fetch axios image-to-base64 mime-types url path mysql

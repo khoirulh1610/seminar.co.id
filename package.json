@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "axios": "^0.21.4",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14"
+    },
+    "dependencies": {
+        "fs": "^0.0.1-security",
+        "got": "^11.8.2",
+        "image-to-base64": "^2.2.0",
+        "mime-types": "^2.1.33",
+        "moment": "^2.29.1",
+        "mysql": "^2.18.1",
+        "node-fetch": "^3.0.0",
+        "path": "^0.12.7",
+        "qrcode": "^1.4.4",
+        "qrcode-terminal": "^0.12.0",
+        "url": "^0.11.0"
+    }
+}
