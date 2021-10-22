@@ -62,13 +62,7 @@
                                                 </select>
                                                 <!-- <input type="text" class="form-control" name="brand" value="{{$edit->brand}}" placeholder="Type here"> -->
                                             </div>
-                                        </div>
-                                        <div class="col-xl-4 col-sm-6">
-                                            <div class="form-group">
-                                                <label>Password</label>
-                                                <input type="password" class="form-control" name="password" value="" id="">   
-                                            </div>
-                                        </div>
+                                        </div>                                        
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Kode Referal</label>
@@ -79,7 +73,7 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-xl-6 col-sm-6">
+                                        <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Whatsapp</label>
                                                 <div class="input-group input-icon mb-3">
@@ -94,7 +88,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-6 col-sm-6">
+                                        <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Email</label>
                                                 <div class="input-group input-icon mb-3">
@@ -109,26 +103,27 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-6 col-sm-6">
+                                        <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Level User</label>
-                                                <div class="input-group input-icon mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon3"><i class="las la-envelope"></i></span>
-                                                    </div>
-                                                    @if(Auth::user()->role_id==1)
-                                                    <select name="role_id" id="role_id" class="form-control">
-                                                        <?php 
-                                                        $role = App\Models\Role::get();
-                                                        foreach ($role as $r) {
-                                                            echo '<option value="'.$r->id.'" '.($r->id==$edit->role_id ? "selected" : "" ).'>'.$r->name.'</option>';
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                    @else
-                                                        <input type="text" name="" class="form-control" value="{{$edit->role->name}}" readonly>
-                                                    @endif
-                                                </div>
+                                                @if(Auth::user()->role_id==1)
+                                                <select name="role_id" id="role_id" class="form-control">
+                                                    <?php 
+                                                    $role = App\Models\Role::get();
+                                                    foreach ($role as $r) {
+                                                        echo '<option value="'.$r->id.'" '.($r->id==$edit->role_id ? "selected" : "" ).'>'.$r->name.'</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+                                                @else
+                                                    <input type="text" name="" class="form-control" value="{{$edit->role->name}}" readonly>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input type="password" class="form-control" name="password" value="" id="">   
                                             </div>
                                         </div>
                                     </div>
