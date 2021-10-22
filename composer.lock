@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4842c22e789d247c4b660e69490545f",
+    "content-hash": "d637274726f49583f87ae8efe870dc68",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -961,6 +961,44 @@
                 }
             ],
             "time": "2021-10-06T17:43:30+00:00"
+        },
+        {
+            "name": "kadekjayak/bca-parser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kadekjayak/bca-parser.git",
+                "reference": "b905abcc0f18680945e6f474992fb9ef2e343008"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kadekjayak/bca-parser/zipball/b905abcc0f18680945e6f474992fb9ef2e343008",
+                "reference": "b905abcc0f18680945e6f474992fb9ef2e343008",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BCAParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "kadekjayak",
+                    "email": "kadekjayak@yahoo.co.id"
+                }
+            ],
+            "description": "Scrapper for KlikBCA",
+            "support": {
+                "issues": "https://github.com/kadekjayak/bca-parser/issues",
+                "source": "https://github.com/kadekjayak/bca-parser/tree/master"
+            },
+            "time": "2019-02-20T17:44:17+00:00"
         },
         {
             "name": "laravel/framework",
@@ -7952,7 +7990,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "kadekjayak/bca-parser": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
