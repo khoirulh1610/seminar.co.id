@@ -73,7 +73,7 @@
                                             <div class="form-group">
                                                 <label>Kode Referal</label>
                                                 @if(Auth::user()->role_id==1)
-                                                    <input type="text" class="form-control" name="referal" value="{{$edit->kode_ref ?? $edit->kode_ref}}" placeholder="kode referral">
+                                                    <input type="text" class="form-control" name="referal" value="{{$edit->kode_ref ?? $edit->phone}}" placeholder="kode referral">
                                                 @else
                                                     <input type="text" class="form-control" name="referal" value="{{$edit->kode_ref ?? $edit->phone}}" placeholder="kode" readonly>
                                                 @endif
@@ -97,7 +97,11 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon3"><i class="las la-envelope"></i></span>
                                                     </div>
+                                                    @if(Auth::user()->role_id==1)
+                                                    <input type="text" name="email" class="form-control" value="{{$edit->email}}" placeholder="Enter email">
+                                                    @else
                                                     <input type="text" name="email" class="form-control" value="{{$edit->email}}" placeholder="Enter email" readonly>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

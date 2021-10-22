@@ -159,7 +159,7 @@
                         <label for="">Level</label><br>
                         <select name="role_id" id="role_id" class="form-control">
                             <?php 
-                            $role = App\Models\Role::get();
+                            $role = App\Models\Role::orderBy('id','desc')->get();
                             foreach ($role as $r) {
                                 echo '<option value="'.$r->id.'">'.$r->name.'</option>';
                             }
