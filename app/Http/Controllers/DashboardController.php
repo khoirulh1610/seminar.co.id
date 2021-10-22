@@ -19,6 +19,7 @@ class DashboardController extends Controller
         }
         
         $seminar  = Seminar::get();
+        
         $title = "Dashboard";
         return view('dashboard',compact('seminar','event','title'));
     }

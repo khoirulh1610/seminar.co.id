@@ -7,7 +7,7 @@ class Whatsapp{
 
     public static function host()
     {
-        return "http://127.0.0.1:7001/";
+        return "http://127.0.0.1:".ENV('APP_WA_PORT',7001)."/";
     }
 
     public static function start($data)

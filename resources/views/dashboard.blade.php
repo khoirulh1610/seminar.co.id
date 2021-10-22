@@ -19,8 +19,8 @@
                             </span>
                             <div class="media-body text-right">
                                 @if(Auth::user()->role_id<=2) 
-                                    <p class="fs-18 text-white mb-2">Jumlah Pendaftar</p>
-                                    <span class="fs-20 text-white font-w600">{{$seminar->where('kode_event',$ev->kode_event)->count()}}</span>
+                                    <p class="fs-18 text-white mb-2">Total Pendaftar</p>
+                                    <span class="fs-20 text-white font-w600">{{$ev->kode_event}} : {{App\Models\Seminar::where('kode_event',$ev->kode_event)->count('id')}}</span>
                                 @else
                                     <p class="fs-18 text-white mb-2">Referral Anda</p>
                                     <span class="fs-20 text-white font-w600">{{$seminar->where('kode_event',$ev->kode_event)->where('ref',Auth::user()->phone)->count()}}</span>
