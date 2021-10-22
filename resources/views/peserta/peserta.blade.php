@@ -41,8 +41,10 @@
                                         <th style="text-align:center">Nama</th>
                                         <th style="text-align:center">Phone</th>
                                         <th style="text-align:center">Tanggal Daftar</th>
+                                        @if(Auth::user()->role_id==1 || Auth::user()->role_id==1 || Auth::user()->role_id==3)
                                         <th style="text-align:center">Harga</th>
                                         <th style="text-align:center">Status</th>
+                                        @endif
                                         @if(Auth::user()->role_id==1)
                                         <th style="text-align:center">Action</th>
                                         @endif
@@ -61,6 +63,7 @@
                                         @endif
                                         <!-- <td style="text-align:center"> {{$p->phone}} <br><small> {{$p->email}} </small></td> -->
                                         <td style="text-align:center">{{$p->created_at}}</td>
+                                    @if(Auth::user()->role_id==1 || Auth::user()->role_id==2 || Auth::user()->role_id==3)    
                                         <td style="text-align:center">Rp. {{number_format($p->total ?? 0,0)}}</td>
                                         <td style="text-align:center">
                                         @if($p->status==0)
@@ -73,6 +76,7 @@
                                             @endif
                                         @endif
                                         </td>
+                                    @endif
                                         @if(Auth::user()->role_id==1)
                                         <td style="text-align:center">
                                             @if($p->status==0)

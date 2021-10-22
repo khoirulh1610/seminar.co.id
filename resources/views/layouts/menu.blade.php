@@ -18,7 +18,7 @@
                      ?>
                      
                      <li><a class="has-arrow ai-icod-none" href="javascript:void()" aria-expanded="false">
-                         <span class="nav-text">ISA</span>
+                         <span class="nav-text">{{$e->event_title}}</span>
                      </a>
                         <ul aria-expanded="false">
                             @if(Auth::user()->role_id<=4)

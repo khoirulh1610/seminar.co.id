@@ -17,7 +17,7 @@ class DeviceController extends Controller
         }else{
             $device = Device::where('user_id',Auth::id())->get();
         }
-        
+        // return $device;
         $title = "List Device";
         return view('whatsapp.device',compact('device','title'));
     }
