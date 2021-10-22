@@ -43,6 +43,11 @@ class ProfileController extends Controller
         }
         $profile->brand     = $request->brand;
         $profile->kode_ref  = $request ->referal;
+        $profile->phone     = $request ->phone;
+        $profile->email     = $request ->email;
+        if($request ->role_id){
+            $profile->role_id   = $request ->role_id;
+        }
         $profile->save();
         return redirect()->back();
     }
