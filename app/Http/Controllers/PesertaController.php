@@ -7,7 +7,7 @@ use App\Models\Seminar;
 use App\Models\Event;
 use App\Helpers\Notifikasi;
 use App\Models\User;
-use Hash, DB, Auth;
+use Hash, DB, Auth, Str;
 
 class PesertaController extends Controller
 {
@@ -84,6 +84,7 @@ class PesertaController extends Controller
             $user->email        = $peserta->email;
             $user->role_id      = $request->role_id ?? 3;
             $user->brand        = $brand;
+            $user->kode_ref     = Str::random(8);
             $user->password     = Hash::make($request->password ?? '123456');
             $user->save();
             if($user->id){

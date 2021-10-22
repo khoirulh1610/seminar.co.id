@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Seminar;
 use Auth, Hash;
+use Str;
 
 class LoginController extends Controller
 {
@@ -49,10 +50,9 @@ class LoginController extends Controller
                     $user->b_tanggal = $cek_seminar->b_tanggal;
                     $user->b_bulan   = $cek_seminar->b_bulan;
                     $user->b_tahun   = $cek_seminar->b_tahun;
-                    // $user->kode_ref  = $cek_seminar->phone;
+                    $user->kode_ref  = Str::random(8);
                     $user->password  = Hash::make('123456');
-                    $user->role_id   = 4;
-                    $user->kode_ref  = strtolower(substr($email,0,strpos($email,'@'))) ??  $cek_seminar->phone;
+                    $user->role_id   = 4;                    
                     $user->save();
                 }
             }
