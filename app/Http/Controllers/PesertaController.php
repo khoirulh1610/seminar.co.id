@@ -7,13 +7,17 @@ use App\Models\Seminar;
 use App\Models\Event;
 use App\Helpers\Notifikasi;
 use App\Models\User;
-use Hash, DB;
+use Hash, DB, Auth;
 
 class PesertaController extends Controller
 {
     public function index(Request $request,$kode_event)
     {
-        $peserta    = Seminar::where("kode_event","like",$kode_event)->get();
+        if(Auth::user()->role_id<=2){
+            $peserta    = Seminar::where("kode_event","like",$kode_event)->get();
+        }else{
+            $peserta    = Seminar::where("kode_event","like",$kode_event)->where('ref',Auth::user()->phone)->get();
+        }
         $title      = "Data Seminar";
         return view('peserta.peserta',compact('peserta','title'));
     }
