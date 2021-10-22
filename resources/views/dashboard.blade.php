@@ -7,7 +7,73 @@
 <div class="content-body">
     <!-- row -->
     <div class="container-fluid">
-        @foreach($event as $ev)
+        @if($event->count()==0)
+            <h3>seminar.co.id</h3>
+            <div class="row">
+            <div class="col-12 col-md-3">
+                <div class="card bg-primary">
+                    <div class="card-body">
+                        <div class="media align-items-center">
+                            <span class="p-3 mr-3 feature-icon rounded">
+                               <i class="fa fa-lg fa-users text-light"></i>
+                            </span>
+                            <div class="media-body text-right">
+                                    <p class="fs-18 text-white mb-2">Referral Anda</p>
+                                    <span class="fs-20 text-white font-w600">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="card bg-info">
+                    <div class="card-body">
+                        <div class="media align-items-center">
+                            <span class="p-3 mr-3 feature-icon rounded">
+                            <i class="fa fa-lg fa-check-square text-white" aria-hidden="true"></i>
+                            </span>
+                            <div class="media-body text-right">
+                                    <p class="fs-18 text-white mb-2">Peserta Appoved</p>
+                                    <span class="fs-20 text-white font-w600">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="card bg-warning">
+                    <div class="card-body">
+                        <div class="media align-items-center">
+                            <span class="p-3 mr-3 feature-icon rounded">
+                            <i class="fa fa-lg fa-user-circle text-white" aria-hidden="true"></i>
+                            </span>
+                            <div class="media-body text-right">
+                                    <p class="fs-18 text-white mb-2">Peserta Payment</p>
+                                    <span class="fs-20 text-white font-w100">0</span>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <div class="media align-items-center">
+                            <span class="p-3 mr-3 feature-icon rounded">
+                            <i class="fa fa-xl fa-credit-card text-white" aria-hidden="true"></i>
+                            </span>
+                            <div class="media-body text-right">
+                            <p class="fs-18 text-white mb-2">Total Komisi</p>
+                                <span class="fs-20 text-white font-w600">Rp. 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
+        @foreach($event as $ev)        
         <h3>{{$ev->event_title}}</h3>
         <div class="row">
             <div class="col-12 col-md-3">
@@ -92,6 +158,7 @@
             </div>
         </div>
         @endforeach
+        
     </div>
 </div>
 <!--**********************************
