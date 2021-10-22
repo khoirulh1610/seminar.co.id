@@ -154,6 +154,18 @@
                         <label for="">Password</label><br>
                         <input class="form-control" type="password" name="password" placeholder="Input Password" autocomplete="ogg">
                     </div>
+
+                    <div class="col-sm-12">
+                        <label for="">Level</label><br>
+                        <select name="role_id" id="role_id" class="form-control">
+                            <?php 
+                            $role = App\Models\Role::get();
+                            foreach ($role as $r) {
+                                echo '<option value="'.$r->id.'">'.$r->name.'</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
                 </div>
                 
             </div>

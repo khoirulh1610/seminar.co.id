@@ -16,13 +16,15 @@ class EventController extends Controller
         }else{
             $event  = Event::where('brand',Auth::user()->brand)->get();
         }
-        return view('event.event',compact('event'));
+        $title      = "Event";
+        return view('event.event',compact('event','title'));
     }
 
     public function baru(Request $request)
     {
         $notif  = Notif::get();
-        return view('event.eventbaru',compact('notif'));
+        $title  = "Event Baru";
+        return view('event.eventbaru',compact('notif','title'));
     }
 
     public function edit(Request $request)

@@ -13,7 +13,7 @@
                     <div class="card-header">
                         <h4 class="card-title">Device</h4>
                         <div class="form-group">
-                            <a href="" data-toggle="modal" data-target="#devicebaru" class="btn btn-info btn-rounded">Device Baru</a>
+                            <a href="" data-toggle="modal" data-target="#devicebaru" class="btn btn-xs btn-info btn-rounded m-1">Device Baru</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -23,7 +23,8 @@
                             <thead>
                                 <tr>
                                     <th style="text-align:center">No</th>
-                                    <th style="text-align:center">Device Key</th>
+                                    <th style="text-align:center">Device</th>
+                                    <th style="text-align:center">User</th>
                                     <th style="text-align:center">Nomor Whatsapp</th>
                                     <th style="text-align:center">Server</th>
                                     <th style="text-align:center">Status</th>
@@ -34,7 +35,8 @@
                                 @foreach($device as $de)
                                 <tr>
                                     <td style="text-align:center">{{$loop->iteration}}</td>
-                                    <td style="text-align:center">{{$de->device_key}}</td>
+                                    <td style="text-align:center">{{$de->id}}/{{$de->device_key}}</td>
+                                    <td style="text-align:center">{{$de->nama}}</td>
                                     <td style="text-align:center">{{$de->phone}}</td>
                                     <td style="text-align:center;">{{$de->nama}}</td>
                                     <td style="text-align:center;">
@@ -46,8 +48,9 @@
                                     </td>
 
                                     <td style="text-align:center">
-                                        <a href="javascript:void(0)" onclick="send({{$de->id}})" class="btn btn-sm btn-warning btn-rounded"><i class="fa fa-paper-plane" aria-hidden="true"></i> Test</a>
-                                        <a href="{{url('device/show?id='.$de->id)}}" class="btn btn-sm btn-success btn-rounded"><i class="fa fa-list">&nbsp;</i>view</a>                                       
+                                        <a href="javascript:void(0)" onclick="send({{$de->id}})" class="btn btn-xs btn-warning btn-rounded m-1"><i class="fa fa-paper-plane" aria-hidden="true"></i> Test</a>
+                                        <a href="{{url('device/show?id='.$de->id)}}" class="btn btn-xs btn-success btn-rounded m-1"><i class="fa fa-list">&nbsp;</i>View</a> 
+                                        <a href="{{url('device/delete?id='.$de->id)}}" class="btn btn-xs btn-danger btn-rounded"><i class="fa fa-trash">&nbsp;</i>Delete</a>                                       
                                     </td>									
                                 </tr>
                                 @endforeach		
@@ -62,20 +65,36 @@
 </div>
 <div class="modal fade" id="devicebaru">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Device Baru</h5>
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                </button>
+        <form action="{{url('/device/save')}}" method="post">
+        @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Device Baru</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="" style="color:black">User</label>
+                    <select name="user" id="" class="form-control">
+                        <option value="">--</option>
+                        @foreach($user as $ur)
+                        <option value="{{$ur->id}}">{{$ur->nama}}</option>
+                        @endforeach
+                    </select>
+                    <label for="" style="color:black">Brand</label>
+                    <select name="brand" id="" class="form-control">
+                        <option value="">--</option>
+                        @foreach($brand as $br)
+                        <option value="{{$br->brand}}">{{$br->brand}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light btn-rounded" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success btn-rounded">Save</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <label for=""></label>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-success btn-rounded">Save</button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 @endsection

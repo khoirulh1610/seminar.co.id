@@ -227,5 +227,20 @@ class ApiseminarController extends Controller
             }
         }
     }
+
+    public function absen(Request $request)
+    {
+        $emailorphone = preg_replace('/^0/','62',$request->email);
+        $kode_event   = $request->kode_event;
+        $seminar = Seminar::where('kode_event',$kode_event)->where('email',$emailorphone)->first();
+        if(!$seminar){
+            $seminar = Seminar::where('kode_event',$kode_event)->where('phone',$emailorphone)->first();
+        }
+        if($seminar){
+            return ["status"=>true,"id"=>$seminar->id,"nama"=>$seminar->nama,"sapaan"=>$seminar->sapaan,"panggilan"=>$seminar->panggilan];
+        }else{
+            return ["status"=>false];
+        }
+    }
     
 }

@@ -78,7 +78,7 @@ class PesertaController extends Controller
             $user->nama         = $peserta->nama;
             $user->phone        = $peserta->phone;
             $user->email        = $peserta->email;
-            $user->role_id      = 3;
+            $user->role_id      = $request->role_id ?? 3;
             $user->brand        = $brand;
             $user->password     = Hash::make($request->password ?? '123456');
             $user->save();

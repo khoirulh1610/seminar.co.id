@@ -45,9 +45,9 @@
                                             </tr>
                                         </table>
                                         <div class="shopping-cart mt-3">
-                                            <a class="btn btn-success btn-sm btn-rounded" href="javascript:void(0)" onclick="start()" id="_start"><i class="fa fa-play mr-2"></i>Start</a>
-                                            <a class="btn btn-info btn-sm btn-rounded" href="javascript:void(0)" onclick="reset()"><i class="fa fa-refresh mr-2"></i>Restart</a>
-                                            <a class="btn btn-danger btn-sm btn-rounded" href="javascript:void(0)" onclick="logout()"><i class="fa fa-sign-out mr-2"></i>Logout</a>
+                                            <a class="btn btn-success btn-xs btn-rounded m-1" href="javascript:void(0)" onclick="start()" id="_start"><i class="fa fa-play mr-2"></i>Start</a>
+                                            <a class="btn btn-info btn-xs btn-rounded m-1" href="javascript:void(0)" onclick="reset()"><i class="fa fa-refresh mr-2"></i>Restart</a>
+                                            <a class="btn btn-danger btn-xs btn-rounded " href="javascript:void(0)" onclick="logout()"><i class="fa fa-sign-out mr-2"></i>Logout</a>
                                         </div>
                                     </div>
                                     

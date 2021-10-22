@@ -33,8 +33,8 @@
                                         <td style="text-align:center">{{$us->phone}} <br><small>{{$us->email}}</small></td>
                                         <td style="text-align:center">{{$us->role->name}}</td>
                                         <td style="text-align:center">
-                                            <a href="{{url('profile/edit?id='.$us->id)}}" class="btn btn-xs btn-info btn-rounded"><em class="flaticon-381-edit"></em></a>
-                                            <a href="{{url('user/delete/'.$us->id)}}" class="btn btn-xs btn-danger btn-rounded"><em class="flaticon-381-trash"></em></a>
+                                            <a href="{{url('profile/edit?id='.$us->id)}}" class="btn btn-xs btn-info btn-rounded m-1"><i class="fa fa-list"></i>&nbsp; Edit</a>
+                                            <a href="{{url('user/delete/'.$us->id)}}" class="btn btn-xs btn-danger btn-rounded m-1"><i class="fa fa-trash">&nbsp;</i>Delete</a>
                                         </td>												
                                     </tr>
                                     @endforeach

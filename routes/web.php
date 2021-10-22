@@ -21,10 +21,9 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/register', 'Auth\RegisterController@index')->name('register');
 Route::post('/register', 'Auth\RegisterController@save')->name('register.save');
 
-// Route::get('/', function () {
-//     $title = "yes";
-//     return view('layouts.isi',compact("title"));
-// });
+Route::get('/lp', function () {    
+    return view('welcome');
+});
 
 Route::group(['middleware' => ['auth']], function () { 
 
@@ -68,6 +67,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/device/start','DeviceController@start')->name('DeviceController.device');
     Route::get('/device/scanqr','DeviceController@qrcode')->name('DeviceController.qrcode');
     Route::get('/device/test','DeviceController@test')->name('DeviceController.test');
+    Route::get('/device/delete','DeviceController@delete')->name('device.delete');
+    Route::post('/device/save','DeviceController@baru')->name('device.save');
     
 
     Route::get('/eventbaru', function(){

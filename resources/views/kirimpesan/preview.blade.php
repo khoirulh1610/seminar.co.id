@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Preview Pesan</h4>
-                        <a href="{{url('kirimpesan/process')}}" class="btn btn-success btn-rounded">process</a>
+                        <a href="{{url('kirimpesan/process')}}" class="btn btn-success btn-sm btn-rounded m-1">Process</a>
                     </div>
                     <div class="card-body">
                         <div class="row">

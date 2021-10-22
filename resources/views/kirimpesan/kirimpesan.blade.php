@@ -11,12 +11,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="col-sm-12 col-md-6">
                         <h4 class="card-title">Data Kirim Pesan</h4>
-                        </div>
-                        <div class="col-sm-12 col-md-6 justify-content-end">
-                            <a class="btn btn-xs btn-rounded btn-danger">Delete</a>
-                            <a href="{{url('kirimpesan/baru')}}" class="btn btn-xs btn-success btn-rounded">Buat Pesan</a>                        
+                        <div class="form-group">
+                            <a href="{{url('kirimpesan/baru')}}" class="btn btn-xs btn-success btn-rounded m-1">Buat Pesan</a>    
+                            <a class="btn btn-xs btn-rounded btn-danger m-1">Delete</a>                     
                         </div>
                     </div>
                     <div class="card-body">
@@ -58,8 +56,8 @@
                                             @endif
                                         </td>
                                         <td >
-                                            <a href="{{url('event/resend/'.$e->id)}}" class="btn btn-sm btn-info btn-rounded"><em class="flaticon-381-send-1"></em></a>
-                                            <a href="{{url('event/hapus/'.$e->id)}}" class="btn btn-sm btn-danger btn-rounded"><em class="flaticon-381-trash"></em></a>
+                                            <a href="{{url('event/resend/'.$e->id)}}" class="btn btn-sm btn-info btn-rounded"><i class="fa fa-pen"></i></a>
+                                            <a href="{{url('event/hapus/'.$e->id)}}" class="btn btn-sm btn-danger btn-rounded"><i class="fa fa-trash"></i></a>
                                         </td>									
                                     </tr>
                                     @endforeach		

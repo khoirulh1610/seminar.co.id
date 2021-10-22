@@ -1,132 +1,1976 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="en">
 
-        <title>Laravel</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>seminar.co.id</title>
+    <meta name="description" content="seminar.co.id menurupakan Jasa EO (event organizer) Management Online & Offline dengan fiture lengkap sekala kecil maupun berkala bersar dengan peralatan lengkap dan team yang hebat">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./assets/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="./assets/js/lib/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="./assets/js/lib/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/light-color.css">
 
-        <!-- Styles -->
-        <style>
-            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}a{background-color:transparent}[hidden]{display:none}html{font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;line-height:1.5}*,:after,:before{box-sizing:border-box;border:0 solid #e2e8f0}a{color:inherit;text-decoration:inherit}svg,video{display:block;vertical-align:middle}video{max-width:100%;height:auto}.bg-white{--bg-opacity:1;background-color:#fff;background-color:rgba(255,255,255,var(--bg-opacity))}.bg-gray-100{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247,250,252,var(--bg-opacity))}.border-gray-200{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237,242,247,var(--border-opacity))}.border-t{border-top-width:1px}.flex{display:flex}.grid{display:grid}.hidden{display:none}.items-center{align-items:center}.justify-center{justify-content:center}.font-semibold{font-weight:600}.h-5{height:1.25rem}.h-8{height:2rem}.h-16{height:4rem}.text-sm{font-size:.875rem}.text-lg{font-size:1.125rem}.leading-7{line-height:1.75rem}.mx-auto{margin-left:auto;margin-right:auto}.ml-1{margin-left:.25rem}.mt-2{margin-top:.5rem}.mr-2{margin-right:.5rem}.ml-2{margin-left:.5rem}.mt-4{margin-top:1rem}.ml-4{margin-left:1rem}.mt-8{margin-top:2rem}.ml-12{margin-left:3rem}.-mt-px{margin-top:-1px}.max-w-6xl{max-width:72rem}.min-h-screen{min-height:100vh}.overflow-hidden{overflow:hidden}.p-6{padding:1.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.pt-8{padding-top:2rem}.fixed{position:fixed}.relative{position:relative}.top-0{top:0}.right-0{right:0}.shadow{box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06)}.text-center{text-align:center}.text-gray-200{--text-opacity:1;color:#edf2f7;color:rgba(237,242,247,var(--text-opacity))}.text-gray-300{--text-opacity:1;color:#e2e8f0;color:rgba(226,232,240,var(--text-opacity))}.text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.text-gray-500{--text-opacity:1;color:#a0aec0;color:rgba(160,174,192,var(--text-opacity))}.text-gray-600{--text-opacity:1;color:#718096;color:rgba(113,128,150,var(--text-opacity))}.text-gray-700{--text-opacity:1;color:#4a5568;color:rgba(74,85,104,var(--text-opacity))}.text-gray-900{--text-opacity:1;color:#1a202c;color:rgba(26,32,44,var(--text-opacity))}.underline{text-decoration:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.w-5{width:1.25rem}.w-8{width:2rem}.w-auto{width:auto}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}@media (min-width:640px){.sm\:rounded-lg{border-radius:.5rem}.sm\:block{display:block}.sm\:items-center{align-items:center}.sm\:justify-start{justify-content:flex-start}.sm\:justify-between{justify-content:space-between}.sm\:h-20{height:5rem}.sm\:ml-0{margin-left:0}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pt-0{padding-top:0}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width:768px){.md\:border-t-0{border-top-width:0}.md\:border-l{border-left-width:1px}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:1024px){.lg\:px-8{padding-left:2rem;padding-right:2rem}}@media (prefers-color-scheme:dark){.dark\:bg-gray-800{--bg-opacity:1;background-color:#2d3748;background-color:rgba(45,55,72,var(--bg-opacity))}.dark\:bg-gray-900{--bg-opacity:1;background-color:#1a202c;background-color:rgba(26,32,44,var(--bg-opacity))}.dark\:border-gray-700{--border-opacity:1;border-color:#4a5568;border-color:rgba(74,85,104,var(--border-opacity))}.dark\:text-white{--text-opacity:1;color:#fff;color:rgba(255,255,255,var(--text-opacity))}.dark\:text-gray-400{--text-opacity:1;color:#cbd5e0;color:rgba(203,213,224,var(--text-opacity))}.dark\:text-gray-500{--tw-text-opacity:1;color:#6b7280;color:rgba(107,114,128,var(--tw-text-opacity))}}
-        </style>
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour1.css" title="colour1" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour2.css" title="colour2" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour3.css" title="colour3" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour4.css" title="colour4" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour5.css" title="colour5" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour6.css" title="colour6" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour7.css" title="colour7" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour8.css" title="colour8" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour9.css" title="colour9" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour10.css" title="colour10" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour11.css" title="colour11" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour12.css" title="colour12" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour13.css" title="colour13" />
+    <link rel="alternate stylesheet " type="text/css" href="./assets/css/colors/colour14.css" title="colour14" />
+    
+</head>
 
-        <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-            }
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+<body class="light-vz circle-v">
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner"></div>
+        </div>
+    </div><!--preloader end-->
+    
 
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
-                        <g clip-path="url(#clip0)" fill="#EF3B2D">
-                            <path d="M248.032 44.676h-16.466v100.23h47.394v-14.748h-30.928V44.676zM337.091 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.431 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162-.001 2.863-.479 5.584-1.432 8.161zM463.954 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.432 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162 0 2.863-.479 5.584-1.432 8.161zM650.772 44.676h-15.606v100.23h15.606V44.676zM365.013 144.906h15.607V93.538h26.776V78.182h-42.383v66.724zM542.133 78.182l-19.616 51.096-19.616-51.096h-15.808l25.617 66.724h19.614l25.617-66.724h-15.808zM591.98 76.466c-19.112 0-34.239 15.706-34.239 35.079 0 21.416 14.641 35.079 36.239 35.079 12.088 0 19.806-4.622 29.234-14.688l-10.544-8.158c-.006.008-7.958 10.449-19.832 10.449-13.802 0-19.612-11.127-19.612-16.884h51.777c2.72-22.043-11.772-40.877-33.023-40.877zm-18.713 29.28c.12-1.284 1.917-16.884 18.589-16.884 16.671 0 18.697 15.598 18.813 16.884h-37.402zM184.068 43.892c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002-35.648-20.524a2.971 2.971 0 00-2.964 0l-35.647 20.522-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v38.979l-29.706 17.103V24.493a3 3 0 00-.103-.776c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002L40.098 1.396a2.971 2.971 0 00-2.964 0L1.487 21.919l-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v122.09c0 1.063.568 2.044 1.489 2.575l71.293 41.045c.156.089.324.143.49.202.078.028.15.074.23.095a2.98 2.98 0 001.524 0c.069-.018.132-.059.2-.083.176-.061.354-.119.519-.214l71.293-41.045a2.971 2.971 0 001.489-2.575v-38.979l34.158-19.666a2.971 2.971 0 001.489-2.575V44.666a3.075 3.075 0 00-.106-.774zM74.255 143.167l-29.648-16.779 31.136-17.926.001-.001 34.164-19.669 29.674 17.084-21.772 12.428-43.555 24.863zm68.329-76.259v33.841l-12.475-7.182-17.231-9.92V49.806l12.475 7.182 17.231 9.92zm2.97-39.335l29.693 17.095-29.693 17.095-29.693-17.095 29.693-17.095zM54.06 114.089l-12.475 7.182V46.733l17.231-9.92 12.475-7.182v74.537l-17.231 9.921zM38.614 7.398l29.693 17.095-29.693 17.095L8.921 24.493 38.614 7.398zM5.938 29.632l12.475 7.182 17.231 9.92v79.676l.001.005-.001.006c0 .114.032.221.045.333.017.146.021.294.059.434l.002.007c.032.117.094.222.14.334.051.124.088.255.156.371a.036.036 0 00.004.009c.061.105.149.191.222.288.081.105.149.22.244.314l.008.01c.084.083.19.142.284.215.106.083.202.178.32.247l.013.005.011.008 34.139 19.321v34.175L5.939 144.867V29.632h-.001zm136.646 115.235l-65.352 37.625V148.31l48.399-27.628 16.953-9.677v33.862zm35.646-61.22l-29.706 17.102V66.908l17.231-9.92 12.475-7.182v33.841z"/>
-                        </g>
-                    </svg>
-                </div>
+    <div class="theme-layout">
+    
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-10">
+                            <div class="logo">
+                                <div class="sec-title">
+                                    <span class="icon-inner"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-map-marker fa-stack-1x"></i></span></span>
+                                    <h3 class="wow fadeInRight" data-wow-duration="500ms">seminar.co.id</h3>
+                                </div><!--sec-title end-->
+                            </div><!--logo end-->
+                        </div>
+                        <div class="col-lg-9 col-md-6 col-sm-6 col-2">
+                            <nav>
+                                <ul>
+                                    <li><a href="#home" data-scroll-nav="0" title="">Home</a></li>
+                                    <li><a href="#about" data-scroll-nav="1" title="">About</a></li>
+                                    <li><a href="#schedule" data-scroll-nav="2" title="">Schedule</a></li>
+                                    <li><a href="#sponsor" data-scroll-nav="3" title="">Sponsors</a></li>
+                                    <li><a href="#speakers" data-scroll-nav="4" title="">Speakers</a></li>
+                                    <li><a href="#price" data-scroll-nav="5" title="">Price</a></li>
+                                    <li><a href="#location" data-scroll-nav="6" title="">Location</a></li>
+                                </ul>
+                            </nav>
+                            <div class="menu-btn">
+                                <span class="bar1"></span>
+                                <span class="bar2"></span>
+                                <span class="bar3"></span>
+                            </div><!--menu-btn end-->
+                        </div>
+                    </div>
+                </div><!--header-content end-->
+            </div>
+        </header><!--header end-->
 
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div class="grid grid-cols-1 md:grid-cols-2">
-                        <div class="p-6">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel.com/docs" class="underline text-gray-900 dark:text-white">Documentation</a></div>
+
+        <div class="responsive-mobile-menu">
+            <ul>
+                <li><a href="#home" data-scroll-nav="0" title="">Home</a></li>
+                <li><a href="#about" data-scroll-nav="1" title="">About</a></li>
+                <li><a href="#schedule" data-scroll-nav="2" title="">Schedule</a></li>
+                <li><a href="#sponsor" data-scroll-nav="3" title="">Sponsors</a></li>
+                <li><a href="#speakers" data-scroll-nav="4" title="">Speakers</a></li>
+                <li><a href="#price" data-scroll-nav="5" title="">Price</a></li>
+                <li><a href="#location" data-scroll-nav="6" title="">Location</a></li>
+            </ul>
+        </div><!--responsive-mobile-menu end-->
+
+        <section class="banner-section" id="home" data-scroll-index="0">
+            <div class="banner-carousel">
+                <div class="banner-slide">
+                    <div class="container">
+                        <h2 class="bn-hd wow fadeInDown" data-wow-duration="100ms"><span>JANuary 17-19, 2014</span></h2>
+                        <h1 class="ben-head wow fadeInUp" data-wow-duration="300ms">PHP Conference ın ıstanbul</h1>
+                        <ul class="bn-links">
+                            <li><a href="#" title="" class="active">Register <i class="fa fa-arrow-circle-right"></i></a></li>
+                            <li><a href="#" title="">Watch Video</a></li>
+                        </ul>
+                    </div>
+                </div><!--banner-slide end-->
+                <div class="banner-slide">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-5">
+                                <div class="reg-form">
+                                    <div class="sec-title">
+                                        <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-ticket fa-stack-1x"></i></span></span>
+                                        <h3 class="wow fadeInRight" data-wow-duration="500ms">Event Register</h3>
+                                    </div><!--sec-title end-->
+                                    <form>
+                                        <div class="form-field">
+                                            <input type="text" name="name" placeholder="Name and Surname">
+                                        </div><!--form-field end-->
+                                        <div class="form-field">
+                                            <input type="email" name="email" placeholder="Your Mail Here">
+                                        </div><!--form-field end-->
+                                        <div class="form-field">
+                                            <input type="text" name="number" placeholder="Your Phone Number">
+                                        </div><!--form-field end-->
+                                        <div class="form-field">
+                                            <div class="drop-menu">
+                                                <div class="select">
+                                                    <span>Select Your Price Tab</span>
+                                                    <i class="fa fa-caret-down"></i>
+                                                </div>
+                                                <input type="hidden" name="gender">
+                                                <ul class="dropeddown">
+                                                    <li>300$</li>
+                                                    <li>400$</li>
+                                                    <li>500$</li>
+                                                    <li>200$</li>
+                                                    <li>600$</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="form-field">
+                                            <button type="submit" class="btn-default">Register Now <i class="fa fa-arrow-circle-right"></i></button>
+                                        </div>
+                                    </form>
+                                </div><!--reg-form end-->
                             </div>
+                            <div class="col-lg-8 col-md-7">
+                                <div class="banner-txt">
+                                    <h2 class="bn-hd"><span>JANuary 17-19, 2014</span></h2>
+                                    <h1 class="ben-head">PHP Conference ın ıstanbul</h1>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div><!--banner-slide end-->
+                <div class="banner-slide">
+                    <div class="container">
+                        <h2 class="bn-hd wow fadeInDown" data-wow-duration="100ms"><span>JANuary 17-19, 2014</span></h2>
+                        <h1 class="ben-head wow fadeInUp" data-wow-duration="300ms">PHP Conference ın ıstanbul</h1>
+                        <a href="https://www.youtube.com/watch?v=Y6MlVop80y0" title="" class="play-btn html5lightbox"><i class="fa fa-play"></i></a>
+                    </div>
+                </div><!--banner-slide end-->
+                <div class="banner-slide">
+                    <div class="container">
+                        <h2 class="bn-hd wow fadeInDown" data-wow-duration="100ms"><span>JANuary 17-19, 2014</span></h2>
+                        <h1 class="ben-head wow fadeInUp" data-wow-duration="300ms">PHP Conference ın ıstanbul</h1>
+                        <div class="event-time-counter" id="clockdiv">
+                            <ul>
+                                <li>
+                                    <h2 class="days"></h2>
+                                    <span>Days</span>
+                                </li>
+                                <li>
+                                    <h2 class="hours"></h2>
+                                    <span>Hours</span>
+                                </li>
+                                <li>
+                                    <h2 class="minutes"></h2>
+                                    <span>Minutes</span>
+                                </li>
+                                <li>
+                                    <h2 class="seconds"></h2>
+                                    <span>Seconds</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="#" title="" class="btn-default">Register Now <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!--banner-slide end-->
+            </div><!--banner-carousel end-->
+            <div class="container">
+                <div class="contact-info-details">
+                    <div class="container">
+                        <ul class="row">
+                            <li class="col-lg-3 col-md-6 col-sm-6">
+                                <span><i class="fa fa-calendar"></i></span>
+                                <div class="con-info">
+                                    <h4>Date</h4>
+                                    <span>JANUARY 17- 19, 2014</span>
+                                </div><!--con-info end-->
+                            </li>
+                            <li class="col-lg-4 col-md-6 col-sm-6">
+                                <span><i class="fa fa-map-marker"></i></span>
+                                <div class="con-info">
+                                    <h4>Location</h4>
+                                    <span>3200 Barbaros Bulvarı Besiktas/Istanbul, TR</span>
+                                </div><!--con-info end-->
+                            </li>
+                            <li class="col-lg-2 col-md-6 col-sm-6">
+                                <span><i class="fa fa-group"></i></span>
+                                <div class="con-info">
+                                    <h4>Remaining</h4>
+                                    <span>245 Tickets</span>
+                                </div><!--con-info end-->
+                            </li>
+                            <li class="col-lg-3 col-md-6 col-sm-6">
+                                <span><i class="fa fa-microphone"></i></span>
+                                <div class="con-info">
+                                    <h4>Speakers</h4>
+                                    <span>24 Professional Speakers</span>
+                                </div><!--con-info end-->
+                            </li>
+                        </ul>
+                    </div>
+                </div><!-- contact-info-details end-->
+            </div>
+        </section><!--banner-section end-->
 
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel has wonderful, thorough documentation covering every aspect of the framework. Whether you are new to the framework or have previous experience with Laravel, we recommend reading all of the documentation from beginning to end.
+        <section class="about-sec sec-padding" id="about" data-scroll-index="1">
+            <div class="container">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-star fa-stack-1x"></i></span></span>
+                    <h3 class="wow fadeInRight" data-wow-duration="500ms">WHAT'S ABOUT EVENT <small>/ whats going on there come and learn</small></h3>
+                </div><!--sec-title end-->
+                <div class="about-sec-details">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="about-info">
+                                <p class="wow fadeInUp" data-wow-duration="300ms">Praesent ac sem in neque venenatis tristique. Morbi et ligula velit. Nullam a augue vel mi porta vestibulum non ac elit. Vivamus convallis tortor et fermentum semper.</p>
+                                <p class="wow fadeInUp" data-wow-duration="500ms">In hac habitasse platea dictumst. Curabitur eget dui id metus pulvinar suscipit. Quisque vitae ligula laoreet, scelerisque leo quis, facilisis metus. Sed pellentesque, urna sed varis consec-tetur, eros augue fringilla magna, id sem magna vel diam. Nulla sed hendrerit nunc.</p>
+                                <ul class="bn-links">
+                                    <li><a href="#" title="" class="active wow flipInY" data-wow-duration="200ms">Register <i class="fa fa-arrow-circle-right"></i></a></li>
+                                    <li><a href="#" title="" class="wow flipInY" data-wow-duration="400ms">Watch Video</a></li>
+                                </ul>
+                            </div><!--about-info end-->
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="abt-imgs">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="abt-img wow fadeInLeft" data-wow-duration="100ms">
+                                            <img src="./assets/images/resources/img1.jpg" alt="">
+                                            <a href="./assets/images/resources/img1.jpg" title="" class="html5lightbox"><i class="fa fa-search"></i></a>
+                                        </div><!--abt-img end-->
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="abt-img wow fadeInDown" data-wow-duration="200ms">
+                                            <img src="./assets/images/resources/img2.jpg" alt="">
+                                            <a href="./assets/images/resources/img2.jpg" title="" class="html5lightbox"><i class="fa fa-search"></i></a>
+                                        </div><!--abt-img end-->
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="abt-img wow fadeInRight" data-wow-duration="300ms">
+                                            <img src="./assets/images/resources/img3.jpg" alt="">
+                                            <a href="./assets/images/resources/img3.jpg" title="" class="html5lightbox"><i class="fa fa-search"></i></a>
+                                        </div><!--abt-img end-->
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="abt-img wow fadeInUp" data-wow-duration="400ms">
+                                            <img src="./assets/images/resources/img4.jpg" alt="">
+                                            <a href="./assets/images/resources/img4.jpg" title="" class="html5lightbox"><i class="fa fa-search"></i></a>
+                                        </div><!--abt-img end-->
+                                    </div>
+                                </div>
+                            </div><!--abt-imgs end-->
+                        </div>
+                    </div>
+                </div><!-- about-sec-details end-->
+            </div>
+        </section><!--about-sec end-->
+
+        <section class="doc-sec sec-padding">
+            <div class="container">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-ticket fa-stack-1x"></i></span></span>
+                    <h3 class="wow fadeInRight" data-wow-duration="500ms">Donation <small>/ lorem ipsum</small></h3>
+                </div><!--sec-title end-->
+                <div class="doc-sec-details">
+                    <p>Etiam molestie, quam eget dignissim dapibus, diam libero auctor justo, a eleifend urna tellus et ligula. Curabitur elementum diam nec lacus pretium.</p>
+                    <a href="#" title="" class="btn-default">Make a donation now</a>
+                </div><!-- about-sec-details end-->
+            </div>
+        </section><!--about-sec end-->
+
+        <section class="conference-sec" id="schedule" data-scroll-index="2">
+            <div class="container">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-microphone fa-stack-1x"></i></span></span>
+                    <h3 class="wow fadeInRight" data-wow-duration="500ms">Conference or Event Schedule <small>/ dont forget it</small></h3>
+                    <a href="#" title="" class="wow flipInY" data-wow-duration="300ms"><i class="fa fa-print"></i>Download Schedule</a>
+                </div><!--sec-title end-->
+                <div class="conference-tabs-sec wow fadeIn" data-wow-duration="200ms">
+                    <div class="conf-tab-list">
+                        <ul class="nav nav-tabs wow fadeInUp" data-wow-delay=".2s" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="confery-tab1" data-toggle="tab" href="#confery1" role="tab" aria-controls="confery1" aria-selected="true">
+                                    <strong>Day 01</strong>
+                                    17.05.2015
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="confery-tab2" data-toggle="tab" href="#confery2" role="tab" aria-controls="confery2" aria-selected="false">
+                                    <strong>Day 02</strong>
+                                    18.05.2015
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="confery-tab3" data-toggle="tab" href="#confery3" role="tab" aria-controls="confery3" aria-selected="false">
+                                    <strong>Day 03</strong>
+                                    19.05.2015
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="confery-tab4" data-toggle="tab" href="#confery4" role="tab" aria-controls="confery4" aria-selected="false">
+                                    <strong class="onlyy">By speaker</strong>
+                                </a>
+                            </li>
+                        </ul><!--tabs-list end-->
+                    </div>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="confery1" role="tabpanel" aria-labelledby="confery-tab1">
+                            <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="cf-tab1" data-toggle="tab" href="#confy1" role="tab" aria-controls="confy1" aria-selected="true">HAll A</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="cf-tab2" data-toggle="tab" href="#confy2" role="tab" aria-controls="confy2" aria-selected="false"> HAll B </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="cf-tab3" data-toggle="tab" href="#confy3" role="tab" aria-controls="confy3" aria-selected="false"> HAll C </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="cf-tab4" data-toggle="tab" href="#confy4" role="tab" aria-controls="confy4" aria-selected="false"> HAll D </a>
+                                </li>
+                            </ul><!--tabs-list end-->
+                            <div class="tab-content" id="myTabContent2">
+                                <div class="tab-pane fade show active" id="confy1" role="tabpanel" aria-labelledby="cf-tab1">
+                                    <div class="confy-cmpt-details">
+                                        <ul>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="300ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img1.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="200ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img2.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="300ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img3.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="200ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img4.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                        </ul>
+                                    </div><!--confy-cmpt-details end-->
+                                </div>
+                                <div class="tab-pane fade" id="confy2" role="tabpanel" aria-labelledby="cf-tab2">
+                                    <div class="confy-cmpt-details">
+                                        <ul>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="100ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img1.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="200ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img2.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="300ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img3.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="400ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img4.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                        </ul>
+                                    </div><!--confy-cmpt-details end-->
+                                </div>
+                                <div class="tab-pane fade" id="confy3" role="tabpanel" aria-labelledby="cf-tab3">
+                                    <div class="confy-cmpt-details">
+                                        <ul>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="100ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img1.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="200ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img2.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="300ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img3.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="400ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img4.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                        </ul>
+                                    </div><!--confy-cmpt-details end-->
+                                </div>
+                                <div class="tab-pane fade" id="confy4" role="tabpanel" aria-labelledby="cf-tab4">
+                                    <div class="confy-cmpt-details">
+                                        <ul>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="100ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img1.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="200ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img2.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="300ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img3.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details wow fadeInUp" data-wow-duration="400ms">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img4.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                        </ul>
+                                    </div><!--confy-cmpt-details end-->
                                 </div>
                             </div>
                         </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laracasts.com" class="underline text-gray-900 dark:text-white">Laracasts</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
+                        <div class="tab-pane fade" id="confery2" role="tabpanel" aria-labelledby="confery-tab2">
+                            <ul class="nav nav-tabs" id="myTab3" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="ccf-tab1" data-toggle="tab" href="#cconfy1" role="tab" aria-controls="cconfy1" aria-selected="true">HAll A</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="ccf-tab2" data-toggle="tab" href="#cconfy2" role="tab" aria-controls="cconfy2" aria-selected="false"> HAll B </a>
+                                </li>
+                            </ul><!--tabs-list end-->
+                            <div class="tab-content" id="myTabContent3">
+                                <div class="tab-pane fade show active" id="cconfy1" role="tabpanel" aria-labelledby="ccf-tab1">
+                                    <div class="confy-cmpt-details">
+                                        <ul>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img1.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img2.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img3.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img4.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                        </ul>
+                                    </div><!--confy-cmpt-details end-->
+                                </div>
+                                <div class="tab-pane fade" id="cconfy2" role="tabpanel" aria-labelledby="ccf-tab2">
+                                    <div class="confy-cmpt-details">
+                                        <ul>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img1.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img2.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img3.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img4.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                        </ul>
+                                    </div><!--confy-cmpt-details end-->
                                 </div>
                             </div>
                         </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel-news.com/" class="underline text-gray-900 dark:text-white">Laravel News</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
+                        <div class="tab-pane fade" id="confery3" role="tabpanel" aria-labelledby="confery-tab3">
+                            <ul class="nav nav-tabs" id="myTab4" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="cf-tabb1" data-toggle="tab" href="#ccconfy1" role="tab" aria-controls="ccconfy1" aria-selected="true">HAll A</a>
+                                </li>
+                            </ul><!--tabs-list end-->
+                            <div class="tab-content" id="myTabContent4">
+                                <div class="tab-pane fade show active" id="ccconfy1" role="tabpanel" aria-labelledby="ccconfy1">
+                                    <div class="confy-cmpt-details">
+                                        <ul>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img1.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img2.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img3.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img4.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                        </ul>
+                                    </div><!--confy-cmpt-details end-->
                                 </div>
                             </div>
                         </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline">Forge</a>, <a href="https://vapor.laravel.com" class="underline">Vapor</a>, <a href="https://nova.laravel.com" class="underline">Nova</a>, and <a href="https://envoyer.io" class="underline">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline">Telescope</a>, and more.
+                        <div class="tab-pane fade" id="confery4" role="tabpanel" aria-labelledby="confery-tab4">
+                            <ul class="nav nav-tabs" id="myTab5" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="cof-tab3" data-toggle="tab" href="#coonfy3" role="tab" aria-controls="coonfy3" aria-selected="false"> HAll C </a>
+                                </li>
+                            </ul><!--tabs-list end-->
+                            <div class="tab-content" id="myTabContent5">
+                                <div class="tab-pane fade show active" id="coonfy3" role="tabpanel" aria-labelledby="cof-tab3">
+                                    <div class="confy-cmpt-details">
+                                        <ul>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img1.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img2.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img3.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                            <li>
+                                                <div class="cmpt-details">
+                                                    <div class="cmp-img">
+                                                        <img src="./assets/images/resources/c-img4.jpg" alt="">
+                                                    </div><!--cmp-img end-->
+                                                    <div class="cmp-info">
+                                                        <div class="cmp-head">
+                                                            <span><i class="fa fa-clock-o"></i> 08:00 - 08:45</span>
+                                                            <h3>Speaker Content Header Is Header</h3>
+                                                            <a class="share-btn" href="#" title=""><i class="fa fa-share-alt"></i></a>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros consectetur elit non cursus lacus nisl at dolor. </p>
+                                                        <div class="us-details">
+                                                            <h3><i class="fa fa-microphone"></i> John Doe  <small>/ CEO at Crown.io</small></h3>
+                                                            <ul>
+                                                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                                                                <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                                            </ul>
+                                                        </div><!--us-details end-->
+                                                    </div><!--cmp-info end-->
+                                                </div><!--cmpt-details end-->
+                                            </li>
+                                        </ul>
+                                    </div><!--confy-cmpt-details end-->
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div><!--conference-tabs-sec end-->
+            </div>
+        </section><!--conference-sec end-->
 
-                <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 sm:text-left">
-                        <div class="flex items-center">
-                            <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="-mt-px w-5 h-5 text-gray-400">
-                                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
+        <section class="sec-padding" id="sponsor" data-scroll-index="3">
+            <div class="container">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-thumbs-up fa-stack-1x"></i></span></span>
+                    <h3 class="wow fadeInRight" data-wow-duration="500ms">Event Sponsors <small>/ dont forget it</small></h3>
+                </div><!--sec-title end-->
+                <div class="partner-sec">
+                    <ul class="partner-carousel">
+                        <li><a href="#" title=""><img src="./assets/images/resources/pt-logo1.png" alt=""></a></li>
+                        <li><a href="#" title=""><img src="./assets/images/resources/pt-logo2.png" alt=""></a></li>
+                        <li><a href="#" title=""><img src="./assets/images/resources/pt-logo3.png" alt=""></a></li>
+                        <li><a href="#" title=""><img src="./assets/images/resources/pt-logo4.png" alt=""></a></li>
+                        <li><a href="#" title=""><img src="./assets/images/resources/pt-logo5.png" alt=""></a></li>
+                        <li><a href="#" title=""><img src="./assets/images/resources/pt-logo6.png" alt=""></a></li>
+                        <li><a href="#" title=""><img src="./assets/images/resources/pt-logo7.png" alt=""></a></li>
+                        <li><a href="#" title=""><img src="./assets/images/resources/pt-logo8.png" alt=""></a></li>
+                        <li><a href="#" title=""><img src="./assets/images/resources/pt-logo9.png" alt=""></a></li>
+                        <li><a href="#" title=""><img src="./assets/images/resources/pt-logo10.png" alt=""></a></li>
+                        <li><a href="#" title=""><img src="./assets/images/resources/pt-logo5.png" alt=""></a></li>
+                        <li><a href="#" title=""><img src="./assets/images/resources/pt-logo2.png" alt=""></a></li>
+                    </ul><!--partner-carousel end-->
+                    <div class="spons-dv text-center">
+                        <a href="#" title="" class="btn-default"><i class="fa fa-thumbs-up"></i> become a sponsor</a>
+                    </div><!--spons-dv end-->
+                </div><!--partner-sec end-->
+            </div>
+        </section><!--partner-sec end-->
 
-                            <a href="https://laravel.bigcartel.com" class="ml-1 underline">
-                                Shop
-                            </a>
 
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="ml-4 -mt-px w-5 h-5 text-gray-400">
-                                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
+        <section class="sec-padding testimonial-sect">
+            <div class="container">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-comments-o fa-stack-1x"></i></span></span>
+                    <h3 class="wow fadeInRight" data-wow-duration="500ms">Testimonials <small> / See What People Say About Us</small></h3>
+                </div><!--sec-title end-->
+                <div class="testimonial-sec">
+                    <div class="comment-slide">
+                        <div class="comment-para wow flipInY" data-wow-duration="300ms">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros</p>
+                            <div class="commenter-name">
+                                <span>by <a href="#" title="">isamercan </a> ( faraklit34 )</span>
+                            </div>
+                        </div>
+                        <div class="cmntr-img wow flipInY" data-wow-duration="300ms">
+                            <div class="hex-deg">
+                                <div class="hex-deg">
+                                    <div class="hex-deg">
+                                        <div class="hex-inner">
+                                            <img src="./assets/images/resources/t-img1.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--comment-slide end-->
+                    <div class="comment-slide">
+                        <div class="comment-para wow flipInY" data-wow-duration="300ms">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros</p>
+                            <div class="commenter-name">
+                                <span>by <a href="#" title="">isamercan </a> ( faraklit34 )</span>
+                            </div>
+                        </div>
+                        <div class="cmntr-img wow flipInY" data-wow-duration="300ms">
+                            <div class="hex-deg">
+                                <div class="hex-deg">
+                                    <div class="hex-deg">
+                                        <div class="hex-inner">
+                                            <img src="./assets/images/resources/t-img2.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--comment-slide end-->
+                    <div class="comment-slide">
+                        <div class="comment-para wow flipInY" data-wow-duration="300ms">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam metus. Donec cursus magna eget sem convallis facilisis. Vestibulum dictum nibh at ullamcorper tincidunt. Phasellus scelerisque nisl non ullamcorper pellentesque. Nunc sagittis, felis in feugiat mollis, libero eros</p>
+                            <div class="commenter-name">
+                                <span>by <a href="#" title="">isamercan </a> ( faraklit34 )</span>
+                            </div>
+                        </div>
+                        <div class="cmntr-img wow flipInY" data-wow-duration="300ms">
+                            <div class="hex-deg">
+                                <div class="hex-deg">
+                                    <div class="hex-deg">
+                                        <div class="hex-inner">
+                                            <img src="./assets/images/resources/t-img3.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--comment-slide end-->
+                </div><!--testimonial-sec end-->
+            </div>
+        </section><!--sec-padding end-->
 
-                            <a href="https://github.com/sponsors/taylorotwell" class="ml-1 underline">
-                                Sponsor
-                            </a>
+        <section class="team-sec sec-padding" id="speakers" data-scroll-index="4">
+            <div class="container">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-user fa-stack-1x"></i></span></span>
+                    <h3>EVENT SPEAKERS <small>/ meet with greaters</small></h3>
+                </div><!--sec-title end-->
+                <div class="team-sec-details">
+                    <div class="team-detail wow fadeInUp" data-wow-duration="100ms">
+                        <div class="cmntr-img">
+                            <div class="hex-deg">
+                                <div class="hex-deg">
+                                    <div class="hex-deg">
+                                        <div class="hex-inner">
+                                            <img src="./assets/images/resources/team1.jpg" alt="">
+                                            <a href="#" title="" class="ext-link"><i class="fa fa-link"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--cmntr-img end-->
+                        <div class="team-info">
+                            <h3>Speaker name here</h3>
+                            <span>Co Founder</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed vel velit</p>
+                            <ul class="social-line list-inline text-center">
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div><!--team-info end-->
+                    </div><!--team-detail end-->
+                    <div class="team-detail wow fadeInUp" data-wow-duration="200ms">
+                        <div class="cmntr-img">
+                            <div class="hex-deg">
+                                <div class="hex-deg">
+                                    <div class="hex-deg">
+                                        <div class="hex-inner">
+                                            <img src="./assets/images/resources/team2.jpg" alt="">
+                                            <a href="#" title="" class="ext-link"><i class="fa fa-link"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--cmntr-img end-->
+                        <div class="team-info">
+                            <h3>Speaker name here</h3>
+                            <span>Co Founder</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed vel velit</p>
+                            <ul class="social-line list-inline text-center">
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div><!--team-info end-->
+                    </div><!--team-detail end-->
+                    <div class="team-detail wow fadeInUp" data-wow-duration="300ms">
+                        <div class="cmntr-img">
+                            <div class="hex-deg">
+                                <div class="hex-deg">
+                                    <div class="hex-deg">
+                                        <div class="hex-inner">
+                                            <img src="./assets/images/resources/team3.jpg" alt="">
+                                            <a href="#" title="" class="ext-link"><i class="fa fa-link"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--cmntr-img end-->
+                        <div class="team-info">
+                            <h3>Speaker name here</h3>
+                            <span>Co Founder</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed vel velit</p>
+                            <ul class="social-line list-inline text-center">
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div><!--team-info end-->
+                    </div><!--team-detail end-->
+                    <div class="team-detail wow fadeInUp" data-wow-duration="400ms">
+                        <div class="cmntr-img">
+                            <div class="hex-deg">
+                                <div class="hex-deg">
+                                    <div class="hex-deg">
+                                        <div class="hex-inner">
+                                            <img src="./assets/images/resources/team4.jpg" alt="">
+                                            <a href="#" title="" class="ext-link"><i class="fa fa-link"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--cmntr-img end-->
+                        <div class="team-info">
+                            <h3>Speaker name here</h3>
+                            <span>Co Founder</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed vel velit</p>
+                            <ul class="social-line list-inline text-center">
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div><!--team-info end-->
+                    </div><!--team-detail end-->
+                    <div class="team-detail wow fadeInUp" data-wow-duration="500ms">
+                        <div class="cmntr-img">
+                            <div class="hex-deg">
+                                <div class="hex-deg">
+                                    <div class="hex-deg">
+                                        <div class="hex-inner">
+                                            <img src="./assets/images/resources/team1.jpg" alt="">
+                                            <a href="#" title="" class="ext-link"><i class="fa fa-link"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--cmntr-img end-->
+                        <div class="team-info">
+                            <h3>Speaker name here</h3>
+                            <span>Co Founder</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed vel velit</p>
+                            <ul class="social-line list-inline text-center">
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div><!--team-info end-->
+                    </div><!--team-detail end-->
+                    <div class="team-detail wow fadeInUp" data-wow-duration="600ms">
+                        <div class="cmntr-img">
+                            <div class="hex-deg">
+                                <div class="hex-deg">
+                                    <div class="hex-deg">
+                                        <div class="hex-inner">
+                                            <img src="./assets/images/resources/team2.jpg" alt="">
+                                            <a href="#" title="" class="ext-link"><i class="fa fa-link"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--cmntr-img end-->
+                        <div class="team-info">
+                            <h3>Speaker name here</h3>
+                            <span>Co Founder</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed vel velit</p>
+                            <ul class="social-line list-inline text-center">
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div><!--team-info end-->
+                    </div><!--team-detail end-->
+                    <div class="team-detail wow fadeInUp" data-wow-duration="700ms">
+                        <div class="cmntr-img">
+                            <div class="hex-deg">
+                                <div class="hex-deg">
+                                    <div class="hex-deg">
+                                        <div class="hex-inner">
+                                            <img src="./assets/images/resources/team3.jpg" alt="">
+                                            <a href="#" title="" class="ext-link"><i class="fa fa-link"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--cmntr-img end-->
+                        <div class="team-info">
+                            <h3>Speaker name here</h3>
+                            <span>Co Founder</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed vel velit</p>
+                            <ul class="social-line list-inline text-center">
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div><!--team-info end-->
+                    </div><!--team-detail end-->
+                    <div class="team-detail wow fadeInUp" data-wow-duration="800ms">
+                        <div class="cmntr-img">
+                            <div class="hex-deg">
+                                <div class="hex-deg">
+                                    <div class="hex-deg">
+                                        <div class="hex-inner">
+                                            <img src="./assets/images/resources/team4.jpg" alt="">
+                                            <a href="#" title="" class="ext-link"><i class="fa fa-link"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--cmntr-img end-->
+                        <div class="team-info">
+                            <h3>Speaker name here</h3>
+                            <span>Co Founder</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed vel velit</p>
+                            <ul class="social-line list-inline text-center">
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div><!--team-info end-->
+                    </div><!--team-detail end-->
+                </div><!--team-sec-details end-->
+                <div class="spons-dv text-center wow fadeInUp" data-wow-duration="300ms">
+                    <a href="#" title="" class="btn-default"><i class="fa fa-user"></i> see all speakers</a>
+                </div><!--spons-dv end-->
+            </div>
+        </section><!--team-sec end-->
+
+        <section class="event-price-sec sec-padding" id="price" data-scroll-index="5">
+            <div class="container">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-thumbs-up fa-stack-1x"></i></span></span>
+                    <h3 class="wow fadeInRight" data-wow-duration="500ms">Event Price lıst <small> / perfect price for event</small></h3>
+                </div><!--sec-title end-->
+                <div class="price-sec-details">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="price text-center wow fadeInUp" data-wow-duration="100ms">
+                                <h3 class="price-head">Personal</h3>
+                                <h2>111<small>$</small></h2>
+                                <ul>
+                                    <li><i class="fa fa-check-circle-o"></i>Lorem ipsum dolor sit amet</li>
+                                    <li><i class="fa fa-check-circle-o"></i>Consectetur adipiscing elit</li>
+                                    <li><i class="fa fa-check-circle-o"></i>Sed vitae diam metus</li>
+                                    <li><i class="fa fa-check-circle-o"></i>Donec cursus magna</li>
+                                </ul>
+                                <a href="#" title="" class="btn-default">REGISTER</a>
+                            </div><!--price end-->
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="price active text-center wow fadeInUp" data-wow-duration="200ms">
+                                <h3 class="price-head">company</h3>
+                                <h2>124<small>$</small></h2>
+                                <ul>
+                                    <li><i class="fa fa-check-circle-o"></i>Lorem ipsum dolor sit amet</li>
+                                    <li><i class="fa fa-check-circle-o"></i>Consectetur adipiscing elit</li>
+                                    <li><i class="fa fa-check-circle-o"></i>Sed vitae diam metus</li>
+                                    <li><i class="fa fa-check-circle-o"></i>Donec cursus magna</li>
+                                </ul>
+                                <a href="#" title="" class="btn-default">REGISTER</a>
+                            </div><!--price end-->
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="price text-center wow fadeInUp" data-wow-duration="300ms">
+                                <h3 class="price-head">Business</h3>
+                                <h2>175<small>$</small></h2>
+                                <ul>
+                                    <li><i class="fa fa-check-circle-o"></i>Lorem ipsum dolor sit amet</li>
+                                    <li><i class="fa fa-check-circle-o"></i>Consectetur adipiscing elit</li>
+                                    <li><i class="fa fa-check-circle-o"></i>Sed vitae diam metus</li>
+                                    <li><i class="fa fa-check-circle-o"></i>Donec cursus magna</li>
+                                </ul>
+                                <a href="#" title="" class="btn-default">REGISTER</a>
+                            </div><!--price end-->
                         </div>
                     </div>
+                </div><!--price-sec-details end-->
+            </div>
+        </section><!--event-price-sec end-->
 
-                    <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+
+        <section class="faqs-sec sec-padding">
+            <div class="container">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-microphone fa-stack-1x"></i></span></span>
+                    <h3 class="wow fadeInRight" data-wow-duration="500ms">Event FAQS <small>/ find your answers 0</small></h3>
+                    <a href="#" title=""><i class="fa fa-pencil"></i>open a tıcket</a>
+                </div><!--sec-title end-->
+                <div class="faqs-sec-details wow fadeInUp" data-wow-duration="300ms">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="nav nav-tabs wow fadeInUp" data-wow-delay=".2s" id="myTab6" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="ques-tab1" data-toggle="tab" href="#ques1" role="tab" aria-controls="ques1" aria-selected="true">How to Change Event Date</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="ques-tab2" data-toggle="tab" href="#ques2" role="tab" aria-controls="ques2" aria-selected="false"> How to make  New Event ? </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="ques-tab3" data-toggle="tab" href="#ques3" role="tab" aria-controls="ques3" aria-selected="false"> How to Set Price ? </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="ques-tab4" data-toggle="tab" href="#ques4" role="tab" aria-controls="ques4" aria-selected="false"> How to Delete Old Events ? </a>
+                                </li>
+                            </ul><!--tabs-list end-->
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="tab-content" id="myTabContent6">
+                                <div class="tab-pane fade show active" id="ques1" role="tabpanel" aria-labelledby="ques-tab1">
+                                    <div class="ques-details">
+                                        <p>Vestibulum sit amet tincidunt urna, eget ullamcorper purus. Aenean feugiat quis tortor vitae fringilla. Pellentesque augue nisl, condimentum at sem et, fer-mentum varius ligula. Nulla dignissim nulla eget congue cursus. </p>
+                                        <ul>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                        </ul>
+                                    </div><!--ques-details end-->
+                                </div>
+                                <div class="tab-pane fade" id="ques2" role="tabpanel" aria-labelledby="ques-tab2">
+                                    <div class="ques-details">
+                                        <p>Vestibulum sit amet tincidunt urna, eget ullamcorper purus. Aenean feugiat quis tortor vitae fringilla. Pellentesque augue nisl, condimentum at sem et, fer-mentum varius ligula. Nulla dignissim nulla eget congue cursus. </p>
+                                        <ul>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                        </ul>
+                                    </div><!--ques-details end-->
+                                </div>
+                                <div class="tab-pane fade" id="ques3" role="tabpanel" aria-labelledby="ques-tab3">
+                                    <div class="ques-details">
+                                        <p>Vestibulum sit amet tincidunt urna, eget ullamcorper purus. Aenean feugiat quis tortor vitae fringilla. Pellentesque augue nisl, condimentum at sem et, fer-mentum varius ligula. Nulla dignissim nulla eget congue cursus. </p>
+                                        <ul>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                        </ul>
+                                    </div><!--ques-details end-->
+                                </div>
+                                <div class="tab-pane fade" id="ques4" role="tabpanel" aria-labelledby="ques-tab4">
+                                    <div class="ques-details">
+                                        <p>Vestibulum sit amet tincidunt urna, eget ullamcorper purus. Aenean feugiat quis tortor vitae fringilla. Pellentesque augue nisl, condimentum at sem et, fer-mentum varius ligula. Nulla dignissim nulla eget congue cursus. </p>
+                                        <ul>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                            <li><i class="fa fa-check-circle-o"></i> First Awesome Feature</li>
+                                        </ul>
+                                    </div><!--ques-details end-->
+                                </div>
+                            </div><!--tab-content end-->
+                        </div>
                     </div>
+                </div><!-- faqs-sec-details end-->
+            </div>
+        </section><!--faqs-sec end-->
+
+        <section class="doc-sec sec-padding">
+            <div class="container">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-ticket fa-stack-1x"></i></span></span>
+                    <h3 class="wow fadeInRight" data-wow-duration="500ms">IM EVENT <small>/ Landing Page</small></h3>
+                </div><!--sec-title end-->
+                <div class="doc-sec-details">
+                    <p>One Page Event and Conference Theme is a very clean, modern and outstanding designed HTML template for multi purpose for any business events, conference, party etc.</p>
+                    <a href="#" title="" class="btn-default">Purchase template</a>
+                </div><!-- about-sec-details end-->
+            </div>
+        </section><!--about-sec end-->
+
+        <section class="blog-sec sec-padding">
+            <div class="container">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-microphone fa-stack-1x"></i></span></span>
+                    <h3 class="wow fadeInRight" data-wow-duration="500ms">Recent Blog Posts <small>/ get news!</small></h3>
+                </div><!--sec-title end-->
+                <div class="blog-posts">
+                    <div class="row blog-carousel">
+                        <div class="col-lg-4">
+                            <div class="blog-post wow fadeInUp" data-wow-duration="100ms">
+                                <div class="blog-img">
+                                    <img src="./assets/images/resources/blog1.jpg" alt="">
+                                    <span class="blog-type"><i class="fa fa-video-camera"></i></span>
+                                </div><!--blog-img end-->
+                                <div class="blog-info">
+                                    <h3><a href="#" title="">Standart Blog Post Header Here</a></h3>
+                                    <div class="posted-ot">
+                                        <h4>Posted on 17th May 2014</h4>
+                                        <span><i class="fa fa-comment"></i> 12</span>
+                                    </div>
+                                    <p>Fusce pellentesque velvitae tincidunt egestas. Pellentesque habitant morbi tristiquetus et senectus et netus et malesuada ac turpis.</p>
+                                    <a href="#" title="" class="btn-default">read more</a>
+                                </div><!--blog-info end-->
+                            </div><!--blog-post end-->
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="blog-post wow fadeInUp" data-wow-duration="200ms">
+                                <div class="blog-img">
+                                    <img src="./assets/images/resources/blog2.jpg" alt="">
+                                    <span class="blog-type"><i class="fa fa-picture-o"></i></span>
+                                </div><!--blog-img end-->
+                                <div class="blog-info">
+                                    <h3><a href="#" title="">Standart Blog Post Header Here</a></h3>
+                                    <div class="posted-ot">
+                                        <h4>Posted on 17th May 2014</h4>
+                                        <span><i class="fa fa-comment"></i> 12</span>
+                                    </div>
+                                    <p>Fusce pellentesque velvitae tincidunt egestas. Pellentesque habitant morbi tristiquetus et senectus et netus et malesuada ac turpis.</p>
+                                    <a href="#" title="" class="btn-default">read more</a>
+                                </div><!--blog-info end-->
+                            </div><!--blog-post end-->
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="blog-post wow fadeInUp" data-wow-duration="300ms">
+                                <div class="blog-img">
+                                    <img src="./assets/images/resources/blog3.jpg" alt="">
+                                    <span class="blog-type"><i class="fa fa-music"></i></span>
+                                </div><!--blog-img end-->
+                                <div class="blog-info">
+                                    <h3><a href="#" title="">Standart Blog Post Header Here</a></h3>
+                                    <div class="posted-ot">
+                                        <h4>Posted on 17th May 2014</h4>
+                                        <span><i class="fa fa-comment"></i> 12</span>
+                                    </div>
+                                    <p>Fusce pellentesque velvitae tincidunt egestas. Pellentesque habitant morbi tristiquetus et senectus et netus et malesuada ac turpis.</p>
+                                    <a href="#" title="" class="btn-default">read more</a>
+                                </div><!--blog-info end-->
+                            </div><!--blog-post end-->
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="blog-post wow fadeInUp" data-wow-duration="100ms">
+                                <div class="blog-img">
+                                    <img src="./assets/images/resources/blog1.jpg" alt="">
+                                    <span class="blog-type"><i class="fa fa-video-camera"></i></span>
+                                </div><!--blog-img end-->
+                                <div class="blog-info">
+                                    <h3><a href="#" title="">Standart Blog Post Header Here</a></h3>
+                                    <div class="posted-ot">
+                                        <h4>Posted on 17th May 2014</h4>
+                                        <span><i class="fa fa-comment"></i> 12</span>
+                                    </div>
+                                    <p>Fusce pellentesque velvitae tincidunt egestas. Pellentesque habitant morbi tristiquetus et senectus et netus et malesuada ac turpis.</p>
+                                    <a href="#" title="" class="btn-default">read more</a>
+                                </div><!--blog-info end-->
+                            </div><!--blog-post end-->
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="blog-post wow fadeInUp" data-wow-duration="200ms">
+                                <div class="blog-img">
+                                    <img src="./assets/images/resources/blog2.jpg" alt="">
+                                    <span class="blog-type"><i class="fa fa-picture-o"></i></span>
+                                </div><!--blog-img end-->
+                                <div class="blog-info">
+                                    <h3><a href="#" title="">Standart Blog Post Header Here</a></h3>
+                                    <div class="posted-ot">
+                                        <h4>Posted on 17th May 2014</h4>
+                                        <span><i class="fa fa-comment"></i> 12</span>
+                                    </div>
+                                    <p>Fusce pellentesque velvitae tincidunt egestas. Pellentesque habitant morbi tristiquetus et senectus et netus et malesuada ac turpis.</p>
+                                    <a href="#" title="" class="btn-default">read more</a>
+                                </div><!--blog-info end-->
+                            </div><!--blog-post end-->
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="blog-post wow fadeInUp" data-wow-duration="300ms">
+                                <div class="blog-img">
+                                    <img src="./assets/images/resources/blog3.jpg" alt="">
+                                    <span class="blog-type"><i class="fa fa-music"></i></span>
+                                </div><!--blog-img end-->
+                                <div class="blog-info">
+                                    <h3><a href="#" title="">Standart Blog Post Header Here</a></h3>
+                                    <div class="posted-ot">
+                                        <h4>Posted on 17th May 2014</h4>
+                                        <span><i class="fa fa-comment"></i> 12</span>
+                                    </div>
+                                    <p>Fusce pellentesque velvitae tincidunt egestas. Pellentesque habitant morbi tristiquetus et senectus et netus et malesuada ac turpis.</p>
+                                    <a href="#" title="" class="btn-default">read more</a>
+                                </div><!--blog-info end-->
+                            </div><!--blog-post end-->
+                        </div>
+                    </div>
+                </div><!--blog-posts end-->
+                <div class="spons-dv text-center mgt-40">
+                    <a href="#" title="" class="btn-default"><i class="fa fa-file-text-o"></i> see All News</a>
+                </div><!--spons-dv end-->
+            </div>
+        </section><!--blog-sec end-->
+
+        <section class="register-sec sec-padding">
+            <div class="container">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-microphone fa-stack-1x"></i></span></span>
+                    <h3 class="wow fadeInRight" data-wow-duration="500ms">REgıster now <small>/ dont mıss event!</small></h3>
+                </div><!--sec-title end-->
+                <div class="register-sec-details">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="form-field wow fadeInUp" data-wow-duration="100ms">
+                                    <input type="text" name="name" placeholder="Name and Surname">
+                                </div><!--form-field end-->
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="form-field wow fadeInUp" data-wow-duration="200ms">
+                                    <input type="email" name="email" placeholder="Your Mail Here">
+                                </div><!--form-field end-->
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="form-field wow fadeInUp" data-wow-duration="300ms">
+                                    <input type="text" name="phone" placeholder="Your Phone Number">
+                                </div><!--form-field end-->
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="form-field wow fadeInUp" data-wow-duration="400ms">
+                                    <div class="drop-menu">
+                                        <div class="select">
+                                            <span>Select Your Price Tab</span>
+                                            <i class="fa fa-caret-down"></i>
+                                        </div>
+                                        <input type="hidden" name="gender">
+                                        <ul class="dropeddown">
+                                            <li>300$</li>
+                                            <li>400$</li>
+                                            <li>500$</li>
+                                            <li>200$</li>
+                                            <li>600$</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-field text-center mgt-40 wow fadeInUp" data-wow-duration="300ms">
+                                    <button type="submit" class="btn-default">REGISTER NOW <i class="fa fa-arrow-circle-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div><!--register-sec-details end-->
+            </div>
+        </section><!--register-sec end-->
+
+        <section class="map-sec" id="location" data-scroll-index="6">
+            <div id="map"></div>
+            <div class="contact_details">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-microphone fa-stack-1x"></i></span></span>
+                    <h3 class="wow fadeInRight" data-wow-duration="500ms">Event Location</h3>
+                </div><!--sec-title end-->
+                <ul class="wow fadeInUp" data-wow-duration="300ms">
+                    <li>Apple Store SOHO‎</li>
+                    <li>103 Prince St New York,</li>
+                    <li>NY 10012, United States</li>
+                    <li> +1 212-226-3126</li>
+                    <li><a href="mailto:example@example.com" title="">hello@imevent.com </a></li>
+                </ul>
+                <a href="#" title="" class="btn-default">Get Dırectıon  <i class="fa fa-arrow-circle-right"></i></a>
+            </div><!--contact_details end-->
+        </section><!--map-sec end-->
+
+        <section class="contact-sec sec-padding">
+            <div class="container">
+                <div class="sec-title">
+                    <span class="icon-inner wow flipInY" data-wow-duration="300ms"><span class="fa-stack"><i class="fa rhex fa-stack-2x"></i><i class="fa fa-ticket fa-stack-1x"></i></span></span>
+                    <h3 class="wow fadeInRight" data-wow-duration="500ms">Contact Us <small>/ lorem ipsum</small></h3>
+                </div><!--sec-title end-->
+                <div class="contact-sec-details">
+                    <form class="js-ajax-form">
+                        <div class="form-field">
+                            <input type="text" name="name" placeholder="Type Your Name" required>
+                        </div><!--form-field end-->
+                        <div class="form-field">
+                            <input type="email" name="email" placeholder="Type Your Email" required>
+                        </div><!--form-field end-->
+                        <div class="form-field">
+                            <textarea name="message" placeholder="Type Your Message"></textarea>
+                        </div><!--form-field end-->
+                        <div class="form-field text-center">
+                            <input type="submit" name="submit" value="Send Message" class="btn-default">
+                        </div><!--form-field end-->
+                        <div class="form-field">
+                            <div class="success-message">
+                                <i class="fa fa-check text-primary"></i> Thank you!. Your message is successfully sent...
+                            </div>
+                            <div class="error-message">We're sorry, but something went wrong
+                            </div>
+                        </div><!--form-group end-->
+                    </form>
+                </div><!--contact-sec-details end-->
+            </div>
+        </section><!--contact-sec end-->
+
+        
+        <footer>
+            <div class="container">
+                <ul class="social-line list-inline">
+                    <li class="wow flipInY" data-wow-duration="100ms"><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+                    <li class="wow flipInY" data-wow-duration="200ms"><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                    <li class="wow flipInY" data-wow-duration="300ms"><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
+                    <li class="wow flipInY" data-wow-duration="400ms"><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                    <li class="wow flipInY" data-wow-duration="500ms"><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+                </ul>
+                <p>© 2014 im Event — An One Page Event Manager Theme made with passion by faraklit34 (isamercan)</p>
+            </div>
+        </footer>
+
+        <a href="#" title="" class="scrollTop"><i class="fa fa-angle-up"></i></a>
+        
+        <div class="side-panel-sec">
+            <h4>Settings <a href="#" title=""><i class="fa fa-cog spin"></i></a></h4>
+            <div class="side-panel">
+                <h5 class="side-title">Predefined Colors</h5>
+                <div class="color-schemes">
+                    <ul>
+                        <li><a onclick="setActiveStyleSheet('colour1'); return false;" class="colour1"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour2'); return false;" class="colour2"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour3'); return false;" class="colour3"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour4'); return false;" class="colour4"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour5'); return false;" class="colour5"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour6'); return false;" class="colour6"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour7'); return false;" class="colour7"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour8'); return false;" class="colour8"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour9'); return false;" class="colour9"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour10'); return false;" class="colour10"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour11'); return false;" class="colour11"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour12'); return false;" class="colour12"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour13'); return false;" class="colour13"></a></li>
+                        <li><a onclick="setActiveStyleSheet('colour14'); return false;" class="colour14"></a></li>
+                    </ul>
+                </div>
+                <div class="two-layouts">
+                    <h5 class="side-title">Background Colors</h5>
+                    <ul>
+                        <li class="active"><a href="index-light.html" title="">LIGHT</a></li>
+                        <li><a href="index-dark.html" title="">DARK</a></li>
+                    </ul>
+                </div>
+                <div class="two-layouts">
+                    <h5 class="side-title">Layout</h5>
+                    <ul>
+                        <li class="active"><a title="" class="wide-layout">Wide</a></li>
+                        <li><a title="" class="boxed-layout">boxed</a></li>
+                    </ul>
+                </div>
+                <div class="two-layouts">
+                    <h5 class="side-title">Direction</h5>
+                    <ul>
+                        <li class="active"><a title="" class="ltr-active">LTR</a></li>
+                        <li><a title="" class="rtl-active">RTL</a></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </body>
+        </div><!--side-panel-sec end-->
+        
+    </div><!--theme-layout end-->
+
+
+<script src="./assets/js/jquery.min.js"></script>
+<script src="./assets/js/bootstrap.min.js"></script>
+<script src="./assets/js/html5lightbox.js"></script>
+<script src="./assets/js/switcher.js"></script>
+<script src="./assets/js/datecounter.js"></script>
+<script src="./assets/js/jquery.validate.min.js"></script>
+<script src="./assets/js/validator.js"></script>
+<script src="./assets/js/lib/slick/slick.js"></script>
+<script src="./assets/js/wow.min.js"></script>
+<script src="./assets/js/scrollIt.min.js"></script>
+<script src="./assets/js/map.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVwc4veKudU0qjYrLrrQXacCkDkcy3AeQ&callback=initMap"></script>
+<script src="./assets/js/scripts.js"></script>
+
+
+</body>
+
 </html>

@@ -15,7 +15,8 @@ class UserController extends Controller
             return redirct('/');
         }
         $user   = User::all();
-        return view('users.user',compact('user'));
+        $title  = "User";
+        return view('users.user',compact('user','title'));
     }
 
     public function hapus($id)

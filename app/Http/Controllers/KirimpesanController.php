@@ -12,15 +12,17 @@ class KirimpesanController extends Controller
 {
     public function index(Request $request)
     {
-        $row = $request->row ?? 10;
+        $row        = $request->row ?? 10;
         $kirimpesan = Antrian::where('user_id',Auth::id())->paginate($row);
-        return view('kirimpesan.kirimpesan',compact('kirimpesan'));
+        $title      = "Kirim Pesan";
+        return view('kirimpesan.kirimpesan',compact('kirimpesan','title'));
     }
 
     public function preview(Request $request)
     {
-        $preview = Antrian::where('user_id',Auth::id())->where('status',0)->simplePaginate(6);
-        return view('kirimpesan.preview',compact('preview'));
+        $preview    = Antrian::where('user_id',Auth::id())->where('status',0)->simplePaginate(6);
+        $title      = "Preview Pesan";
+        return view('kirimpesan.preview',compact('preview','title'));
     }
 
     public function process(Request $request)
