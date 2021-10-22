@@ -40,7 +40,7 @@ class Whatsapp{
     {
         $curl = curl_init();
         curl_setopt_array($curl, [
-        CURLOPT_PORT => "5001",
+        CURLOPT_PORT => ENV('APP_WA_PORT',"7001"),
         CURLOPT_URL => $url,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
