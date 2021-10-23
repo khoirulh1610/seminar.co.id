@@ -9,6 +9,7 @@ use App\Models\Mutasi as Mts;
 use App\Models\Seminar;
 use App\Models\Setting;
 use App\Models\Bank;
+use App\Models\User;
 use App\Helpers\Wa;
 use App\Models\Event;
 use App\Helpers\Notifikasi;
