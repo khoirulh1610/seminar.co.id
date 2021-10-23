@@ -44,19 +44,19 @@ async function antrian(device_id){
         console.log(rows.length);
         if(rows.length==0){
             setTimeout(() => {
-                antrian[device_id];
+                antrian(device_id);
             }, 30000);
         }
         for (let i = 0; i < rows.length; i++) {
             const ant = rows[i];
             console.log(ant);
-            await con.query("update antrians set status=2 where id="+ant.id);            
+            // await con.query("update antrians set status=2 where id="+ant.id);            
             let kirim = await axios.post(apiurl+"/send",{instance:"1","phone":ant.phone,"message":ant.message,"file_url":ant.file,"file_name":ant.file_name});
             console.log('Log Kirim :',kirim.data);
             await await con.query("update antrians set status=2,att1='"+(kirim.data.data.messageid || 'Error' )+"' where id="+ant.id);            
             setTimeout(() => {
                 console.log("Pause",ant.pause);
-                antrian[device_id];
+                antrian(device_id);
             }, ant.pause*1000);
         }
     });
