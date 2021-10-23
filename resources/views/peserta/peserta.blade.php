@@ -54,7 +54,7 @@
                                     @foreach($peserta as $p)
                                     <tr>
                                         <td style="text-align:center">{{$p->kode_event}} <br><small> {{$p->tgl_seminar}} </small></td>
-                                        <td style="text-align:center">{{$p->pengundang->nama ?? ''}} <br> {{$p->pengundang->phone ?? ''}}</td>
+                                        <td style="text-align:center">{{$p->pengundang->nama ?? $p->user->nama ?? ''}} <br> {{$p->pengundang->phone ?? $p->user->phone ?? ''}}</td>
                                         <td style="text-align:center">{{$p->nama}}</td>
                                         @if(Auth::user()->role_id==4)
                                         <td style="text-align:center"> ********{{substr($p->phone,-4)}} <br><small> xxxx{{substr(explode('@',$p->email)[0],-4)}}{{'@'.explode('@',$p->email)[1]}} </small></td>

@@ -114,7 +114,7 @@ Route::group(['middleware' => ['auth']], function () {
     
     Route::get('/send/{id}',function($id){
         $req = \Request();
-        $notif = App\Helpers\Whatsapp::send(["instance"=>(String)$id,"number"=>$req->phone ?? "085232843165","message"=>"Test server whatsapp from seminar"]);
+        $notif = App\Helpers\Whatsapp::send(["instance"=>(String)$id,"number"=>$req->phone ?? "085232843165","message"=>"Test server whatsapp from https://seminar.co.id"]);
         return $notif;
     });
     

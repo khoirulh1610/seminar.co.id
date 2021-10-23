@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Helpers\Wa;
 use App\Models\Event;
 use App\Helpers\Notifikasi;
+use Log;
 
 class Mutasi extends Command
 {
@@ -87,7 +88,8 @@ class Mutasi extends Command
                                 $ref                = User::where('phone',$peserta->ref)->first();
                                 if(!$ref){
                                     $ref                = Seminar::where('phone',$peserta->ref)->where('kode_event',$peserta->kode_event)->first();
-                                }
+                                }                                
+                                \Log::alert('Info',$ref);
                                 if($ref){
                                     $pengundang    = ["nama"=>$peserta->nama,"sapaan"=>$peserta->sapaan,"panggilan"=>$peserta->panggilan,"pengundang_nama"=>$ref->nama,"pengundang_sapaan"=>$ref->sapaan,"pengundang_panggilan"=>$ref->panggilan];
                                     $cw_payment_ref = ReplaceArray($pengundang,$event->cw_payment_ref);
