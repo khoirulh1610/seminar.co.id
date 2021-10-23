@@ -23,13 +23,14 @@
         <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Data 25 Pengundang tertinggi</h4>
+                        <h4 class="card-title">Data Pengundang tertinggi</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="" class="table display table-responsive-lg">
                                 <thead>
                                     <tr>
+                                        <th>No.</th>
                                         <th>Kode Event</th>
                                         <th>Pengundang</th>
                                         <th>phone</th>
@@ -39,9 +40,10 @@
                                 <tbody>
                                     @foreach($peserta as $p)
                                     <tr>
+                                        <td>{{$loop->iteration}}</td>
                                         <td>{{$p->kode_event}} <br><small> {{$p->tgl_seminar}} </small></td>
-                                        <td>{{$p->nama}}</td>
-                                        <td>{{$p->phone}}</td>
+                                        <td>{{$p->user->nama ?? $p->pengundang->nama ?? ''}}</td>
+                                        <td>{{$p->ref}}</td>
                                         <td class="text-right">{{$p->peserta ?? 0}}</td>                                       					
                                     </tr>
                                     @endforeach

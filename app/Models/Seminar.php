@@ -23,4 +23,10 @@ class Seminar extends Model
         return $this->hasMany(self::class,'ref','phone');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class,'ref','phone');
+    }
+
+
 }

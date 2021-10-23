@@ -24,10 +24,17 @@ class PesertaController extends Controller
 
     public function rangking($kode_event)
     {
-        $q = "select * from seminars a left join (select ref,count(*) peserta from seminars where not ISNULL(ref) and kode_event='$kode_event' GROUP BY ref) b on a.phone=b.ref where a.kode_event='$kode_event' ORDER BY b.peserta desc limit 0,25";
-        $peserta    = DB::select($q);
-        $title      = "Data Rangking Seminar";
-        return view('peserta.rangking',compact('peserta','title'));
+        // $q = "select * from seminars a left join (select ref,count(*) peserta from seminars where not ISNULL(ref) and kode_event='$kode_event' GROUP BY ref) b on a.phone=b.ref where a.kode_event='$kode_event' ORDER BY b.peserta desc limit 0,25";
+        // $peserta    = DB::select($q);
+        $title      = "Data Rangking Seminar";      
+        $peserta = Seminar::where('kode_event',$kode_event)
+                ->whereNotNull('ref')
+                ->groupBy('ref','kode_event','tgl_seminar')
+                ->selectRaw('ref,kode_event,tgl_seminar,count(*) peserta')
+                ->orderBy('peserta','desc')
+                ->skip(0)->take(10)
+                ->get();
+         return view('peserta.rangking',compact('peserta','title'));
     }
 
     public function approve(Request $request)
