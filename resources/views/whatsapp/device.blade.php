@@ -15,7 +15,11 @@
                         <div class="form-group">
                             @if(Auth::user()->role_id==1)
                             <a href="" data-toggle="modal" data-target="#devicebaru" class="btn btn-xs btn-info btn-rounded m-1">Device Baru</a>                            
-                            <a href="{{url('/device/device?all=Y')}}" class="btn btn-xs btn-info btn-rounded m-1">Tampilkan Semua</a>
+                                @if(\Request()->all)
+                                    <a href="{{url('/device/device?all=Y')}}" class="btn btn-xs btn-info btn-rounded m-1">Tampilkan Semua</a>
+                                @else
+                                    <a href="{{url('/device/device')}}" class="btn btn-xs btn-info btn-rounded m-1">Hide Lainnya</a>
+                                @endif
                             @endif
                         </div>
                     </div>
