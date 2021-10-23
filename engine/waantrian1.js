@@ -27,6 +27,9 @@ con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
 class MyEmitter extends EventEmitter {}
 
 GetDeviceReady();
+setInterval(() => {
+    GetDeviceReady();
+}, 3* 60 * 1000 );
 async function GetDeviceReady(){
     con.query("select * from devices",function(err,rows,filed){
         if(err) console.log(err);
@@ -43,12 +46,12 @@ const newAntrian = async (device_id) => {
     antrian[device_id] = new MyEmitter();
     
 
-    antrian[device_id].on('start', (data) => {
+    antrian[device_id].on('start', () => {
         // console.log('start event');
         // console.log("cek antrian on device :",device_id);
           con.query("select * from antrians where status=1 and device_id="+device_id+" limit 0,1",async function(err,rows,field){
               if(err)console.log('err ',err);
-              console.log(rows.length);
+            //   console.log(rows.length);
               if(rows.length==0){
                   setTimeout(() => {
                     console.log("["+device_id+"] Restart Antrian");
@@ -62,7 +65,7 @@ const newAntrian = async (device_id) => {
                 //   console.log('Data Kirim :',data);
                   let kirim = await axios.post(apiurl+"/send",data);
                 //   console.log('Log Kirim :',kirim.data);
-                  let laporan = {"id":ant.id,"pasue":ant.pause,"messageid" : kirim.data.data.messageid || null,"message" : kirim.data.message || null};
+                  let laporan = {"id":ant.id,"pasue":ant.pause,"messageid" : kirim.data.data.messageid || null,"message" : kirim.data.message || null,"report":kirim.data.message};
                   antrian[device_id].emit('finish',laporan);
               }
           });
@@ -70,7 +73,7 @@ const newAntrian = async (device_id) => {
       
       antrian[device_id].on('finish',async (data) => {
           console.log('finish event',data);          
-          con.query("update antrians set status=2,att1='"+(data.messageid || 'Error' )+"' where id="+data.id,function(er,res){
+          con.query("update antrians set status=2,messageid='"+(data.messageid || 'Error' )+"',report='"+(data.report || 'No Report')+"' where id="+data.id,function(er,res){
             setTimeout(() => {
                 antrian[device_id].emit('start');
               }, 1000 * data.pause);
@@ -81,7 +84,7 @@ const newAntrian = async (device_id) => {
         console.log('pause event');
         setTimeout(() => {
             antrian[device_id].emit('start');
-        }, 10000);
+        }, 20000);
     });
 
       antrian[device_id].emit('start');
