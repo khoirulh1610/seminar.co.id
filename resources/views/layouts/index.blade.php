@@ -11,7 +11,7 @@
 	<meta name="description" content="seminar.co.id : Portal Event Terlengkap" />
 	<meta property="og:title" content="seminar.co.id : Portal Event Terlengkap" />
 	<meta property="og:description" content="seminar.co.id : Portal Event Terlengkap" />
-	<meta property="og:image" content="http://localhost/seminar/isa/images/ISAWA04.png" />
+	<meta property="og:image" content="{{url('seminar.jpeg')}}" />
 	<meta name="format-detection" content="telephone=no">
     <title>{{ENV('APP_NAME','')}}</title>
     <!-- Favicon icon -->
