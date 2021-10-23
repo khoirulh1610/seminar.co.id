@@ -8,10 +8,10 @@
 	<meta name="author" content="" />
 	<meta name="robots" content="" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Jobie : Job Portal Admin Template" />
-	<meta property="og:title" content="Jobie : Job Portal Admin Template" />
-	<meta property="og:description" content="Jobie : Job Portal Admin Template" />
-	<meta property="og:image" content="" />
+	<meta name="description" content="seminar.co.id : Portal Event Terlengkap" />
+	<meta property="og:title" content="seminar.co.id : Portal Event Terlengkap" />
+	<meta property="og:description" content="seminar.co.id : Portal Event Terlengkap" />
+	<meta property="og:image" content="http://localhost/seminar/isa/images/ISAWA04.png" />
 	<meta name="format-detection" content="telephone=no">
     <title>{{ENV('APP_NAME','')}}</title>
     <!-- Favicon icon -->
