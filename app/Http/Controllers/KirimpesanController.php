@@ -64,8 +64,9 @@ class KirimpesanController extends Controller
             // Proses Data
             foreach ($data as $exl) {                
                 if($exl['phone']){
-                    $message               = ReplaceArray($exl,$request->message);                
+                    $message               = ReplaceArray($exl,$request->message);                                    
                     $phone                 = preg_replace('/^0/','62',$exl['phone']);
+                    $phone                 = preg_replace('/\D/','',$phone);
                     $antrian               = new Antrian();
                     $antrian->user_id      = Auth::id();
                     $antrian->device_id    = $request->device_id;
