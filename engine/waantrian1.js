@@ -35,7 +35,9 @@ async function GetDeviceReady(){
     });
 }
 
-const antrian = async (device_id)=>{
+// const antrian = async (device_id)=>{
+
+async function antrian(device_id){
     console.log("cek antrian on device :",device_id);
     con.query("select * from antrians where status=1 and device_id="+device_id+" limit 0,1",async function(err,rows,field){
         if(err)console.log('err ',err);
@@ -53,6 +55,7 @@ const antrian = async (device_id)=>{
             console.log('Log Kirim :',kirim.data);
             await await con.query("update antrians set status=2,att1='"+(kirim.data.data.messageid || 'Error' )+"' where id="+ant.id);            
             setTimeout(() => {
+                console.log("Pause",ant.pause);
                 antrian[device_id];
             }, ant.pause*1000);
         }

@@ -36,7 +36,7 @@
                                 <tr>
                                     <td style="text-align:center">{{$loop->iteration}}</td>
                                     <td style="text-align:center">{{$de->id}}/{{$de->device_key}}</td>
-                                    <td style="text-align:center">{{$de->nama}}</td>
+                                    <td style="text-align:center">{{$de->user->nama}}</td>
                                     <td style="text-align:center">{{$de->phone}}</td>
                                     <td style="text-align:center;">{{$de->nama}}</td>
                                     <td style="text-align:center;">
