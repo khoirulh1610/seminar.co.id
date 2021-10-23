@@ -73,7 +73,7 @@ const newAntrian = async (device_id) => {
       
       antrian[device_id].on('finish',async (data) => {
           console.log('finish event',data);          
-          con.query("update antrians set status="+(data.status ? 2 : 3 )+",messageid='"+(data.messageid || 'Error' )+"',report='"+(data.message || 'No Report')+"' where id="+data.id,function(er,res){
+          con.query("update antrians set status="+(data.message=='Terkirim' ? 2 : 3 )+",messageid='"+(data.messageid || 'Error' )+"',report='"+(data.message || 'No Report')+"' where id="+data.id,function(er,res){
             setTimeout(() => {
                 antrian[device_id].emit('start');
               }, 1000 * data.pause);
