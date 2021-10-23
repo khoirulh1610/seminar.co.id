@@ -1,11 +1,13 @@
 require('dotenv').config({path:'../.env'});
 const axios = require("axios");
 const exec = require('child_process').exec;
+var EventEmitter = require('events');
+var eventAntrian = new EventEmitter.EventEmitter();
 const { ToWa,ToPhone } = require('./lib');
-const port = process.env.APP_WA_PORT;
 
+const port = process.env.APP_WA_PORT;
 const apiurl = "http://localhost:"+port;
-const Antr=[];
+const antrian=[];
 var mysql = require('mysql');
 var con  = mysql.createPool({
     // connectionLimit : 500,
@@ -21,45 +23,69 @@ con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
   console.log('Cek Koneksi : ', results[0].solution>0 ? 'Online' : 'Offline');
 });
 
+
+class MyEmitter extends EventEmitter {}
+
 GetDeviceReady();
-
-
 async function GetDeviceReady(){
     con.query("select * from devices",function(err,rows,filed){
         if(err) console.log(err);
         for (let i = 0; i < rows.length; i++) {
             const device = rows[i];
-            // console.log(device);
-            antrian(device.id);
+            if(!antrian[device.id]){
+                newAntrian(device.id);
+            }
         }
     });
 }
 
-// const antrian = async (device_id)=>{
+const newAntrian = async (device_id) => {          
+    antrian[device_id] = new MyEmitter();
+    
 
-async function antrian(device_id){
-    console.log("cek antrian on device :",device_id);
-    con.query("select * from antrians where status=1 and device_id="+device_id+" limit 0,1",async function(err,rows,field){
-        if(err)console.log('err ',err);
-        console.log(rows.length);
-        if(rows.length==0){
+    antrian[device_id].on('start', (data) => {
+        // console.log('start event');
+        // console.log("cek antrian on device :",device_id);
+          con.query("select * from antrians where status=1 and device_id="+device_id+" limit 0,1",async function(err,rows,field){
+              if(err)console.log('err ',err);
+              console.log(rows.length);
+              if(rows.length==0){
+                  setTimeout(() => {
+                    console.log("["+device_id+"] Restart Antrian");
+                    antrian[device_id].emit('pause');
+                  }, 1000);
+              }
+              for (let i = 0; i < rows.length; i++) {
+                  const ant = rows[i];
+                  // console.log(ant);                        
+                  let data = {instance: ant.device_id.toString() || ant.device_id,"phone":ant.phone,"message":ant.message,"file_url":ant.file,"file_name":ant.file_name}; //
+                //   console.log('Data Kirim :',data);
+                  let kirim = await axios.post(apiurl+"/send",data);
+                //   console.log('Log Kirim :',kirim.data);
+                  let laporan = {"id":ant.id,"pasue":ant.pause,"messageid" : kirim.data.data.messageid || null,"message" : kirim.data.message || null};
+                  antrian[device_id].emit('finish',laporan);
+              }
+          });
+      });
+      
+      antrian[device_id].on('finish',async (data) => {
+          console.log('finish event',data);          
+          con.query("update antrians set status=2,att1='"+(data.messageid || 'Error' )+"' where id="+data.id,function(er,res){
             setTimeout(() => {
-                antrian(device_id);
-            }, 30000);
-        }
-        for (let i = 0; i < rows.length; i++) {
-            const ant = rows[i];
-            // console.log(ant);
-            // await con.query("update antrians set status=2 where id="+ant.id);            
-            let data = {instance: ant.device_id.toString() || ant.device_id,"phone":ant.phone,"message":ant.message,"file_url":ant.file,"file_name":ant.file_name}; //
-            console.log('Data Kirim :',data);
-            let kirim = await axios.post(apiurl+"/send",data);
-            console.log('Log Kirim :',kirim.data);
-            await con.query("update antrians set status=2,att1='"+(kirim.data.data.messageid || 'Error' )+"' where id="+ant.id);            
-            setTimeout(() => {
-                console.log("Pause",ant.pause);
-                antrian(device_id);
-            }, ant.pause*1000);
-        }
+                antrian[device_id].emit('start');
+              }, 1000 * data.pause);
+          });                      
+      });
+
+      antrian[device_id].on('pause',() => {
+        console.log('pause event');
+        setTimeout(() => {
+            antrian[device_id].emit('start');
+        }, 10000);
     });
+
+      antrian[device_id].emit('start');
 }
+
+// newAntrian("1");
+
