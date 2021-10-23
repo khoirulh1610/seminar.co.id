@@ -16,7 +16,12 @@ class DeviceController extends Controller
     public function device(Request $request)
     {
         if(Auth::user()->role_id==1){
-            $device = Device::get();
+            if($request->all=='Y'){
+                $device = Device::get();
+            }else{
+                $device = Device::where('user_id',Auth::id())->get();    
+            }
+            
         }else{
             $device = Device::where('user_id',Auth::id())->get();
         }

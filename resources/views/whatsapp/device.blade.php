@@ -13,7 +13,10 @@
                     <div class="card-header">
                         <h4 class="card-title">Device</h4>
                         <div class="form-group">
-                            <a href="" data-toggle="modal" data-target="#devicebaru" class="btn btn-xs btn-info btn-rounded m-1">Device Baru</a>
+                            @if(Auth::user()->role_id==1)
+                            <a href="" data-toggle="modal" data-target="#devicebaru" class="btn btn-xs btn-info btn-rounded m-1">Device Baru</a>                            
+                            <a href="{{url('/device/device?all=Y')}}" class="btn btn-xs btn-info btn-rounded m-1">Tampilkan Semua</a>
+                            @endif
                         </div>
                     </div>
                     <div class="card-body">
@@ -81,7 +84,7 @@
                     <select name="user" id="" class="form-control">
                         <option value="">--</option>
                         @foreach($user as $ur)
-                        <option value="{{$ur->id}}">{{$ur->nama}}</option>
+                        <option value="{{$ur->id}}">{{$ur->nama}} - {{$ur->email}}</option>
                         @endforeach
                     </select>
                     <label for="" style="color:black">Brand</label>
