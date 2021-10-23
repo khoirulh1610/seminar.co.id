@@ -13,7 +13,7 @@
 	<meta property="og:description" content="seminar.co.id : Portal Event Terlengkap" />
 	<meta property="og:image" content="{{url('seminar.jpeg')}}" />
 	<meta name="format-detection" content="telephone=no">
-    <title>Login | ISA CONFERENCE</title>
+    <title>SEMINAR.CO.ID</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="./asset/images/logoisa.png">
     <link href="./asset/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
