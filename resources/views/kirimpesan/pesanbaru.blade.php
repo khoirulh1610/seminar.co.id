@@ -50,11 +50,11 @@
                                 <code> <button class="btn btn-xs btn-info">[#template]</button> </code>
                             </div>
                             <div class="col-sm-12 col-md-12">                                
-                                <label for="">Additional Feature</label>
+                                <label for="">Fitur tambahan</label>
                                 <select name="addf" id="addf" class="form-control">.
                                         <option value="text">--</option>
                                         <option value="image">Lampiran Image</option>
-                                        <option value="link">Button Link</option>
+                                        <option value="link" disabled>Button Link</option>
                                 </select>
                             </div>
                             <div class="col-sm-12 col-md-12 d-none" id="msg_img">

@@ -51,7 +51,7 @@ async function antrian(device_id){
             const ant = rows[i];
             // console.log(ant);
             // await con.query("update antrians set status=2 where id="+ant.id);            
-            let data = {instance:"1","phone":ant.phone,"message":ant.message}; //,"file_url":ant.file,"file_name":ant.file_name
+            let data = {instance: ant.device_id.toString() || ant.device_id,"phone":ant.phone,"message":ant.message,"file_url":ant.file,"file_name":ant.file_name}; //
             console.log('Data Kirim :',data);
             let kirim = await axios.post(apiurl+"/send",data);
             console.log('Log Kirim :',kirim.data);
