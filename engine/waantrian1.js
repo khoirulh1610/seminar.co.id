@@ -1,18 +1,20 @@
+require('dotenv').config({path:'../.env'});
 const axios = require("axios");
 const exec = require('child_process').exec;
 const { ToWa,ToPhone } = require('./lib');
+const port = process.env.APP_WA_PORT;
 
-const apiurl = "http://localhost:5001";
+const apiurl = "http://localhost:"+port;
 const Antr=[];
 var mysql = require('mysql');
 var con  = mysql.createPool({
-  // connectionLimit : 500,
-  host            : 'localhost',
-  user            : 'mrquods',
-  password        : '@345Ga&_OkeB2ss',
-  database        : 'seminar',
-  port            : "33063"
-});
+    // connectionLimit : 500,
+    host            : process.env.DB_HOST,
+    user            : process.env.DB_USERNAME,
+    password        : process.env.DB_PASSWORD,
+    database        : process.env.DB_DATABASE,
+    port            : process.env.DB_PORT
+  });
 con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
   // should actually use an error-first callback to propagate the error, but anyway...
   if (error) return console.error(error);
