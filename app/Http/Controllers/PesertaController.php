@@ -30,7 +30,7 @@ class PesertaController extends Controller
         $peserta = Seminar::where('kode_event',$kode_event)
                 ->whereNotNull('ref')
                 ->groupBy('ref','kode_event','tgl_seminar')
-                ->selectRaw('ref,kode_event,tgl_seminar,count(*) peserta')
+                ->selectRaw('ref,kode_event,tgl_seminar,count(*) peserta,sum(if(status=1 AND total>0,1,0)) as pay')
                 ->orderBy('peserta','desc')
                 ->skip(0)->take(10)
                 ->get();

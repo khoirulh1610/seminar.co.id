@@ -34,7 +34,8 @@
                                         <th>Kode Event</th>
                                         <th>Pengundang</th>
                                         <th>phone</th>
-                                        <th class="text-right">Jumlah Undangan</th>
+                                        <th>Payment</th>
+                                        <th class="text-right">Undangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -43,7 +44,8 @@
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$p->kode_event}} <br><small> {{$p->tgl_seminar}} </small></td>
                                         <td>{{$p->user->nama ?? $p->pengundang->nama ?? ''}}</td>
-                                        <td>{{$p->ref}}</td>
+                                        <td>{{$p->ref}}</td>                                        
+                                        <td>{{$p->pay ?? 0}}</td>
                                         <td class="text-right">{{$p->peserta ?? 0}}</td>                                       					
                                     </tr>
                                     @endforeach
