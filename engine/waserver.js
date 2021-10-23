@@ -1336,8 +1336,8 @@ app.post('/send', async(req, res) => {
                                     }).catch(err=>{
                                         console.log(err);
                                         res.json({
-                                            "status": true,
-                                            "port":port,
+                                            "status": false,
+                                            "instance": token,
                                             "message": err,
                                             "data": {}
                                         });
@@ -1362,8 +1362,7 @@ app.post('/send', async(req, res) => {
                                   conn[token].sendMessage(phone, buf,Type,{caption:msg}).then(resp=>{
                                         let id= resp.key.id;                
                                         res.status(200).json({
-                                            "status": true,
-                                            "port":port,
+                                            "status": true,                                            
                                             "message": "Terkirim",
                                             "instance": token,
                                             "data": {"messageid":id,"server_phone":ToPhone(mynumber[token]),"phone":ToPhone(phone),"status":2,"timestamp":resp.messageTimestamp.low}
@@ -1371,7 +1370,7 @@ app.post('/send', async(req, res) => {
                                     }).catch(err=>{
                                         res.json({
                                             "status": true,
-                                            "port":port,
+                                            "instance": token,
                                             "message": err,
                                             "data": {}
                                         });
@@ -1399,8 +1398,8 @@ app.post('/send', async(req, res) => {
                     });  
                   }else{
                     res.status(201).json({
-                        "status": true,
-                        "port":port,
+                        "status": false,
+                        "instance": token,
                         "message": "File Not Valid",
                         "data": {"phone":ToPhone(phone)}
                     });
@@ -1420,7 +1419,7 @@ app.post('/send', async(req, res) => {
 
             } else {
               res.status(201).json({
-                  "status": true,
+                  "status": false,
                   "instance": token,
                   "message": "Belum_Terdaftar_Whatsapp",
                   "data": {"phone":ToPhone(phone)}
@@ -1428,7 +1427,7 @@ app.post('/send', async(req, res) => {
             }
           } else {
               res.status(200).json({
-                  "status": true,
+                  "status": false,
                   "instance": token,
                   "message": "Device Not Start",
                   "data": {}
@@ -1440,7 +1439,7 @@ app.post('/send', async(req, res) => {
       } 
     } else {
       res.status(200).json({
-          "status": true,
+          "status": false,
           "instance": token,
           "message": "Device Disconnected",
           "data": {}
