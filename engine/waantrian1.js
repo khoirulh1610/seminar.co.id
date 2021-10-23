@@ -47,7 +47,9 @@ const antrian = async (device_id)=>{
             const ant = rows[i];
             console.log(ant);
             await con.query("update antrians set status=2 where id="+ant.id);            
-            await axios.post(apiurl+"/send",{instance:"1","phone":ant.phone,"message":ant.message});
+            let kirim = await axios.post(apiurl+"/send",{instance:"1","phone":ant.phone,"message":ant.message,"file_url":ant.file,"file_name":ant.file_name});
+            console.log('Log Kirim :',kirim);
+            await await con.query("update antrians set status=2,att1='"+(kirim.messageid || 'Error' )+"' where id="+ant.id);            
             setTimeout(() => {
                 antrian[device_id];
             }, ant.pause*1000);
