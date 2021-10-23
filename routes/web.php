@@ -61,6 +61,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/kirimpesan/save','KirimpesanController@save')->name('kirimpesan.save');
     Route::get('/kirimpesan/preview','KirimpesanController@preview')->name('kirimpesan.preview');
     Route::get('/kirimpesan/process','KirimpesanController@process')->name('kirimpesan.process');
+    Route::get('/kirimpesan/send','KirimpesanController@send')->name('kirimpesan.send');
+    Route::post('/kirimpesan/remove','KirimpesanController@remove')->name('kirimpesan.remove');
 
     Route::get('/device/device','DeviceController@device')->name('DeviceController.device');
     Route::get('/device/show','DeviceController@show')->name('DeviceController.show');

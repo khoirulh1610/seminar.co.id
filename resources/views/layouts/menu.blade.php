@@ -60,8 +60,15 @@
                     <span class="nav-text">Whatsapp</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{url('/kirimpesan')}}">Data Pesan</a></li>
-                    <li><a href="{{url('/kirimpesan/preview')}}">Preview Pesan</a></li>
+                <li><a class="has-arrow ai-icod-none" href="javascript:void()" aria-expanded="false">
+                         <span class="nav-text">Pesan</span>
+                     </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{url('/kirimpesan')}}">Data</a></li>
+                            <li><a href="{{url('/kirimpesan/preview')}}">Preview</a></li>
+                        </ul>
+                     </li>
+                    
                     <!-- <li><a href="#">Grab Group</a></li> -->
                     <li><a href="{{url('/device/device')}}">Device</a></li>                    
                 </ul>

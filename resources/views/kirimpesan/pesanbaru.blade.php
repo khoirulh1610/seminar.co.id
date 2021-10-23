@@ -31,8 +31,8 @@
                             <div class="col-sm-12 col-md-6">
                                 <label for="">Target</label>
                                 <select name="target" id="target" class="form-control">
-                                        <option value="manual">Input Manual</option>
-                                        <option value="Upload">Upload From Excel</option>
+                                    <option value="Upload">Upload From Excel</option>        
+                                    <option value="manual">Input Manual</option>                                        
                                 </select>
                             </div>
                             <div class="col-sm-12 col-md-6 d-none" id="div_data_target">
@@ -47,7 +47,7 @@
                             <div class="col-sm-12 col-md-12">
                                 <label for="">Message</label> 
                                 <Textarea class="form-control" name="message" rows="5"></Textarea>
-                                <code> <button class="btn btn-xs btn-info">[#template]</button> </code>
+                                <!-- <code> <button class="btn btn-xs btn-info">[#template]</button> </code> -->
                             </div>
                             <div class="col-sm-12 col-md-12">                                
                                 <label for="">Fitur tambahan</label>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-sm-12 col-md-12 d-none" id="msg_img">
                                 <label for="">Image (Optional)</label> 
-                                <input type="file" name="lampiran" class="form-control" accept="image/jpg, image/png, image/jpeg">
+                                <input type="file" name="lampiran" class="form-control" accept="image/*">
                             </div>
                             <div class="col-sm-12 col-md-12 d-none" id="msg_link">
                                 <label for="" class="text-red">Link (Optional)</label> 
@@ -126,7 +126,7 @@
 
 @section('js')
 <script>
-    switch_target("manual");
+    switch_target("Upload");
     switch_fet("");
     $('#target').on('change', function(evt, data) {
         switch_target(this.value);

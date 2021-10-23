@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Rap2hpoutre\FastExcel\FastExcel;
 use App\Models\Antrian;
 use App\Models\Device;
+use App\Helpers\Whatsapp;
 use Auth;
 
 class KirimpesanController extends Controller
@@ -14,8 +15,9 @@ class KirimpesanController extends Controller
     {
         $row        = $request->row ?? 10;
         $kirimpesan = Antrian::where('user_id',Auth::id())->paginate($row);
+        $status_pesan = Antrian::where('user_id',Auth::id())->groupBy('report')->pluck('report');
         $title      = "Kirim Pesan";
-        return view('kirimpesan.kirimpesan',compact('kirimpesan','title'));
+        return view('kirimpesan.kirimpesan',compact('kirimpesan','title','status_pesan'));
     }
 
     public function preview(Request $request)
@@ -27,6 +29,8 @@ class KirimpesanController extends Controller
 
     public function process(Request $request)
     {
+        Antrian::where('user_id',Auth::id())->where('phone',"")->update(["status"=>3,"report"=>"No Tidak Valid"]);
+        Antrian::where('user_id',Auth::id())->where('phone',null)->update(["status"=>3,"report"=>"No Tidak Valid"]);
         $kirimpesan = Antrian::where('user_id',Auth::id())->where('status',0)->update(["status"=>1]);
         return redirect('/kirimpesan');
     }        
@@ -105,5 +109,41 @@ class KirimpesanController extends Controller
         return redirect('/kirimpesan/preview');
     }
 
+    public function send(Request $request)
+    {
+        $antrian = Antrian::where('user_id',Auth::id())->where('id',$request->id)->first();
+        if($antrian){
+            $notif = Whatsapp::send(["instance"=>$antrian->device_id,"number"=>$antrian->phone,"message"=>$antrian->message,"file_url"=>$antrian->file,"file_name"=>$antrian->file_name]);
+            $r = json_decode($notif);
+            if($r){
+                if($r->message=='Terkirim'){
+                    $antrian->status = 2;
+                    $antrian->messageid = $r->data->messageid ?? '';
+                    $antrian->report = $r->data->message ?? '';
+                    $antrian->save();
+                }else{
+                    $antrian->status = 2;
+                    $antrian->report = $r->data->message ?? '';
+                    $antrian->save();
+                }
+            }
+            return $notif;
+        }else{
+            return ["status"=>false,"message"=>"Data not found"];
+        }
+    }
     
+    public function remove(Request $request)
+    {
+        
+        if($request->status=="semua"){
+            $antrian = Antrian::where("user_id",Auth::id());
+        }else{
+            $antrian = Antrian::where("user_id",Auth::id())->where('status',$request->status);
+        }
+        if($antrian){
+            $antrian->delete();
+        }
+        return redirect('/kirimpesan');
+    }
 }
