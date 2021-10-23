@@ -36,8 +36,8 @@
                                 </select>
                             </div>
                             <div class="col-sm-12 col-md-6 d-none" id="div_data_target">
-                                <label for="">Data</label>
-                                <input type="text" name="data_target" class="form-control">
+                                <label for="">Masukkan No WHatsapp</label>
+                                <input type="text" name="data_target" class="form-control" placeholder="085123456,08123456,089123456">
                             </div>
                             <div class="col-sm-12 col-md-6 d-none" id="div_upload">
                                 <label for="">File</label> [<small class="text-danger"> <a href="{{url('template_kirim_seminar.xlsx')}}">Download Template Disini</a> </small>]
