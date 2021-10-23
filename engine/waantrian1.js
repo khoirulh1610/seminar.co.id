@@ -64,8 +64,8 @@ const newAntrian = async (device_id) => {
                   let data = {instance: ant.device_id.toString() || ant.device_id,"phone":ant.phone,"message":ant.message,"file_url":ant.file,"file_name":ant.file_name}; //
                 //   console.log('Data Kirim :',data);
                   let kirim = await axios.post(apiurl+"/send",data);
-                //   console.log('Log Kirim :',kirim.data);
-                  let laporan = {"id":ant.id,"pasue":ant.pause,"messageid" : kirim.data.data.messageid || null,"message" : kirim.data.message || null,"report":kirim.data.message};
+                  console.log('Log Kirim :',kirim.data);
+                  let laporan = {"id":ant.id,"pasue":ant.pause,"messageid" : kirim.data.data.messageid || null,"message" : kirim.data.message || null};
                   antrian[device_id].emit('finish',laporan);
               }
           });
@@ -73,7 +73,7 @@ const newAntrian = async (device_id) => {
       
       antrian[device_id].on('finish',async (data) => {
           console.log('finish event',data);          
-          con.query("update antrians set status=2,messageid='"+(data.messageid || 'Error' )+"',report='"+(data.report || 'No Report')+"' where id="+data.id,function(er,res){
+          con.query("update antrians set status=2,messageid='"+(data.messageid || 'Error' )+"',report='"+(data.message || 'No Report')+"' where id="+data.id,function(er,res){
             setTimeout(() => {
                 antrian[device_id].emit('start');
               }, 1000 * data.pause);

@@ -1306,77 +1306,106 @@ app.post('/send', async(req, res) => {
               await conn[token].updatePresence(phone, Presence.composing) // tell them we're composing
               
               if(fileUrl!==""){
-                fileUrl = fileUrl.toString().replace("/","\/");
-                let mimetype;
-                const attachment = await axios.get(fileUrl)
-                    .then(result => {
-                        mimetype = result.headers['content-type'];
-                        imageToBase64(fileUrl).then(async response=>{                                
-                            let buf = await Buffer.from(response, 'base64');
-                            let Type = MessageType.image;
-                            let mtype = Mimetype.jpeg;
-                            var ext = path.extname(fileUrl);
-                            ext = ext.replace(".","");
-                            // console.log(ext);
-                            if(mimetype.indexOf('image')>=0){
-                              Type = MessageType.image;  
-                              mtype = Mimetype.jpg;      
-                              conn[token].sendMessage(phone, {url : fileUrl},Type,{caption:msg}).then(resp=>{
-                                    let id= resp.key.id;                
-                                    res.status(200).json({
-                                        "status": true,                                        
-                                        "message": "Terkirim",
-                                        "instance": token,
-                                        "data": {"messageid":id,"server_phone":ToPhone(mynumber[token]),"phone":ToPhone(phone),"status":2,"timestamp":resp.messageTimestamp.low}
+                const urlExist =  require("url-exists");
+                urlExist(fileUrl, async function(err, exists) {
+                  console.log(exists); // true
+                  if(exists){
+                    fileUrl = fileUrl.toString().replace("/","\/");
+                    let mimetype;
+                    const attachment = await axios.get(fileUrl)
+                        .then(result => {
+                            mimetype = result.headers['content-type'];
+                            imageToBase64(fileUrl).then(async response=>{                                
+                                let buf = await Buffer.from(response, 'base64');
+                                let Type = MessageType.image;
+                                let mtype = Mimetype.jpeg;
+                                var ext = path.extname(fileUrl);
+                                console.log(buf);
+                                if(mimetype.indexOf('application')>=0){
+                                    Type = MessageType.document;
+                                    mtype = Mimetype.pdf;
+                                    conn[token].sendMessage(phone, buf,Type,{caption:msg,mimetype:ext,filename:fileName}).then(resp=>{
+                                        let caption_file = conn[token].sendMessage(phone, msg ,MessageType.text);
+                                        let id= resp.key.id;                
+                                        res.status(200).json({
+                                            "status": true,                                      
+                                            "message": "Terkirim",
+                                            "instance": token,
+                                            "data": {"messageid":id,"server_phone":ToPhone(mynumber[token]),"phone":ToPhone(phone),"status":2,"timestamp":resp.messageTimestamp.low}
+                                        });
+                                    }).catch(err=>{
+                                        console.log(err);
+                                        res.json({
+                                            "status": true,
+                                            "port":port,
+                                            "message": err,
+                                            "data": {}
+                                        });
                                     });
-                                }).catch(err=>{
-                                    res.json({
-                                        "status": true,
-                                        "instance": token,
-                                        "message": err,
-                                        "data": {}
+                                }else if(mimetype.indexOf('video')>=0){
+                                    Type = MessageType.video;
+                                    conn[token].sendMessage(phone, buf,Type,{caption:msg,mimetype:ext,filename:fileName}).then(resp=>{
+                                      let id= resp.key.id;                
+                                      res.status(200).json({
+                                          "status": true,                                      
+                                          "message": "Terkirim",
+                                          "instance": token,
+                                          "data": {"messageid":id,"server_phone":ToPhone(mynumber[token]),"phone":ToPhone(phone),"status":2,"timestamp":resp.messageTimestamp.low}
+                                      });
+                                    }).catch(err=>{
+                                        console.log(err);
+                                        res.json({"status": true,"message": err,"data": {}});
                                     });
-                                });                                                  
-                            }else if(mimetype.indexOf('video')>=0){
-                                Type = MessageType.video;
-                                conn[token].sendMessage(phone,{url : fileUrl},Type,{caption:msg,mimetype:mime.types[ext],filename:fileName}).then(resp=>{
-                                  let id= resp.key.id;                
-                                  res.status(200).json({
-                                      "status": true,                                      
-                                      "message": "Terkirim",
-                                      "instance": token,
-                                      "data": {"messageid":id,"server_phone":ToPhone(mynumber[token]),"phone":ToPhone(phone),"status":2,"timestamp":resp.messageTimestamp.low}
+                                }else if(mimetype.indexOf('image')>=0){
+                                  Type = MessageType.image;  
+                                  mtype = Mimetype.jpg;      
+                                  conn[token].sendMessage(phone, buf,Type,{caption:msg}).then(resp=>{
+                                        let id= resp.key.id;                
+                                        res.status(200).json({
+                                            "status": true,
+                                            "port":port,
+                                            "message": "Terkirim",
+                                            "instance": token,
+                                            "data": {"messageid":id,"server_phone":ToPhone(mynumber[token]),"phone":ToPhone(phone),"status":2,"timestamp":resp.messageTimestamp.low}
+                                        });
+                                    }).catch(err=>{
+                                        res.json({
+                                            "status": true,
+                                            "port":port,
+                                            "message": err,
+                                            "data": {}
+                                        });
+                                    });                                                  
+                                }else{
+                                  conn[token].sendMessage(phone, buf,Type,{caption:msg,mimetype:ext,filename:fileName}).then(resp=>{
+                                      let id= resp.key.id;                
+                                      res.status(200).json({
+                                          "status": true,                                      
+                                          "message": "Terkirim",
+                                          "instance": token,
+                                          "data": {"messageid":id,"server_phone":ToPhone(mynumber[token]),"phone":ToPhone(phone),"status":2,"timestamp":resp.messageTimestamp.low}
+                                      });
+                                  }).catch(err=>{
+                                      console.log(err);
+                                      res.json({"status": true,"message": err,"data": {}});
                                   });
-                                }).catch( _ => _);
-                            }else{
-                              Type = MessageType.document;
-                              mtype = Mimetype.pdf;
-                              conn[token].sendMessage(phone,{url : fileUrl},Type,{caption:msg,mimetype:mime.types[ext],filename:fileName}).then(resp=>{
-                                    let caption_file = conn[token].sendMessage(phone, msg ,MessageType.text);
-                                    let id= resp.key.id;                
-                                    res.status(200).json({
-                                        "status": true,                                      
-                                        "message": "Terkirim",
-                                        "instance": token,
-                                        "data": {"messageid":id,"server_phone":ToPhone(mynumber[token]),"phone":ToPhone(phone),"status":2,"timestamp":resp.messageTimestamp.low}
-                                    });
-                                }).catch(err=>{
-                                    console.log(err);
-                                    res.json({
-                                        "status": true,
-                                        "instance": token,
-                                        "message": err,
-                                        "data": {}
-                                    });
-                                });
-                            }
-                            console.log(Type,ext,mimetype);
-                            
-                            
-                        }).catch(err=>{
-                            console.log(err);
-                        });                        
-                });                   
+                                }
+                                console.log(Type,ext,mimetype);
+                                
+                                
+                            }).catch(err=>{
+                                console.log(err);
+                            });                        
+                    });  
+                  }else{
+                    res.status(201).json({
+                        "status": true,
+                        "port":port,
+                        "message": "File Not Valid",
+                        "data": {"phone":ToPhone(phone)}
+                    });
+                  }
+                });           
 
                 }else{
                     let resp = await  conn[token].sendMessage(phone, msg ,MessageType.text);
