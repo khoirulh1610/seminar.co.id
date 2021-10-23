@@ -138,12 +138,16 @@ class KirimpesanController extends Controller
         
         if($request->status=="semua"){
             $antrian = Antrian::where("user_id",Auth::id());
-        }else{
+        }else{            
             $antrian = Antrian::where("user_id",Auth::id())->where('status',$request->status);
+            if($request->id){
+                $antrian = Antrian::where("user_id",Auth::id())->where('id',$request->id);
+            }
         }
         if($antrian){
             $antrian->delete();
         }
         return redirect('/kirimpesan');
     }
+
 }

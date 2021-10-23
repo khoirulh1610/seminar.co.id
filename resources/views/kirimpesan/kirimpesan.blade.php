@@ -60,7 +60,7 @@
                                         <td >
                                             <!-- <a href="{{url('event/resend/'.$e->id)}}" class="btn btn-sm btn-info btn-rounded"><i class="fa fa-pen"></i></a> -->
                                             <a href="javascript:void(0)" onclick="send({{$e->id}})" class="btn btn-sm btn-info btn-rounded"><i class="fa fa-paper-plane"></i></a>
-                                            <a href="{{url('event/hapus/'.$e->id)}}" class="btn btn-sm btn-danger btn-rounded"><i class="fa fa-trash"></i></a>
+                                            <a href="{{url('kirimpesan/remove?id='.$e->id)}}" onclick="return confirm('Are you sure, you want to delete it?')" class="btn btn-sm btn-danger btn-rounded"><i class="fa fa-trash"></i></a>
                                         </td>									
                                     </tr>
                                     @endforeach		
