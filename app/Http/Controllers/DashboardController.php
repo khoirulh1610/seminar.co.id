@@ -14,12 +14,13 @@ class DashboardController extends Controller
         if(Auth::user()->role_id==1){
             $event    = Event::where('status',1)->get();
         }else{
-            $pluck = Seminar::where('phone',Auth::user()->phone)->pluck('kode_event');
+            $pluck = Seminar::where('ref',Auth::user()->phone)->pluck('kode_event');
             $event    = Event::where('status',1)->whereIn('kode_event',$pluck)->get();
         }
         
         $seminar  = Seminar::get();
-        
+        // return $pluck;
+
         $title = "Dashboard";
         return view('dashboard',compact('seminar','event','title'));
     }
