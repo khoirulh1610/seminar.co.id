@@ -1296,7 +1296,7 @@ app.post('/send', async(req, res) => {
   // console.log(phone,msg,port);
   // console.log(req.body);
   try {
-    if(conn[token]) {
+    if(conn[token].phoneConnected) {
       if (phone && msg && port){
           if(conn[token]) {
             const exists = await conn[token].isOnWhatsApp (phone)
