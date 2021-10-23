@@ -71,6 +71,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/device/test','DeviceController@test')->name('DeviceController.test');
     Route::get('/device/delete','DeviceController@delete')->name('device.delete');
     Route::post('/device/save','DeviceController@baru')->name('device.save');
+    Route::get('/device/export','DeviceController@ExportKontak')->name('device.ExportKontak');
+
     
 
     Route::get('/eventbaru', function(){

@@ -50,7 +50,10 @@
                                     <td style="text-align:center">
                                         <a href="javascript:void(0)" onclick="send({{$de->id}})" class="btn btn-xs btn-warning btn-rounded m-1"><i class="fa fa-paper-plane" aria-hidden="true"></i> Test</a>
                                         <a href="{{url('device/show?id='.$de->id)}}" class="btn btn-xs btn-success btn-rounded m-1"><i class="fa fa-list">&nbsp;</i>View</a> 
+                                        <a href="{{url('device/export?id='.$de->id)}}" class="btn btn-xs btn-success btn-rounded m-1"><i class="fa fa-address-book"></i>&nbsp;</i> Kontak</a> 
+                                        @if(Auth::user()->role_id==1)
                                         <a href="{{url('device/delete?id='.$de->id)}}" class="btn btn-xs btn-danger btn-rounded"><i class="fa fa-trash">&nbsp;</i>Delete</a>                                       
+                                        @endif
                                     </td>									
                                 </tr>
                                 @endforeach		
