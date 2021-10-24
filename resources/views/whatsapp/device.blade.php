@@ -32,8 +32,9 @@
                                     <th style="text-align:center">No</th>
                                     <th style="text-align:center">Device</th>
                                     <th style="text-align:center">User</th>
-                                    <th style="text-align:center">Nomor Whatsapp</th>
+                                    <th style="text-align:center">Nomor</th>
                                     <th style="text-align:center">Server</th>
+                                    <th style="text-align:center">Pesan</th>
                                     <th style="text-align:center">Status</th>
                                     <th style="text-align:center">Action</th>
                                 </tr>
@@ -46,6 +47,7 @@
                                     <td style="text-align:center">{{$de->user->nama}}</td>
                                     <td style="text-align:center">{{$de->phone}}</td>
                                     <td style="text-align:center;">{{$de->nama}}</td>
+                                    <td style="text-align:center;">{{$de->antrian->where('status',1)->count()}}/{{$de->antrian->count()}}</td>
                                     <td style="text-align:center;">
                                     @if($de->status=='AUTHENTICATED')
                                         <span class="text-success">{{$de->status}}</span>

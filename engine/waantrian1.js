@@ -29,15 +29,21 @@ class MyEmitter extends EventEmitter {}
 GetDeviceReady();
 setInterval(() => {
     GetDeviceReady();
-}, 3* 60 * 1000 );
+}, 2 * 60 * 1000 );
 async function GetDeviceReady(){
     con.query("select * from devices",function(err,rows,filed){
         if(err) console.log(err);
         for (let i = 0; i < rows.length; i++) {
             const device = rows[i];
-            if(!antrian[device.id]){
-                newAntrian(device.id);
-            }
+              if(device.status=='AUTHENTICATED'){
+                if(!antrian[device.id]){
+                  newAntrian(device.id);
+                }
+              }else{
+                if(antrian[device.id]){
+                  antrian[device.id] = undefined;
+                }
+              }
         }
     });
 }
