@@ -67,11 +67,11 @@ const newAntrian = async (device_id) => {
               for (let i = 0; i < rows.length; i++) {
                   const ant = rows[i];
                   // console.log(ant);                        
-                  let data = {instance: ant.device_id.toString() || ant.device_id,"phone":ant.phone,"message":ant.message,"file_url":ant.file,"file_name":ant.file_name}; //
+                  let data = {instance: ant.device_id.toString() || ant.device_id,"phone":ant.phone,"message":TimeReplace(ant.message),"file_url":ant.file,"file_name":ant.file_name}; //
                 //   console.log('Data Kirim :',data);
                   let kirim = await axios.post(apiurl+"/send",data);
                   console.log('Log Kirim :',kirim.data);
-                  let laporan = {"id":ant.id,"pause":ant.pause,"messageid" : kirim.data.data.messageid || null,"message" : kirim.data.message || null};
+                  let laporan = {"id":ant.id,"pause":ant.pause,"messageid" : kirim.data.data.messageid || null,"message" : kirim.data.message || null,"data":TimeReplace(ant.message)||null};
                   antrian[device_id].emit('finish',laporan);
               }
           });
@@ -98,3 +98,17 @@ const newAntrian = async (device_id) => {
 
 // newAntrian("1");
 
+function TimeReplace(waktu) {
+  let Jam = new Date().getHours();
+  let Hasil = "";
+  if (Jam>=0 && Jam<10){
+      Hasil = "Pagi";
+  }else if (Jam >=10 && Jam<15){
+      Hasil = "Siang";
+  }else if (Jam >=15 && Jam<=17){
+      Hasil = "Sore";
+  }else{
+      Hasil = "Malam";
+  }
+  return waktu.replace(/Malam|Sore|Siang|Pagi/g, Hasil);
+}
