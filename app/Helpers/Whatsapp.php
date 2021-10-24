@@ -32,7 +32,7 @@ class Whatsapp{
     }
     public static function getgroup($data)
     {
-        return  self::curl(self::host()."group-info",$data,"GET");
+        return self::curl(self::host()."group-info",$data,"GET");
     }
 
     public static function logout($data)

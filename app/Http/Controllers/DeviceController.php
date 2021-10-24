@@ -111,7 +111,8 @@ class DeviceController extends Controller
     {
         $kontaks = "contacts_".$request->id.".json";
         $data = file_get_contents(url('device_info/'.$kontaks));
-        // return $data;
+        dd($data);
+        exit;
         $data = json_decode($data,true);
         // return dd($data);
         $i = 1;
