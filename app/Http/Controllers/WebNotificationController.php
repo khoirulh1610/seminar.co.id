@@ -26,7 +26,7 @@ class WebNotificationController extends Controller
     public function sendWebNotification(Request $request)
     {
         $url = 'https://fcm.googleapis.com/fcm/send';
-        $FcmToken = User::whereNotNull('device_token')->pluck('device_token')->all();
+        $FcmToken = User::where('role_id','<=',3)->whereNotNull('device_token')->pluck('device_token')->all();
           
         $serverKey = 'AAAATi93QOI:APA91bGaMyVJXtUWPJ2MxFN28ycoP_q4e1XY8VHgLz_iqCKDjgpYIuctJV8USdXaugAbpMnYENE6E3wvt8_5ytsuMMC_pBYC0tsR-WpZQzuPtgm5wRDBNUvObCdseivdSXj8I8CD-dty';
   

@@ -164,6 +164,12 @@ class ApiseminarController extends Controller
                     $WaNotif->nama  = $nama;
                     $WaNotif->save();
                     $notif                      = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$phone,"message"=>$message,"engine"=>$event->notifikasi,"delay"=>1]);
+                    // web Notif
+                    $data = [   
+                        "title"=>"Pendaftar Seminar ".$kode_event ,
+                        "body"=>"Nama : ".$nama." Email : ".$email
+                    ];
+                    $webnotif = Notifikasi::fcmAll($data); 
                     // Notifikasi Ke Pengundang
                     if($referal){
                         if($event->cw_referral){

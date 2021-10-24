@@ -128,3 +128,11 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/push-notificaiton', [WebNotificationController::class, 'index'])->name('push-notificaiton');
 Route::post('/store-token', [WebNotificationController::class, 'storeToken'])->name('store.token');
 Route::post('/send-web-notification', [WebNotificationController::class, 'sendWebNotification'])->name('send.web-notification');
+Route::get('/fcm', function(){
+    $data = [   
+                "title"=>"Test FCM",
+                "body"=>"Pendaftar Baru",
+                "image"=>"https://cdns.klimg.com/dream.co.id/resized/640x320/news/2019/05/17/108124/tips-dapatkan-foto-keren-saat-traveling-1905170.jpg"
+            ];
+    $notif = App\Helpers\Notifikasi::fcmAll($data);    
+});
