@@ -23,7 +23,7 @@
                                         <h5 class="card-title text-white">Tujuan : {{$pre->phone}}</h5>
                                     </div>
                                     <div class="card-body mb-0">
-                                        <p class="card-text">{{nl2br($pre->message)}}</a>
+                                        <p class="card-text">{!!nl2br($pre->message)!!}</a>
                                     </div>
                                     <div class="card-footer bg-transparent border-0 text-white">{{$pre->created_at}}
                                     </div>
