@@ -19,7 +19,7 @@ class WebNotificationController extends Controller
     public function storeToken(Request $request)
     {
         auth()->user()->update(['device_token'=>$request->token]);
-        return response()->json(['Token successfully stored.']);
+        return response()->json(['Token successfully stored : '.$request->token]);
     }
   
     public function sendWebNotification(Request $request)
