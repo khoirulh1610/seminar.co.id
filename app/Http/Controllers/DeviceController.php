@@ -106,4 +106,42 @@ class DeviceController extends Controller
         }
         echo "</table>";
     }
+
+    public function getGroup(Request $request)
+    {
+        $kontaks = "contacts_".$request->id.".json";
+        $data = file_get_contents(url('device_info/'.$kontaks));
+        // return $data;
+        $data = json_decode($data,true);
+        // return dd($data);
+        $i = 1;
+        echo "<table>
+                <tr>
+                    <td>No</td>
+                    <td>ID</td>
+                    <td>Nama</td>
+                    <td>Keterangan</td>
+                </tr>";
+        foreach ($data['updatedContacts'] as $r) {
+            $no   = $r['jid'];
+            $name = $r['name'] ?? $r['short'] ?? '';
+            $g    = strpos($no,'@g.us') ? 'Group' : 'Kontak';
+            $no   = ($g=='Group') ? $no : "'".preg_replace('/\D/','',$no);
+            if($g=='Group'){
+                echo    '<tr>
+                        <td>'.$i++.'</td>
+                        <td>'.$no.'</td>
+                        <td>'.$name.'</td>
+                        <td>'.$g.'</td>
+                    </tr>';
+            }
+        }
+        echo "</table>";
+    }
+
+    public function ExportGroup(Request $request)
+    {
+        $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$request->gid]);
+        dd($group);
+    }
 }

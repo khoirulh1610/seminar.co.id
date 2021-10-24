@@ -30,6 +30,10 @@ class Whatsapp{
         $close = self::curl(self::host()."close",$data,"GET");
         return   self::curl(self::host()."new",$data);
     }
+    public static function getgroup($data)
+    {
+        return  self::curl(self::host()."group-info",$data,"GET");
+    }
 
     public static function logout($data)
     {
