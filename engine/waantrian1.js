@@ -65,7 +65,7 @@ const newAntrian = async (device_id) => {
                 //   console.log('Data Kirim :',data);
                   let kirim = await axios.post(apiurl+"/send",data);
                   console.log('Log Kirim :',kirim.data);
-                  let laporan = {"id":ant.id,"pasue":ant.pause,"messageid" : kirim.data.data.messageid || null,"message" : kirim.data.message || null};
+                  let laporan = {"id":ant.id,"pause":ant.pause,"messageid" : kirim.data.data.messageid || null,"message" : kirim.data.message || null};
                   antrian[device_id].emit('finish',laporan);
               }
           });
