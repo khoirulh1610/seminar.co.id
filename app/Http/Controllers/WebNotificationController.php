@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class WebNotificationController extends Controller
 {
@@ -13,12 +14,12 @@ class WebNotificationController extends Controller
 
     public function index()
     {
-        return view('home');
+        return redirect('dashboard');
     }
   
     public function storeToken(Request $request)
     {
-        auth()->user()->update(['device_token'=>$request->token]);
+        Auth::user()->update(['device_token'=>$request->token]);
         return response()->json(['Token successfully stored : '.$request->token]);
     }
   
