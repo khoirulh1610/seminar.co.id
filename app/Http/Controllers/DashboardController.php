@@ -24,4 +24,11 @@ class DashboardController extends Controller
         $title = "Dashboard";
         return view('dashboard',compact('seminar','event','title'));
     }
+
+    public function saveToken(Request $request)
+    {
+        auth()->user()->update(['device_token'=>$request->token]);
+        return response()->json(['token saved successfully.']);
+    }
+
 }

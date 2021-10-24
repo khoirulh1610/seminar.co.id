@@ -13,6 +13,7 @@
 	<meta property="og:description" content="seminar.co.id : Portal Event Terlengkap" />
 	<meta property="og:image" content="{{url('seminar.jpeg')}}" />
 	<meta name="format-detection" content="telephone=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ENV('APP_NAME','')}}</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{url('asset/images/favicon.png')}}">
@@ -32,7 +33,7 @@
     <link href="{{url('asset/css/style.css')}}" rel="stylesheet">
     <!-- Daterange picker -->
     <link href="{{url('asset/vendor/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="//fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
 
     
 </head>
@@ -152,6 +153,7 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
+    
     <script src="{{url('asset/vendor/global/global.min.js')}}"></script>
 	<script src="{{url('asset/vendor/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>
 	
@@ -198,6 +200,7 @@
     <!-- CK Editor -->
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 	
+    @include('layouts.fcm')
     @yield('js')
 	
     

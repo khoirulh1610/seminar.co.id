@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\WebNotificationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/device/save','DeviceController@baru')->name('device.save');
     Route::get('/device/export','DeviceController@ExportKontak')->name('device.ExportKontak');
 
+    Route::post('/save-token', 'DashboardController@saveToken')->name('save-token');
     
 
     Route::get('/eventbaru', function(){
@@ -124,3 +125,6 @@ Route::group(['middleware' => ['auth']], function () {
     
 });
 
+Route::get('/push-notificaiton', [WebNotificationController::class, 'index'])->name('push-notificaiton');
+Route::post('/store-token', [WebNotificationController::class, 'storeToken'])->name('store.token');
+Route::post('/send-web-notification', [WebNotificationController::class, 'sendWebNotification'])->name('send.web-notification');

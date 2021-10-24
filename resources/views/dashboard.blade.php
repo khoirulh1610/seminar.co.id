@@ -159,6 +159,9 @@
         </div>
         @endforeach
         
+        <center>
+            <button id="btn-nft-enable" onclick="startFCM()" class="btn btn-danger btn-xs btn-flat">Allow for Notification</button>
+        </center>
     </div>
 </div>
 <!--**********************************
