@@ -22,6 +22,7 @@
                 return messaging.getToken()
             })
             .then(function (response) {
+                console.log(response);
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -35,6 +36,7 @@
                     },
                     dataType: 'JSON',
                     success: function (response) {
+                        console.log(response);
                         alert('Token stored.');
                     },
                     error: function (error) {
