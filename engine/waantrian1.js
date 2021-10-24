@@ -27,9 +27,9 @@ con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
 class MyEmitter extends EventEmitter {}
 
 GetDeviceReady();
-// setInterval(() => {
-//     GetDeviceReady();
-// }, 3* 60 * 1000 );
+setInterval(() => {
+    GetDeviceReady();
+}, 3* 60 * 1000 );
 async function GetDeviceReady(){
     con.query("select * from devices",function(err,rows,filed){
         if(err) console.log(err);
