@@ -12,7 +12,7 @@
         <div class="row">
           
         <form action="{{url('/kirimpesan/save')}}" method="post" enctype="multipart/form-data">
-        <div class="col-12">
+        <div class="col-12" >
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Buat Pesan Baru</h4>
@@ -28,9 +28,9 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-6" >
                                 <label for="">Target</label>
-                                <select name="target" id="target" class="form-control">
+                                <select name="target" id="target" class="form-control" style="color:black">
                                     <option value="Upload">Upload From Excel</option>        
                                     <option value="manual">Input Manual</option>                                        
                                 </select>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-sm-12 col-md-12">
                                 <label for="">Message</label> 
-                                <Textarea class="form-control" name="message" rows="5"></Textarea>
+                                <Textarea class="form-control" name="message" rows="5" style="color:black"></Textarea>
                                 <!-- <code> <button class="btn btn-xs btn-info">[#template]</button> </code> -->
                             </div>
                             <div class="col-sm-12 col-md-12">                                
@@ -106,7 +106,7 @@
                             </div>
                             <div class="col-sm-12 col-md-12">
                                 <label for="">Petunjuk</label> 
-                                <ul>Gunakan [] untuk memanggil parameter sesuai judul file Excel</ul>
+                                <ul>Gunakan [nama_paramater] untuk memanggil parameter sesuai judul file Excel</ul>
                             </div>
                             <div class="col-sm-12 col-md-12 p-1">
                                 
