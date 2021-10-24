@@ -142,7 +142,10 @@ class DeviceController extends Controller
 
     public function ExportGroup(Request $request)
     {
-        $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$request->gid]);
-        dd($group);
+        $device = Device::where('id',$request->id)->first();
+        if($device){
+            $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$request->gid]);
+            dd($group);
+        }
     }
 }
