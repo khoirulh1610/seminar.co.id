@@ -145,7 +145,32 @@ class DeviceController extends Controller
         $device = Device::where('id',$request->id)->first();
         if($device){
             $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$request->gid]);
-            dd($group);
+            if($group){
+                $g = json_decode($group,true);
+                echo "<table>
+                <tr>
+                    <td colspa='2'>Nama Group:</td>                                        
+                    <td colspan='2'>".$g['data']['subject']."</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>ID</td>
+                    <td>Nama</td>
+                    <td>isAdmin</td>
+                    <td>isSuperAdmin</td>
+                </tr>";                
+                $i=1;
+                foreach ($g['data']['participants'] as $kontak) {
+                    echo    '<tr>
+                                <td>'.$i++.'</td>
+                                <td>'.preg_replace('/\D/','',$kontak['jid']).'</td>
+                                <td>'.$kontak['vname'] ?? ''.'</td>
+                                <td>'.$kontak['isAdmin'] ?? ''.'</td>
+                                <td>'.$kontak['isSuperAdmin'] ?? ''.'</td>
+                            </tr>';
+                }
+                
+            }
         }
     }
 }
