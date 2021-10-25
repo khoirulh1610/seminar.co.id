@@ -4,7 +4,7 @@ const server_id = 1;
 const port = process.env.APP_WA_PORT;
 const browsername = "SEMINAR.CO.ID";
 const deviceUrl = "https://seminar.co.id/api/v1/device?server_id="+server_id;
-const webhook = "";
+const WEBHOOK = "";
 const webserver = "";
 const defaultDeviceID = 0;
 
@@ -67,11 +67,9 @@ const
 const express = require('express');
 const bodyParser = require("body-parser");
 const app = express();
-// const port = port || 8001;
-const WEBHOOK =  webhook;
 let batteryLevelStr = [];
 let batterylevel = [];
-// let WEBHOOK;
+
 let mynumber = [];
 let qrke = [];
 //let IDDEVICE;
@@ -415,18 +413,18 @@ const newinstance = async (number, no) => {
     
              //log = {};
     
-             if (WEBHOOK!=='' || WEBHOOK!==undefined || WEBHOOK.length>10){
-                      //console.log("Webhook",WEBHOOK);
-                      if(m.key.fromMe == false) {
-                        axios.post(WEBHOOK, log)
-                        .then((res) => {
-                         console.log('Resp webhook :',res.data);
-                        })
-                        .catch((error) => {
-                          console.error(error);
-                        })
-                      }
-                  }  
+            //  if (WEBHOOK!=='' || WEBHOOK!==undefined || WEBHOOK.length>10){
+            //           //console.log("Webhook",WEBHOOK);
+            //           if(m.key.fromMe == false) {
+            //             axios.post(WEBHOOK, log)
+            //             .then((res) => {
+            //               console.log('Resp webhook :',res.data);
+            //             })
+            //             .catch((error) => {
+            //               console.error(error);
+            //             })
+            //           }
+            //   }  
     
             //  console.log(`[ ${moment().format("HH:mm:ss")} ] => Nomor: [ ${id.split("@s.whatsapp.net")[0]} ] => ${text}`);
              console.log('log webhook',log); 
