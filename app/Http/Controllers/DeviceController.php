@@ -142,6 +142,10 @@ class DeviceController extends Controller
 
     public function ExportGroup(Request $request)
     {
+        if($request->dw){
+            header("Content-type: application/vnd-ms-excel");
+            header("Content-Disposition: attachment; filename=Export.xls");
+        }
         $device = Device::where('id',$request->id)->first();
         if($device){
             $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$request->gid]);
@@ -170,6 +174,8 @@ class DeviceController extends Controller
                                 <td>'.($kontak->isSuperAdmin ?? '').'</td>
                             </tr>';
                 }
+
+                echo '<a href="'.url('device/export-group').'/?id='.$request->id.'&gid='.$request->gid.'&nama='.$request->nama.'&dw=y">Download</a>';
                 
             }
         }
