@@ -465,16 +465,34 @@ const newinstance = async (number, no) => {
   })
 
   app.get("/getcontacts", async (req, res) => {  
-    var token = req.body.instance;
-    if (QR[token]=='AUTHENTICATED'){
+    // var token = req.body.instance || req.query.instance;
+    // if (QR[token]=='AUTHENTICATED'){
+    //     let contacts = await conn[token].contacts;
+    //     res.status(200).json({
+    //         "status": true,
+    //         "msg": "Import kontak dari Hanphone",
+    //         "data": contacts
+    //     });
+    // }else{
+    //   log = {"status": false, "instance": token, "message": "Status DISCONNECTED!"}
+    //   res.send(log);
+    // }
+    try {
+      var token = req.body.instance || req.query.instance;
+      if(conn[token]){
         let contacts = await conn[token].contacts;
-        res.status(200).json({
-            "status": true,
-            "msg": "Import kontak dari Hanphone",
-            "data": contacts
-        });
-    }else{
-      log = {"status": false, "instance": token, "message": "Status DISCONNECTED!"}
+          res.status(200).json({
+              "status": true,
+              "instance" : token,
+              "msg": "Import kontak dari Hanphone",
+              "data": contacts
+            });
+      }else{
+        log = {"status": false, "instance": token, "message": "Status DISCONNECTED!"};
+        res.send(log);
+      }
+    } catch (error) {
+      log = {"status": false, "instance": token, "message": error};
       res.send(log);
     }
   });

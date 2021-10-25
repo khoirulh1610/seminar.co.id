@@ -40,6 +40,8 @@ async function GetDeviceReady(){
                 if(!antrian[device.id]){
                   newAntrian(device.id);
                 }
+              }else{
+                console.log('Terputus : ',device.id);
               }
         }
     });
