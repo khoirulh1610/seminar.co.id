@@ -44,7 +44,7 @@
                                                 <td> <span id="_nama"> {{$device->nama}}</span> </td>
                                             </tr>
                                             <tr>
-                                                <td colspan=3> <a href="{{url('device/get-group')}}/?id={{$device->id}}" target="grp" class="btn btn-sm btn-warning"> Groups </a></td>
+                                                <td colspan=3> <a href="{{url('device/get-group')}}/?id={{$device->id}}" target="grp" class="btn btn-sm btn-warning"> List Groups </a></td>
                                             </tr>
                                         </table>
                                         <div class="shopping-cart mt-3">
