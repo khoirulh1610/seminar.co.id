@@ -164,9 +164,9 @@ class DeviceController extends Controller
                     echo    '<tr>
                                 <td>'.$i++.'</td>
                                 <td>'.preg_replace('/\D/','',$kontak['jid']).'</td>
-                                <td>'.$kontak['vname'] ?? ''.'</td>
-                                <td>'.$kontak['isAdmin'] ?? ''.'</td>
-                                <td>'.$kontak['isSuperAdmin'] ?? ''.'</td>
+                                <td>'.($kontak['vname'] ?? '').'</td>
+                                <td>'.($kontak['isAdmin'] ?? '').'</td>
+                                <td>'.($kontak['isSuperAdmin'] ?? '').'</td>
                             </tr>';
                 }
                 
