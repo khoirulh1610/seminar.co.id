@@ -150,7 +150,7 @@ class DeviceController extends Controller
                 $g = json_decode($group);
                 echo "<table border='1'>
                 <tr>
-                    <td colspa='2'>Nama Group:</td>                                        
+                    <td colspan='2'>Nama Group:</td>                                        
                     <td colspan='3'>".($request->nama ?? $g->data->subject ?? '')."</td>
                 </tr>
                 <tr>

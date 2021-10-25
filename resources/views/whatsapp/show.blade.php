@@ -43,6 +43,9 @@
                                                 <td>:</td>
                                                 <td> <span id="_nama"> {{$device->nama}}</span> </td>
                                             </tr>
+                                            <tr>
+                                                <td colspan=3> <a href="{{url('device/get-group')}}/?id={{$device->id}}">Groups</a></td>
+                                            </tr>
                                         </table>
                                         <div class="shopping-cart mt-3">
                                             <a class="btn btn-success btn-xs btn-rounded m-1" href="javascript:void(0)" onclick="start()" id="_start"><i class="fa fa-play mr-2"></i>Start</a>
