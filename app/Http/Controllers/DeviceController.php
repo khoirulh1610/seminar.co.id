@@ -133,7 +133,7 @@ class DeviceController extends Controller
                         <td>'.$i++.'</td>
                         <td>'.$no.'</td>
                         <td>'.$name.'</td>
-                        <td><a href="'.url('device/export-group').'/?id='.$request->id.'&gid='.$no.'">'.$g.'</a></td>
+                        <td><a href="'.url('device/export-group').'/?id='.$request->id.'&gid='.$no.'&nama='.$name.'">'.$g.'</a></td>
                     </tr>';
             }
         }
@@ -145,13 +145,13 @@ class DeviceController extends Controller
         $device = Device::where('id',$request->id)->first();
         if($device){
             $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$request->gid]);
-            dd($group);
+            // dd($group);
             if($group){
                 $g = json_decode($group);
                 echo "<table border='1'>
                 <tr>
                     <td colspa='2'>Nama Group:</td>                                        
-                    <td colspan='2'>".$g->data->subject."</td>
+                    <td colspan='3'>".($request->nama ?? $g->data->subject ?? '')."</td>
                 </tr>
                 <tr>
                     <td>No</td>
