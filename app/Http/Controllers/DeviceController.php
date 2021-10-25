@@ -146,11 +146,11 @@ class DeviceController extends Controller
         if($device){
             $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$request->gid]);
             if($group){
-                $g = json_decode($group,true);
+                $g = json_decode($group);
                 echo "<table>
                 <tr>
                     <td colspa='2'>Nama Group:</td>                                        
-                    <td colspan='2'>".$g['data']['subject']."</td>
+                    <td colspan='2'>".$g->data->subject."</td>
                 </tr>
                 <tr>
                     <td>No</td>
@@ -160,13 +160,13 @@ class DeviceController extends Controller
                     <td>isSuperAdmin</td>
                 </tr>";                
                 $i=1;
-                foreach ($g['data']['participants'] as $kontak) {
+                foreach ($g->data->participants as $kontak) {
                     echo    '<tr>
                                 <td>'.$i++.'</td>
-                                <td>'.preg_replace('/\D/','',$kontak['jid']).'</td>
-                                <td>'.($kontak['vname'] ?? '').'</td>
-                                <td>'.($kontak['isAdmin'] ?? '').'</td>
-                                <td>'.($kontak['isSuperAdmin'] ?? '').'</td>
+                                <td>'.preg_replace('/\D/','',$kontak->jid).'</td>
+                                <td>'.($kontak->vname ?? '').'</td>
+                                <td>'.($kontak->isAdmin ?? '').'</td>
+                                <td>'.($kontak->isSuperAdmin ?? '').'</td>
                             </tr>';
                 }
                 
