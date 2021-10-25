@@ -1315,9 +1315,9 @@ app.post('/send', async(req, res) => {
   // console.log(phone,msg,port);
   // console.log(req.body);
   try {
-    if(conn[token].phoneConnected) {
+    if(conn[token]) {
       if (phone && msg && port){
-          if(conn[token]) {
+          if(conn[token].phoneConnected) {
             const exists = await conn[token].isOnWhatsApp (phone)
             if (exists || phone.match(/-/g) == "-") {
               // await wa.chatRead(phone) // mark chat read
