@@ -147,7 +147,7 @@ class DeviceController extends Controller
             $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$request->gid]);
             if($group){
                 $g = json_decode($group);
-                echo "<table>
+                echo "<table border='1'>
                 <tr>
                     <td colspa='2'>Nama Group:</td>                                        
                     <td colspan='2'>".$g->data->subject."</td>
