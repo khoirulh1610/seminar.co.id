@@ -133,7 +133,7 @@ class DeviceController extends Controller
                         <td>'.$i++.'</td>
                         <td>'.$no.'</td>
                         <td>'.$name.'</td>
-                        <td>'.$g.'</td>
+                        <td><a href="'.url('device/export-group').'/?id='.$request->id.'&gid='.$no.'>'.$g.'</a></td>
                     </tr>';
             }
         }
