@@ -39,10 +39,6 @@ async function GetDeviceReady(){
                 if(!antrian[device.id]){
                   newAntrian(device.id);
                 }
-              }else{
-                if(antrian[device.id]){
-                  antrian[device.id] = undefined;
-                }
               }
         }
     });
@@ -88,7 +84,7 @@ const newAntrian = async (device_id) => {
 
       antrian[device_id].on('pause',() => {
         console.log('pause event');
-        setTimeout(() => {
+        setTimeout(() => {         
             antrian[device_id].emit('start');
         }, 20000);
     });
