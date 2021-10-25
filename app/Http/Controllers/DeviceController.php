@@ -116,7 +116,7 @@ class DeviceController extends Controller
         $data = json_decode($data,true);
         // return dd($data);
         $i = 1;
-        echo "<table>
+        echo "<table style='border-collapse: collapse;'>
                 <tr>
                     <td>No</td>
                     <td>ID</td>
@@ -152,7 +152,7 @@ class DeviceController extends Controller
             // dd($group);
             if($group){
                 $g = json_decode($group);
-                echo "<table border='1'>
+                echo "<table style='border-collapse: collapse;'>
                 <tr>
                     <td colspan='2'>Nama Group:</td>                                        
                     <td colspan='3'>".($request->nama ?? $g->data->subject ?? '')."</td>
