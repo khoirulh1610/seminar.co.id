@@ -56,10 +56,11 @@ class PesertaController extends Controller
                         if($event->cw_payment_ref){
                             $ref                = User::where('phone',$peserta->ref)->first();
                             if(!$ref){
-                                $ref                = Seminar::where('phone',$peserta->ref)->where('kode_event',$peserta->kode_event)->first();
+                                $ref            = Seminar::where('phone',$peserta->ref)->where('kode_event',$peserta->kode_event)->first();
                             }
                             if($ref){
-                                $pengundang    = ["nama"=>$peserta->nama,"sapaan"=>$peserta->sapaan,"panggilan"=>$peserta->panggilan,"pengundang_nama"=>$ref->nama,"pengundang_sapaan"=>$ref->sapaan,"pengundang_panggilan"=>$ref->panggilan];
+                                $komisi_total   = Seminar::where('ref',$peserta->ref)->where('kode_event',$peserta->kode_event)->where('status',1)->sum('fee_referal') ?? 0;
+                                $pengundang     = ["nama"=>$peserta->nama,"sapaan"=>$peserta->sapaan,"panggilan"=>$peserta->panggilan,"pengundang_nama"=>$ref->nama,"pengundang_sapaan"=>$ref->sapaan,"pengundang_panggilan"=>$ref->panggilan,"komisi"=>number_format($event->fee_referral),"komisi_total"=>number_format($komisi_total)];
                                 $cw_payment_ref = ReplaceArray($pengundang,$event->cw_payment_ref);
                                 $notif          = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$peserta->ref,"message"=>$cw_payment_ref,"engine"=>$event->notifikasi,"delay"=>1]);
                             }

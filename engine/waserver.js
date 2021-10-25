@@ -290,6 +290,8 @@ const newinstance = async (number, no) => {
       const m = chat.messages.all()[0] // pull the new message from the update      
     //  if(fromme == false){
         if(m.key.remoteJid.match(/status/g) != "status"){
+          con.query("update devices set status='AUTHENTICATED' where id="+number);
+          QR[number] = 'AUTHENTICATED';
           const messageContent = m.message
           if(messageContent!==null){
             console.log('Data Pesan :',messageContent);
