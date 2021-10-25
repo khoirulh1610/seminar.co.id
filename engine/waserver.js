@@ -16,7 +16,8 @@ var con  = mysql.createPool({
   user            : process.env.DB_USERNAME,
   password        : process.env.DB_PASSWORD,
   database        : process.env.DB_DATABASE,
-  port            : process.env.DB_PORT
+  port            : process.env.DB_PORT,
+  charset         : 'utf8mb4_general_ci'
 });
 con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
   // should actually use an error-first callback to propagate the error, but anyway...
