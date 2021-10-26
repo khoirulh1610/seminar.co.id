@@ -21,11 +21,13 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/register', 'Auth\RegisterController@index')->name('register');
 Route::post('/register', 'Auth\RegisterController@save')->name('register.save');
 
-Route::get('/lp', function () {    
+Route::get('/lp', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => ['auth']], function () { 
+Route::get('landingpage','LandingpageController@index')->name('landingpage');
+
+Route::group(['middleware' => ['auth']], function () {
 
     // Route::get('/','DashboardController@index')->name('dashboard.1');
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
@@ -76,12 +78,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/device/export-group','DeviceController@ExportGroup')->name('device.ExportGroup');
 
     Route::post('/save-token', 'DashboardController@saveToken')->name('save-token');
-    
+
 
     Route::get('/eventbaru', function(){
         return view('event.eventbaru');
     });
-    
+
     Route::any('/logut',function(){
         \Auth::logout();
         return redirect('login');
@@ -96,12 +98,12 @@ Route::group(['middleware' => ['auth']], function () {
         // $notif = App\Helpers\Notifikasi::send(["device_key"=>"8niD7OgjZ737XWh","phone"=>"085232843165","message"=>"test & test","engine"=>"quods","delay"=>1]);
         // return $notif;
     });
-    
+
     Route::get('/new/{id}',function($id){
         $notif = App\Helpers\Whatsapp::start(["instance"=>(String)$id]);
         return $notif;
     });
-    
+
     Route::get('/qrcode11/{id}',function($id){
         $notif = App\Helpers\Whatsapp::new(["instance"=>(String)$id]);
         return $notif;
@@ -109,7 +111,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/logout/{id}',function($id){
         $db = App\Models\Device::where('id',$id)->update(["status"=>"Start","phone"=>null,"profile_url"=>null,"nama"=>null]);
-        $notif = App\Helpers\Whatsapp::logout(["instance"=>(String)$id]);        
+        $notif = App\Helpers\Whatsapp::logout(["instance"=>(String)$id]);
         return $notif;
     });
 
@@ -118,23 +120,23 @@ Route::group(['middleware' => ['auth']], function () {
         $notif = App\Helpers\Whatsapp::reset(["instance"=>(String)$id]);
         return $notif;
     });
-    
+
     Route::get('/send/{id}',function($id){
         $req = \Request();
         $notif = App\Helpers\Whatsapp::send(["instance"=>(String)$id,"number"=>$req->phone ?? "085232843165","message"=>"Test server whatsapp from https://seminar.co.id"]);
         return $notif;
     });
-    
+
 });
 
 Route::get('/push-notificaiton', [WebNotificationController::class, 'index'])->name('push-notificaiton');
 Route::post('/store-token', [WebNotificationController::class, 'storeToken'])->name('store.token');
 Route::post('/send-web-notification', [WebNotificationController::class, 'sendWebNotification'])->name('send.web-notification');
 Route::get('/fcm', function(){
-    $data = [   
+    $data = [
                 "title"=>"Test FCM",
                 "body"=>"Pendaftar Baru",
                 "image"=>"https://cdns.klimg.com/dream.co.id/resized/640x320/news/2019/05/17/108124/tips-dapatkan-foto-keren-saat-traveling-1905170.jpg"
             ];
-    $notif = App\Helpers\Notifikasi::fcmAll($data);    
+    $notif = App\Helpers\Notifikasi::fcmAll($data);
 });
