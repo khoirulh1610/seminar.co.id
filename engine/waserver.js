@@ -4,6 +4,7 @@ const server_id = 1;
 const port = process.env.APP_WA_PORT;
 const browsername = "SEMINAR.CO.ID";
 const deviceUrl = "https://seminar.co.id/api/v1/device?server_id="+server_id;
+const apiurl = "http://localhost:"+port;
 const WEBHOOK = "";
 const webserver = "";
 const defaultDeviceID = 0;
