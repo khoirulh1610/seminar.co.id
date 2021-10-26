@@ -76,7 +76,7 @@ class Mutasi extends Command
                     $peserta->status        = '1';
                     $peserta->catatan       = 'Bank Otomatis';
                     $peserta->type_bayar    = 'Bank';
-                    
+                    $peserta->save();
                     $event = Event::where('kode_event',$peserta->kode_event)->first();
                     if($event){
                         $message                    = ReplaceArray($peserta,$event->cw_payment);

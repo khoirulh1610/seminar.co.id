@@ -46,7 +46,7 @@ class PesertaController extends Controller
                 $peserta->status        = '1';
                 $peserta->catatan       = $request->catatan;
                 $peserta->type_bayar    = 'Manual';
-                
+                $peserta->save();
                 $event = Event::where('kode_event',$peserta->kode_event)->first();
                 if($event){
                     $message                    = ReplaceArray($peserta,$event->cw_payment);
