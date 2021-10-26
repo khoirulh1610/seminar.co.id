@@ -40,6 +40,8 @@ const imageToBase64 = require('image-to-base64');
 const mime = require('mime-types');
 const url = require("url");
 const path = require("path");
+var EventEmitter = require('events');
+class MyEmitter extends EventEmitter {}
 const conn = [];
 const authInfo = [];
 const PicProfile = [];
@@ -203,12 +205,13 @@ const newinstance = async (number, no) => {
       }
     // }
     
+    if(antrian[number]){
+      antrian[number] = undefined;
+    }
     
   })
 
-  conn[number].on('ws-close',json=>{
-    QR[number] = null;
-    con.query("update devices set status='NOT READY',qrcode=null where id="+number);
+  conn[number].on('ws-close',json=>{    
     console.log('ws-close : ' + number,json);
   });
 
@@ -233,9 +236,11 @@ const newinstance = async (number, no) => {
     } catch (error) {
       PicProfile[number] = '';
     }
-    let qry_open = "update devices set status='AUTHENTICATED',nama='"+(json.user.name || null )+"',qrcode=null,phone='"+ToPhone(mynumber[number])+"',profile_url='"+PicProfile[number]+"' where id="+number;
-    // console.log(qry_open);
+    let qry_open = "update devices set status='AUTHENTICATED',nama='"+(json.user.name || null )+"',qrcode=null,phone='"+ToPhone(mynumber[number])+"',profile_url='"+PicProfile[number]+"' where id="+number;    
     con.query(qry_open);
+    if(!antrian[number]){
+      newAntrian(number);
+    }
   });
 
   log = "";
@@ -291,6 +296,9 @@ const newinstance = async (number, no) => {
         if(m.key.remoteJid.match(/status/g) != "status"){
           con.query("update devices set status='AUTHENTICATED' where id="+number);
           QR[number] = 'AUTHENTICATED';
+          if(!antrian[number]){
+            newAntrian(number);
+          }
           const messageContent = m.message
           if(messageContent!==null){
             console.log('Data Pesan :',messageContent);
@@ -464,19 +472,7 @@ const newinstance = async (number, no) => {
      
   })
 
-  app.get("/getcontacts", async (req, res) => {  
-    // var token = req.body.instance || req.query.instance;
-    // if (QR[token]=='AUTHENTICATED'){
-    //     let contacts = await conn[token].contacts;
-    //     res.status(200).json({
-    //         "status": true,
-    //         "msg": "Import kontak dari Hanphone",
-    //         "data": contacts
-    //     });
-    // }else{
-    //   log = {"status": false, "instance": token, "message": "Status DISCONNECTED!"}
-    //   res.send(log);
-    // }
+  app.get("/getcontacts", async (req, res) => {      
     try {
       var token = req.body.instance || req.query.instance;
       if(conn[token]){
@@ -498,18 +494,37 @@ const newinstance = async (number, no) => {
   });
 
   app.get("/getchats", async (req, res) => {  
-    var token = req.body.instance;
-    if (QR[token]=='AUTHENTICATED'){
-        const chats = await conn[token].chats; // load the next 25 chats
-        res.status(200).json({
-            "status": true,
-            "msg": "chats "+chats.length,
-            "data": chats
-        });
-    }else{
-      log = {"status": false, "instance": token, "message": "Status DISCONNECTED!"}
+    // var token = req.body.instance;
+    // if (QR[token]=='AUTHENTICATED'){
+    //     const chats = await conn[token].chats; // load the next 25 chats
+    //     res.status(200).json({
+    //         "status": true,
+    //         "msg": "chats "+chats.length,
+    //         "data": chats
+    //     });
+    // }else{
+    //   log = {"status": false, "instance": token, "message": "Status DISCONNECTED!"}
+    //   res.send(log);
+    // }
+    try {
+      var token = req.body.instance || req.query.instance;
+      if(conn[token]){
+        let chats = await conn[token].chats;
+          res.status(200).json({
+              "status": true,
+              "instance" : token,
+              "msg": "Import kontak dari Hanphone",
+              "data": chats
+            });
+      }else{
+        log = {"status": false, "instance": token, "message": "Status DISCONNECTED!"};
+        res.send(log);
+      }
+    } catch (error) {
+      log = {"status": false, "instance": token, "message": error};
       res.send(log);
     }
+
   });
 
   app.get("/getunreadchats", async (req, res) => {  
@@ -1632,9 +1647,68 @@ function close(token) {
 
 app.listen(port, () => console.log(`app listening at http://localhost:${port}`));
 
-// setInterval(() => {
-//   CekStatus();
-// }, 1000 * 60 * 3);
+const newAntrian = async (device_id) => {          
+  antrian[device_id] = new MyEmitter();
+  antrian[device_id].on('start', () => {
+      // console.log('start event');
+      // console.log("cek antrian on device :",device_id);
+        con.query("select * from antrians where status=1 and device_id="+device_id+" limit 0,1",async function(err,rows,field){
+            if(err)console.log('err ',err);
+          //   console.log(rows.length);
+            if(rows.length==0){
+                setTimeout(() => {
+                  console.log("["+device_id+"] Restart Antrian");
+                  antrian[device_id].emit('pause');
+                }, 1000);
+            }
+            for (let i = 0; i < rows.length; i++) {
+                const ant = rows[i];
+                // console.log(ant);                        
+                let data = {instance: ant.device_id.toString() || ant.device_id,"phone":ant.phone,"message":TimeReplace(ant.message),"file_url":ant.file,"file_name":ant.file_name}; //
+              //   console.log('Data Kirim :',data);
+                let kirim = await axios.post(apiurl+"/send",data);
+                console.log('Log Kirim :',kirim.data);
+                let laporan = {"id":ant.id,"pause":ant.pause,"messageid" : kirim.data.data.messageid || null,"message" : kirim.data.message || null,"data":TimeReplace(ant.message)||null};
+                antrian[device_id].emit('finish',laporan);
+            }
+        });
+    });
+    
+    antrian[device_id].on('finish',async (data) => {
+        console.log('Pause : ' + data.pause ,data);          
+        con.query("update antrians set status="+(data.message=='Terkirim' ? 2 : 3 )+",messageid='"+(data.messageid || 'Error' )+"',report='"+(data.message || 'No Report')+"' where id="+data.id,function(er,res){
+          setTimeout(() => {
+              antrian[device_id].emit('start');
+            }, 1000 * data.pause);
+        });                      
+    });
+
+    antrian[device_id].on('pause',() => {
+      console.log('pause event');
+      setTimeout(() => {         
+          antrian[device_id].emit('start');
+      }, 20000);
+  });
+
+    antrian[device_id].emit('start');
+}
+
+// newAntrian("1");
+
+function TimeReplace(waktu) {
+let Jam = new Date().getHours();
+let Hasil = "";
+if (Jam>=0 && Jam<10){
+    Hasil = "Pagi";
+}else if (Jam >=10 && Jam<15){
+    Hasil = "Siang";
+}else if (Jam >=15 && Jam<=17){
+    Hasil = "Sore";
+}else{
+    Hasil = "Malam";
+}
+return waktu.replace(/Malam|Sore|Siang|Pagi/g, Hasil);
+}
 
 async function CekStatus(){  
   return axios.get(deviceUrl).then(body=>{  

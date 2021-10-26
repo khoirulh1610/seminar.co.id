@@ -64,9 +64,9 @@ class Whatsapp{
         curl_close($curl);
 
         if ($err) {
-        return "cURL Error #:" . $err;
+            return "cURL Error #:" . $err;
         } else {
-        return $response;
+            return $response;
         }
     }
 }
