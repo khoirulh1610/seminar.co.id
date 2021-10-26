@@ -42,6 +42,7 @@ const url = require("url");
 const path = require("path");
 var EventEmitter = require('events');
 class MyEmitter extends EventEmitter {}
+const antrian=[];
 const conn = [];
 const authInfo = [];
 const PicProfile = [];
