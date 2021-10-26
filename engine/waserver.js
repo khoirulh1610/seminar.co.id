@@ -1,9 +1,8 @@
 // Pengaturan
 require('dotenv').config({path:'../.env'});
-const server_id = 1;
 const port = process.env.APP_WA_PORT;
 const browsername = "SEMINAR.CO.ID";
-const deviceUrl = "https://seminar.co.id/api/v1/device?server_id="+server_id;
+const deviceUrl = "";
 const apiurl = "http://localhost:"+port;
 const WEBHOOK = "";
 const webserver = "";
@@ -20,8 +19,7 @@ var con  = mysql.createPool({
   port            : process.env.DB_PORT,
   charset         : 'utf8mb4_general_ci'
 });
-con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-  // should actually use an error-first callback to propagate the error, but anyway...
+con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {  
   if (error) return console.error(error);
   console.log('Cek Koneksi : ', results[0].solution>0 ? 'Online' : 'Offline');
 });
@@ -30,54 +28,30 @@ con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
 const qrcodeT = require("qrcode-terminal");
 const qrcode = require('qrcode');
 const moment = require("moment");
-// const cheerio = require("cheerio");
 const get = require('got')
 const fs = require("fs");
-const { ToWa,ToPhone,decodeEntities } = require('./lib.js');
-// const fetch = require('node-fetch');
-// const urlencode = require("urlencode");
+const { ToWa,ToPhone,decodeEntities,TimeReplace } = require('./lib.js');
 const axios = require("axios");
 const imageToBase64 = require('image-to-base64');
 const mime = require('mime-types');
 const url = require("url");
 const path = require("path");
 var EventEmitter = require('events');
-class MyEmitter extends EventEmitter {}
+const express = require('express');
+const bodyParser = require("body-parser");
+const app = express();
+class MyEmitter extends EventEmitter {};
+const { WAConnection,MessageType,Presence,MessageOptions,Mimetype,WALocationMessage,WA_MESSAGE_STUB_TYPES,ReconnectMode,ProxyAgent,waChatKey,Browsers} = require('@adiwajshing/baileys');
+
+
+let batteryLevelStr = [];
+let batterylevel = [];
+let mynumber = [];
+let qrke = [];
 const antrian=[];
 const conn = [];
 const authInfo = [];
 const PicProfile = [];
-const user = [];
-
-
-
-const
-{
-  WAConnection,
-  MessageType,
-  Presence,
-  MessageOptions,
-  Mimetype,
-  WALocationMessage,
-  WA_MESSAGE_STUB_TYPES,
-  ReconnectMode,
-  ProxyAgent,
-  waChatKey,
-  Browsers
-} = require('@adiwajshing/baileys');
-
-// var jam = moment().format("HH:mm");
-
-// API
-const express = require('express');
-const bodyParser = require("body-parser");
-const app = express();
-let batteryLevelStr = [];
-let batterylevel = [];
-
-let mynumber = [];
-let qrke = [];
-//let IDDEVICE;
 
 app.set('etag', false);
 
@@ -1696,21 +1670,6 @@ const newAntrian = async (device_id) => {
 }
 
 // newAntrian("1");
-
-function TimeReplace(waktu) {
-let Jam = new Date().getHours();
-let Hasil = "";
-if (Jam>=0 && Jam<10){
-    Hasil = "Pagi";
-}else if (Jam >=10 && Jam<15){
-    Hasil = "Siang";
-}else if (Jam >=15 && Jam<=17){
-    Hasil = "Sore";
-}else{
-    Hasil = "Malam";
-}
-return waktu.replace(/Malam|Sore|Siang|Pagi/g, Hasil);
-}
 
 async function CekStatus(){  
   return axios.get(deviceUrl).then(body=>{  

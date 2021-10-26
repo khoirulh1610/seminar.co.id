@@ -86,7 +86,7 @@ const ToWa = function(number) {
   }
   
   return waktu.replace(/Malam|Sore|Siang|Pagi/g, Hasil);
-  }
+}
   
 module.exports = {
   ToWa,ToPhone,decodeEntities,TimeReplace,downloadImage
