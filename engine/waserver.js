@@ -36,10 +36,10 @@ const imageToBase64 = require('image-to-base64');
 const mime = require('mime-types');
 const url = require("url");
 const path = require("path");
-var EventEmitter = require('events');
 const express = require('express');
 const bodyParser = require("body-parser");
 const app = express();
+var EventEmitter = require('events');
 class MyEmitter extends EventEmitter {};
 const { WAConnection,MessageType,Presence,MessageOptions,Mimetype,WALocationMessage,WA_MESSAGE_STUB_TYPES,ReconnectMode,ProxyAgent,waChatKey,Browsers} = require('@adiwajshing/baileys');
 
