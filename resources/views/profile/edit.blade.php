@@ -48,6 +48,18 @@
                                         </div>
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
+                                                <label>Bank</label>
+                                                <input type="text" class="form-control" name="bank" value="{{$edit->bank}}" placeholder="BCA / MANDIRI / BRI">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Rek Bank</label>
+                                                <input type="text" class="form-control" name="rek_bank" value="{{$edit->rek_bank}}" placeholder="123123123">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-sm-6">
+                                            <div class="form-group">
                                                 <label>Nama</label>
                                                 <input type="text" class="form-control" name="nama" value="{{$edit->nama}}" placeholder="Last name">
                                             </div>

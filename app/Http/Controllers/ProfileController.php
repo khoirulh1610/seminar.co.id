@@ -37,6 +37,8 @@ class ProfileController extends Controller
         $profile->panggilan = $request->panggilan;
         $profile->phone     = $request->phone;
         $profile->nama      = $request->nama;
+        $profile->no_rek    = $request->no_rek;
+        $profile->bank      = $request->bank;
         $profile->email     = $request->email;
         if($request->password){
             $profile->password  = Hash::make($request->password);

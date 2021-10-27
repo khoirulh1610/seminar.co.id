@@ -14,7 +14,7 @@
                         <h4 class="card-title">Device</h4>
                         <div class="form-group">
                             @if(Auth::user()->role_id==1)
-                            <a href="" data-toggle="modal" data-target="#devicebaru" class="btn btn-xs btn-info btn-rounded m-1">Device Baru</a>                            
+                            <a href="" data-toggle="modal" data-target="#devicebaru" class="btn btn-xs btn-info btn-rounded m-1">Device Baru</a>
                                 @if(\Request()->all)
                                     <a href="{{url('/device/device')}}" class="btn btn-xs btn-info btn-rounded m-1">Hide Lainnya</a>
                                 @else
@@ -57,15 +57,23 @@
                                     </td>
 
                                     <td style="text-align:center">
-                                        <a href="javascript:void(0)" onclick="send({{$de->id}})" class="btn btn-xs btn-warning btn-rounded m-1"><i class="fa fa-paper-plane" aria-hidden="true"></i> Test</a>
-                                        <a href="{{url('device/show?id='.$de->id)}}" class="btn btn-xs btn-success btn-rounded m-1"><i class="fa fa-list">&nbsp;</i>View</a> 
-                                        <a href="{{url('device/export?id='.$de->id)}}" class="btn btn-xs btn-success btn-rounded m-1"><i class="fa fa-address-book"></i>&nbsp;</i> Kontak</a> 
-                                        @if(Auth::user()->role_id==1)
-                                        <a href="{{url('device/delete?id='.$de->id)}}" class="btn btn-xs btn-danger btn-rounded"><i class="fa fa-trash">&nbsp;</i>Delete</a>                                       
-                                        @endif
-                                    </td>									
+                                        <div class="dropdown ml-auto text-center">
+                                            <div class="btn-link" data-toggle="dropdown">
+                                                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg>
+                                            </div>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="javascript:void(0)" onclick="send({{$de->id}})" class="dropdown-item "><i class="fa fa-paper-plane" aria-hidden="true">&nbsp;</i> Test</a>
+                                                <a href="{{url('device/show?id='.$de->id)}}" class="dropdown-item "><i class="fa fa-list">&nbsp;</i> View</a>
+                                                <a href="{{url('device/export?id='.$de->id)}}" class="dropdown-item "><i class="fa fa-address-book">&nbsp;</i> Kontak</a>
+                                                @if(Auth::user()->role_id==1)
+                                                <a href="{{url('device/delete?id='.$de->id)}}" class="dropdown-item "><i class="fa fa-trash">&nbsp;</i> Delete</a>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                    </td>
                                 </tr>
-                                @endforeach		
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -113,7 +121,7 @@
 
 @section('js')
 
-<script>    
+<script>
 	function send(id) {
         $.ajax({
             "url" : "{{url('send')}}/"+id,
@@ -125,4 +133,4 @@
     }
 </script>
 
-@endsection 
+@endsection

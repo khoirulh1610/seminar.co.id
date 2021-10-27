@@ -51,7 +51,7 @@
 
 
                 <!-- Collapse -->
-                <div class="collapse navbar-collapse" id="navbarMenu">
+                <div class="collapse navbar-collapse navbar-hg" id="navbarMenu">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link page-scroll" href="#home" >
@@ -85,7 +85,7 @@
         </div>
     </div>
 </header>
-<section class="banner section-padding-pdg banner-2" id="home">
+<section class="banner section-padding-pdg banner-2" style="background-image:url('assets/images/bg/mr.jpg')" id="home">
     <div class="container">
         <div class="row align-items-center justify-content-center">
             <div class="col-md-12 col-lg-9">
@@ -93,13 +93,13 @@
                     <!-- <span class="subheading">50% OFF FOR ALL PRODUCT</span> -->
                     <br><br>
                     <h1>QVENT</h1>
-                    <p class="p-0">Mau bikin seminar bingung bikin website dan sistemnya? <br>
+                    <p class="p-0" style="color:#000000">Mau bikin seminar bingung bikin website dan sistemnya? <br>
                         Sekarang sudah kami siapkan website seminar <br>
                         Anda gak perlu bingung memikirkan website dan sistemnya, semua sudah kami siapkan, anda tinggal pakai <br>
                         Sudah banyak pemateri yang menggunakan sistem seminar kami
                     </p>
                     <div class="banner-btn">
-                        <a href="#portofolio" class="btn btn-border page-scroll">See our product<i class="ti-angle-right"></i></a>
+                        <a href="#portofolio" style="text-color:#000000" class="btn btn-border page-scroll">See our product<i class="ti-angle-right"></i></a>
                         <a href="#services" class="btn btn-border page-scroll">Our Services<i class="ti-angle-right"></i></a>
                     </div>
                 </div>
@@ -298,7 +298,7 @@
         </div>
     </div>
 </section> -->
-<section class="blog-section section-padding secondary-bg p-2" id="event">
+<section class="blog-section section-padding secondary-bg" style="background:#FFFFFF" id="event">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6">
@@ -601,9 +601,9 @@
 	</div>
 </section>
 
-<div class="fixed-btm-top">
+<!-- <div class="fixed-btm-top">
 	<a href="#top-header" class="page-scroll nav-link"><i class="ti-angle-up"></i></a>
-</div>
+</div> -->
 
 
 
