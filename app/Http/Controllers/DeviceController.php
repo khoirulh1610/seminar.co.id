@@ -160,8 +160,7 @@ class DeviceController extends Controller
                     <td>No</td>
                     <td>ID</td>
                     <td>Nama</td>
-                    <td>isAdmin</td>
-                    <td>isSuperAdmin</td>
+                    <td>isAdmin</td>                    
                 </tr>";                
                 $i=1;
                 foreach ($g->data->participants as $kontak) {
@@ -169,8 +168,7 @@ class DeviceController extends Controller
                                 <td>'.$i++.'</td>
                                 <td>'.preg_replace('/\D/','',$kontak->jid).'</td>
                                 <td>'.($kontak->vname ?? '').'</td>
-                                <td>'.($kontak->isAdmin ?? '').'</td>
-                                <td>'.($kontak->isSuperAdmin ?? '').'</td>
+                                <td>'.($kontak->isAdmin ?? '').'</td>                                
                             </tr>';
                     $ggg[] = ["No"=>$i,"Phone"=>preg_replace('/\D/','',$kontak->jid),"Name"=>($kontak->vname ?? ''),"Isadmin"=>($kontak->isAdmin ?? '')];
                 }
@@ -179,9 +177,9 @@ class DeviceController extends Controller
                 
             }
         }
-        if($request->dw){
-            return (new FastExcel($ggg))->download('file.xlsx');
-        }
+        // if($request->dw){
+        //     return (new FastExcel($ggg))->download('file.xlsx');
+        // }
         
     }
 }
