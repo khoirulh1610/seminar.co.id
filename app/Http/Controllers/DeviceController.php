@@ -164,13 +164,14 @@ class DeviceController extends Controller
                     <td>isAdmin</td>                    
                 </tr>";                
                 $i=1;
+                $ggg[] = ["Group"=>($request->nama ?? $g->data->subject ?? '')];
                 foreach ($g->data->participants as $kontak) {
                     echo    '<tr>
                                 <td>'.$i++.'</td>
                                 <td>'.preg_replace('/\D/','',$kontak->jid).'</td>
                                 <td>'.($kontak->vname ?? '').'</td>
                                 <td>'.($kontak->isAdmin ?? '').'</td>                                
-                            </tr>';
+                            </tr>';                            
                     $ggg[] = ["No"=>$i,"Phone"=>preg_replace('/\D/','',$kontak->jid),"Name"=>($kontak->vname ?? ''),"Isadmin"=>($kontak->isAdmin ?? '')];
                 }
 
