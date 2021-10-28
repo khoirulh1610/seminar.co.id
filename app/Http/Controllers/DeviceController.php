@@ -139,7 +139,7 @@ class DeviceController extends Controller
             }
         }
         echo "</table>";
-        echo '<a href="'.url('device/export-allgroup').'">Download ALL</a>';
+        echo '<a href="'.url('device/export-allgroup?id='.$request->id).'">Download ALL</a>';
     }
 
     public function ExportGroup(Request $request)
