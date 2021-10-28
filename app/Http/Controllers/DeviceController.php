@@ -142,11 +142,9 @@ class DeviceController extends Controller
 
     public function ExportGroup(Request $request)
     {
-        if($request->dw){
-            header("Content-type: application/vnd-ms-excel");
-            header("Content-Disposition: attachment; filename=Export.xls");
-        }
+        
         $device = Device::where('id',$request->id)->first();
+        $ggg = [];
         if($device){
             $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$request->gid]);
             // dd($group);
@@ -173,11 +171,16 @@ class DeviceController extends Controller
                                 <td>'.($kontak->isAdmin ?? '').'</td>
                                 <td>'.($kontak->isSuperAdmin ?? '').'</td>
                             </tr>';
+                    $ggg[] = ["No"=>$i,"Phone"=>preg_replace('/\D/','',$kontak->jid),"Name"=>($kontak->vname ?? ''),"Isadmin"=>($kontak->isAdmin ?? '')];
                 }
 
                 echo '<a href="'.url('device/export-group').'/?id='.$request->id.'&gid='.$request->gid.'&nama='.$request->nama.'&dw=y">Download</a>';
                 
             }
         }
+        if($request->dw){
+            return (new FastExcel($ggg))->download('file.xlsx');
+        }
+        
     }
 }
