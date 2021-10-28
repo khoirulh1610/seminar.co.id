@@ -122,6 +122,12 @@ Route::group(['middleware' => ['auth']], function () {
         return $notif;
     });
 
+    Route::get('/contact/{id}',function($id){
+        $db = App\Models\Device::where('id',$id)->update(["status"=>"Start","phone"=>null,"profile_url"=>null,"nama"=>null]);
+        $notif = App\Helpers\Whatsapp::getcontacts(["instance"=>(String)$id]);
+        return $notif;
+    });
+
     Route::get('/send/{id}',function($id){
         $req = \Request();
         $notif = App\Helpers\Whatsapp::send(["instance"=>(String)$id,"number"=>$req->phone ?? "085232843165","message"=>"Test server whatsapp from https://seminar.co.id"]);
