@@ -34,8 +34,9 @@
     <!-- Daterange picker -->
     <link href="{{url('asset/vendor/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
 	<link href="//fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-    
+
 </head>
 
 <body>
@@ -64,7 +65,7 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="{{url('/')}}" class="brand-logo">			
+            <a href="{{url('/')}}" class="brand-logo">
 				<svg class="logo-abbr" width="66.5px" height="66.5px" xmlns="http://www.w3.org/2000/svg">
 				<g>
 					<path class="svg-logo-circle" fill-rule="evenodd" d="M32.999,66.000 C14.774,66.000 -0.000,51.225 -0.000,33.000 C-0.000,14.775 14.774,-0.000 32.999,-0.000 C51.225,-0.000 66.000,14.775 66.000,33.000 C66.000,51.225 51.225,66.000 32.999,66.000 Z" style="fill: rgb(220, 53, 69);"/>
@@ -86,7 +87,7 @@
         <!--**********************************
             Nav header end
         ***********************************-->
-		
+
 		<!--**********************************
             Chat box start
         ***********************************-->
@@ -96,8 +97,8 @@
         ***********************************-->
 
 
-		
-		
+
+
         <!--**********************************
             Header start
         ***********************************-->
@@ -153,10 +154,10 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    
+
     <script src="{{url('asset/vendor/global/global.min.js')}}"></script>
 	<script src="{{url('asset/vendor/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>
-	
+
 
     <script src="{{url('asset/vendor/highlightjs/highlight.pack.min.js')}}"></script>
     <!-- Circle progress -->
@@ -199,11 +200,11 @@
 	<script src="{{url('asset/js/deznav-init.js')}}"></script>
     <!-- CK Editor -->
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-	
+
     @include('layouts.fcm')
     @yield('js')
-	
-    
+
+
 
 </body>
 

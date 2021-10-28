@@ -13,6 +13,7 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         $profile    = User::where('id',Auth::id())->get();
+        // return $profile;
         $peserta    = Seminar::where('ref',Auth::user()->phone)->count();
         return view('profile.profile',compact('profile','peserta'));
     }
@@ -33,10 +34,22 @@ class ProfileController extends Controller
         if($request->id){
             $profile   = User::where('id',$request->id)->first();
         }
+
+        if($request->foto){
+            $file                   = $request->file('foto');
+            $filepath               = 'uploads/';
+            $fileName               = 'file_name'.time().".".$file->getClientOriginalExtension();
+            $getClientOriginalName  = $file->getClientOriginalName();
+            $file->move('uploads/',$fileName);
+            $filename               = url('uploads/'.$fileName);
+            $path_file              = 'uploads/'.$fileName;
+            $profile->foto_profile  = $filename;
+        }
+
         $profile->sapaan    = $request->sapaan;
         $profile->panggilan = $request->panggilan;
         $profile->phone     = $request->phone;
-        $profile->nama      = $request->nama;        
+        $profile->nama      = $request->nama;
         $profile->bank      = $request->bank;
         $profile->rek_bank  = $request->rek_bank;
         $profile->email     = $request->email;
@@ -50,7 +63,8 @@ class ProfileController extends Controller
         if($request ->role_id){
             $profile->role_id   = $request ->role_id;
         }
+
         $profile->save();
-        return redirect()->back();
+        return redirect('/profile');
     }
 }

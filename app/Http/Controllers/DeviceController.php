@@ -10,6 +10,7 @@ use App\Models\Brand;
 use Illuminate\Support\Str;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Auth;
+use Excel;
 
 class DeviceController extends Controller
 {
@@ -206,15 +207,24 @@ class DeviceController extends Controller
                 }
             }
         }
-         $fil = Auth::id().time().".csv";
+        //  $fil = Auth::id().time().".csv";
         // (new FastExcel($ggg))->export();
-        $fp = fopen( $fil, 'w');
-        foreach ($ggg as $fields) {
-            fputcsv($fp, $fields);
-        }
+        // $fp = fopen( $fil, 'w');
+        // foreach ($ggg as $fields) {
+        //     fputcsv($fp, $fields);
+        // }
 
-        fclose($fp);
-        return redirect($fil);
+        // fclose($fp);
+        // return redirect($fil);
+        Excel::create('Filename', function($excel) {
+
+            $excel->sheet('Sheetname', function($sheet) {
+        
+                $sheet->fromArray($ggg);
+        
+            });
+        
+        })->export('xls');
     }
 
 

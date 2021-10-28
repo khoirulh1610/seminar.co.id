@@ -8,7 +8,7 @@
 <div class="content-body">
     <!-- row -->
     <div class="container-fluid">
-        
+
         <div class="row">
             <!-- <div class="col-xl-9 col-xxl-8 col-lg-12">
                 <div class="row">
@@ -215,7 +215,7 @@
                     </div>
                 </div>
             </div> -->
-            
+
             <div class="col-4"></div>
             <div class="col-12 d-block d-sm-none"><br><br> </div>
             <div class="col-xl-3 col-xxl-4 col-lg-12">
@@ -226,9 +226,9 @@
                             <div class="card-body card-body  text-center border-bottom profile-bx">
                                 <h3 >Profile</h3>
                                 <div class="profile-image mb-4">
-                                    <img src="images/avatar/1.jpg" class="rounded-circle" alt="">
+                                    <img src="{{Auth::user()->foto_profile}}" style="" class="rounded-circle" alt="">
                                 </div>
-                                
+
                                 <h4 class="fs-22 text-black mb-1">{{$pro->nama}}</h4>
                                 <p class="mb-4">{{Auth::user()->role->description}}</p>
                                 <div class="row">
@@ -248,12 +248,24 @@
                             </div>
                             <div class="card-body  activity-card">
                                 <div class="d-flex mb-3 align-items-center">
-                                    <a class="contact-icon mr-3" href="#"><i class="fa fa-phone" aria-hidden="true"></i></a>
+                                    <a class="contact-icon mr-3" href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                                     <span class="text-black">{{$pro->phone}}</span>
                                 </div>
                                 <div class="d-flex mb-3 align-items-center">
-                                    <a class="contact-icon mr-3" href="#"><i class="las la-envelope"></i></a>
+                                    <a class="contact-icon mr-3" href="#"><i class="far fa-envelope"></i></a>
                                     <span class="text-black">{{$pro->email}}</span>
+                                </div>
+                                <div class="d-flex mb-3 align-items-center">
+                                    <a class="contact-icon mr-3" href="#"><i class="fa fa-dollar"></i></a>
+                                    <span class="text-black">{{$pro->bank}} - {{$pro->rek_bank}}</span>
+                                </div>
+                                <div class="d-flex mb-3 align-items-center">
+                                    <a class="contact-icon mr-3" href="#"><i class="far fa-building"></i></a>
+                                    <span class="text-black">{{$pro->kota}} - {{$pro->provinsi}}</span>
+                                </div>
+                                <div class="d-flex mb-3 align-items-center">
+                                    <a class="contact-icon mr-3" href="#"><i class="fas fa-birthday-cake"></i></a>
+                                    <span class="text-black">{{$pro->b_tanggal}} - {{$pro->b_bulan}} - {{$pro->b_tahun}}</span>
                                 </div>
                                 <center> <a href="{{url('profile/edit')}}" class="btn btn-sm btn-info btn-rounded">Edit Profile</a></center>
                             </div>

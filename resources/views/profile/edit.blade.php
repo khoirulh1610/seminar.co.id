@@ -37,7 +37,7 @@
                                                     <option value="Mas" {{$edit->sapaan== 'Mas' ? 'selected' : ''}}>Mas</option>
                                                     <option value="Mbak" {{$edit->sapaan== 'Mbak' ? 'selected' : ''}}>Mbak</option>
                                                     <option value="Bro" {{$edit->sapaan== 'Bro' ? 'selected' : ''}}>Bro</option>
-                                                </select>   
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-sm-6">
@@ -45,7 +45,7 @@
                                                 <label>Panggilan</label>
                                                 <input type="text" class="form-control" name="panggilan" value="{{$edit->panggilan}}" placeholder="Panggilan">
                                             </div>
-                                        </div>                                        
+                                        </div>
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Nama</label>
@@ -74,7 +74,7 @@
                                                 </select>
                                                 <!-- <input type="text" class="form-control" name="brand" value="{{$edit->brand}}" placeholder="Type here"> -->
                                             </div>
-                                        </div>                                        
+                                        </div>
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Kode Referal</label>
@@ -88,31 +88,31 @@
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Whatsapp</label>
-                                                <div class="input-group input-icon mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon2"><i class="fa fa-whatsapp" aria-hidden="true"></i></span>
-                                                    </div>
+                                                <!-- <div class="input-group input-icon mb-3"> -->
+                                                    <!-- <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="basic-addon2"><i class="fab fa-whatsapp" aria-hidden="true"></i></span>
+                                                    </div> -->
                                                     @if(Auth::user()->role_id==1)
                                                         <input type="text" name="phone" class="form-control" value="{{$edit->phone}}" placeholder="Phone no.">
                                                     @else
                                                         <input type="text" name="phone" class="form-control" value="{{$edit->phone}}" placeholder="Phone no." readonly>
                                                     @endif
-                                                </div>
+                                                <!-- </div> -->
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Email</label>
-                                                <div class="input-group input-icon mb-3">
-                                                    <div class="input-group-prepend">
+                                                <!-- <div class="input-group input-icon mb-3"> -->
+                                                    <!-- <div class="input-group-prepend">
                                                         <span class="input-group-text" id="basic-addon3"><i class="las la-envelope"></i></span>
-                                                    </div>
+                                                    </div> -->
                                                     @if(Auth::user()->role_id==1)
                                                     <input type="text" name="email" class="form-control" value="{{$edit->email}}" placeholder="Enter email">
                                                     @else
                                                     <input type="text" name="email" class="form-control" value="{{$edit->email}}" placeholder="Enter email" readonly>
                                                     @endif
-                                                </div>
+                                                <!-- </div> -->
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-sm-6">
@@ -120,7 +120,7 @@
                                                 <label>Level User</label>
                                                 @if(Auth::user()->role_id==1)
                                                 <select name="role_id" id="role_id" class="form-control">
-                                                    <?php 
+                                                    <?php
                                                     $role = App\Models\Role::get();
                                                     foreach ($role as $r) {
                                                         echo '<option value="'.$r->id.'" '.($r->id==$edit->role_id ? "selected" : "" ).'>'.$r->name.'</option>';
@@ -135,7 +135,13 @@
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input type="password" class="form-control" name="password" value="" id="">   
+                                                <input type="password" class="form-control" name="password" value="" id="">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Foto Profil</label>
+                                                <input type="file" class="form-control" name="foto  " value="" id="">
                                             </div>
                                         </div>
                                     </div>
