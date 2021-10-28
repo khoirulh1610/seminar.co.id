@@ -134,7 +134,7 @@ class DeviceController extends Controller
                         <td>'.$i++.'</td>
                         <td>'.$no.'</td>
                         <td>'.$name.'</td>
-                        <td><a href="'.url('device/export-group').'/?id='.$request->id.'&gid='.$no.'&nama='.$name.'">'.$g.'</a></td>
+                        <td><a target="_blank" href="'.url('device/export-group').'/?id='.$request->id.'&gid='.$no.'&nama='.$name.'">'.$g.'</a></td>
                     </tr>';
             }
         }
@@ -145,6 +145,7 @@ class DeviceController extends Controller
     {
         
         $device = Device::where('id',$request->id)->first();
+        $file   = time().".xlsx";
         $ggg = [];
         if($device){
             $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$request->gid]);
@@ -173,12 +174,15 @@ class DeviceController extends Controller
                     $ggg[] = ["No"=>$i,"Phone"=>preg_replace('/\D/','',$kontak->jid),"Name"=>($kontak->vname ?? ''),"Isadmin"=>($kontak->isAdmin ?? '')];
                 }
 
-                echo '<a href="'.url('device/export-group').'/?id='.$request->id.'&gid='.$request->gid.'&nama='.$request->nama.'&dw=y">Download</a>';
+                echo '<a href="'.url($file).'">Download</a>';
                 
             }
         }
+        (new FastExcel($ggg))->export($file);
         // if($request->dw){
-        //     return (new FastExcel($ggg))->download('file.xlsx');
+        //     // return (new FastExcel($ggg))->download('file.xlsx');
+        //     //   print_r($ggg);
+        //     return 
         // }
         
     }
