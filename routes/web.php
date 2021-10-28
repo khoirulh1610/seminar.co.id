@@ -76,6 +76,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/device/export','DeviceController@ExportKontak')->name('device.ExportKontak');
     Route::get('/device/get-group','DeviceController@getGroup')->name('device.getGroup');
     Route::get('/device/export-group','DeviceController@ExportGroup')->name('device.ExportGroup');
+    Route::get('/device/export-allgroup','DeviceController@getAllGroup')->name('device.getAllGroup');
 
     Route::post('/save-token', 'DashboardController@saveToken')->name('save-token');
 

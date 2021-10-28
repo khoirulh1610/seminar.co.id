@@ -175,15 +175,37 @@ class DeviceController extends Controller
                 }
 
                 echo '<a href="'.url($file).'">Download</a>';
+                echo '<a href="'.url('device/export-allgroup').'">Download ALL</a>';
                 
             }
         }
         (new FastExcel($ggg))->export($file);
-        // if($request->dw){
-        //     // return (new FastExcel($ggg))->download('file.xlsx');
-        //     //   print_r($ggg);
-        //     return 
-        // }
-        
     }
+
+    public function getAllGroup(Request $request)
+    {
+        $kontaks = "contacts_".$request->id.".json";
+        $data = file_get_contents(url('device_info/'.$kontaks));        
+        $data = json_decode($data,true);        
+        $i = 1;
+        $ggg = [];
+        foreach ($data['updatedContacts'] as $r) {
+            $no   = $r['jid'];
+            $name = $r['name'] ?? $r['short'] ?? '';
+            $g    = strpos($no,'@g.us') ? 'Group' : 'Kontak';
+            $no   = ($g=='Group') ? $no : "'".preg_replace('/\D/','',$no);
+            if($g=='Group'){
+                $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$no]);
+                if($group){
+                    $g = json_decode($group);
+                    foreach ($g->data->participants as $kontak) {
+                        $ggg[] = ["No"=>$i,"Phone"=>preg_replace('/\D/','',$kontak->jid),"Name"=>($kontak->vname ?? ''),"Isadmin"=>($kontak->isAdmin ? 'Y' : 'N'),"Group"=>($request->nama ?? $g->data->subject ?? '')];
+                    }
+                }
+            }
+        }
+        (new FastExcel($ggg))->export(Auth::id().time().".xlsx");
+    }
+
+
 }
