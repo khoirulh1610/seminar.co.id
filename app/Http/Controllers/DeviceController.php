@@ -206,8 +206,14 @@ class DeviceController extends Controller
                 }
             }
         }
-        $fil = Auth::id().time().".xlsx";
-        (new FastExcel($ggg))->export();
+         $fil = Auth::id().time().".csv";
+        // (new FastExcel($ggg))->export();
+        $fp = fopen( $fil, 'w');
+        foreach ($ggg as $fields) {
+            fputcsv($fp, $fields);
+        }
+
+        fclose($fp);
         return redirect($fil);
     }
 
