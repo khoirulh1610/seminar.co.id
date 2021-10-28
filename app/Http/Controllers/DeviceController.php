@@ -161,7 +161,7 @@ class DeviceController extends Controller
                     <td>No</td>
                     <td>ID</td>
                     <td>Nama</td>
-                    <td>isAdmin</td>                    
+                    <td>isAdmin</td>                             
                 </tr>";                
                 $i=1;
                 $ggg[] = ["Group"=>($request->nama ?? $g->data->subject ?? '')];
@@ -172,7 +172,7 @@ class DeviceController extends Controller
                                 <td>'.($kontak->vname ?? '').'</td>
                                 <td>'.($kontak->isAdmin ?? '').'</td>                                
                             </tr>';                            
-                    $ggg[] = ["No"=>$i,"Phone"=>preg_replace('/\D/','',$kontak->jid),"Name"=>($kontak->vname ?? ''),"Isadmin"=>($kontak->isAdmin ?? '')];
+                    $ggg[] = ["No"=>$i,"Phone"=>preg_replace('/\D/','',$kontak->jid),"Name"=>($kontak->vname ?? ''),"Isadmin"=>($kontak->isAdmin ?? ''),"Group"=>($request->nama ?? $g->data->subject ?? '')];
                 }
 
                 echo '<a href="'.url($file).'">Download</a>';
