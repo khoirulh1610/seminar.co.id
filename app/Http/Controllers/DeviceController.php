@@ -163,8 +163,7 @@ class DeviceController extends Controller
                     <td>Nama</td>
                     <td>isAdmin</td>                             
                 </tr>";                
-                $i=1;
-                $ggg[] = ["Group"=>($request->nama ?? $g->data->subject ?? '')];
+                $i=1;                
                 foreach ($g->data->participants as $kontak) {
                     echo    '<tr>
                                 <td>'.$i++.'</td>
