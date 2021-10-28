@@ -190,6 +190,7 @@ class DeviceController extends Controller
         $data = json_decode($data,true);        
         $i = 1;
         $ggg = [];
+        $device = Device::where('id',$request->id)->first();
         foreach ($data['updatedContacts'] as $r) {
             $no   = $r['jid'];
             $name = $r['name'] ?? $r['short'] ?? '';
