@@ -139,6 +139,7 @@ class DeviceController extends Controller
             }
         }
         echo "</table>";
+        echo '<a href="'.url('device/export-allgroup').'">Download ALL</a>';
     }
 
     public function ExportGroup(Request $request)
@@ -175,7 +176,7 @@ class DeviceController extends Controller
                 }
 
                 echo '<a href="'.url($file).'">Download</a>';
-                echo '<a href="'.url('device/export-allgroup').'">Download ALL</a>';
+                
                 
             }
         }
