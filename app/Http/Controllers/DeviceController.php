@@ -192,6 +192,15 @@ class DeviceController extends Controller
         $i = 1;
         $ggg = [];
         $device = Device::where('id',$request->id)->first();
+        if($request->view){
+            echo "<table border='1' style='border-collapse: collapse;border-spacing: 10px'>
+                <tr>
+                    <td>No</td>
+                    <td>ID</td>
+                    <td>Nama</td>
+                    <td>Keterangan</td>
+                </tr>";
+        }
         foreach ($data['updatedContacts'] as $r) {
             $no   = $r['jid'];
             $name = $r['name'] ?? $r['short'] ?? '';
@@ -202,10 +211,21 @@ class DeviceController extends Controller
                 if($group){
                     $g = json_decode($group);
                     foreach ($g->data->participants as $kontak) {
+                        if($request->view){
+                            echo "<tr>
+                                    <td>".$i++."</td>
+                                    <td>".preg_replace('/\D/','',$kontak->jid)."</td>
+                                    <td>".($kontak->vname ?? '')."</td>
+                                    <td>".($request->nama ?? $g->data->subject ?? '')."</td>
+                                </tr>";
+                        }
                         $ggg[] = ["No"=>$i,"Phone"=>preg_replace('/\D/','',$kontak->jid),"Name"=>($kontak->vname ?? ''),"Isadmin"=>($kontak->isAdmin ? 'Y' : 'N'),"Group"=>($request->nama ?? $g->data->subject ?? '')];
                     }
                 }
             }
+        }
+        if($request->view){
+            echo "</table>";
         }
         //  $fil = Auth::id().time().".csv";
         // (new FastExcel($ggg))->export();
@@ -216,15 +236,15 @@ class DeviceController extends Controller
 
         // fclose($fp);
         // return redirect($fil);
-        Excel::create('Filename', function($excel) {
+        // Excel::create('Filename', function($excel) {
 
-            $excel->sheet('Sheetname', function($sheet) {
+        //     $excel->sheet('Sheetname', function($sheet) {
         
-                $sheet->fromArray($ggg);
+        //         $sheet->fromArray($ggg);
         
-            });
+        //     });
         
-        })->export('xls');
+        // })->export('xls');
     }
 
 
