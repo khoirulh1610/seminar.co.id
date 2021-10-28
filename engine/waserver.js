@@ -469,19 +469,7 @@ const newinstance = async (number, no) => {
     }
   });
 
-  app.get("/getchats", async (req, res) => {  
-    // var token = req.body.instance;
-    // if (QR[token]=='AUTHENTICATED'){
-    //     const chats = await conn[token].chats; // load the next 25 chats
-    //     res.status(200).json({
-    //         "status": true,
-    //         "msg": "chats "+chats.length,
-    //         "data": chats
-    //     });
-    // }else{
-    //   log = {"status": false, "instance": token, "message": "Status DISCONNECTED!"}
-    //   res.send(log);
-    // }
+  app.get("/getchats", async (req, res) => {      
     try {
       var token = req.body.instance || req.query.instance;
       if(conn[token]){
@@ -1654,7 +1642,9 @@ const newAntrian = async (device_id) => {
         console.log('Pause : ' + data.pause ,data);          
         con.query("update antrians set status="+(data.message=='Terkirim' ? 2 : 3 )+",messageid='"+(data.messageid || 'Error' )+"',report='"+(data.message || 'No Report')+"' where id="+data.id,function(er,res){
           setTimeout(() => {
-              antrian[device_id].emit('start');
+              if(antrian[device_id]){
+                antrian[device_id].emit('start');
+              }
             }, 1000 * data.pause);
         });                      
     });
@@ -1662,7 +1652,9 @@ const newAntrian = async (device_id) => {
     antrian[device_id].on('pause',() => {
       console.log('pause event');
       setTimeout(() => {         
+        if(antrian[device_id]){
           antrian[device_id].emit('start');
+        }
       }, 20000);
   });
 
@@ -1671,40 +1663,35 @@ const newAntrian = async (device_id) => {
 
 // newAntrian("1");
 
-async function CekStatus(){  
-  return axios.get(deviceUrl).then(body=>{  
-  var jsonData = body.data;
-    for (var i = 0; i < jsonData.length; i++) {
-        var e = jsonData[i];
-        let id_device = e.device_id.toString();
-        if(!conn[id_device]){
-          newinstance(id_device,id_device)
-          console.log("Device baru dijalankan", id_device);
-        }else{
-          if (conn[id_device].phoneConnected) {
-            // Online
-            console.log('Online :',id_device);            
-          } else {
-              if(QR[id_device]!=''){
-                // Ready to Scan
-                console.log('Ready Scan :',id_device);
-              }else{
-                // Restart
-                console.log('Restart device :',id_device);
-                conn[id_device].clearAuthInfo();        
-                QR[id_device] = null;        
-                conn[id_device] = null;                          
-                newinstance(id_device,no_device);                
-                console.log("Device restart dijalankan", id_device);
-              }
-          }              
-        }
-    }    
+async function Start(){    
+  con.query("select * from devices",function(err,rows,filed){
+      if(err) console.log(err);
+      for (let i = 0; i < rows.length; i++) {
+            const device = rows[i];
+            if(!conn[device.id]){
+              newinstance(device.id,device.id);
+            }
+      }
   });
 }
 
-// setTimeout(() => {
-//   CekStatus();
-// }, 1000);
+async function cekdevice(){    
+  con.query("select * from devices",function(err,rows,filed){
+      if(err) console.log(err);
+      for (let i = 0; i < rows.length; i++) {
+            const device = rows[i];
+            if(device.status=='AUTHENTICATED'){
+              if(!conn[device.id]){
+                newinstance(device.id,device.id);
+              }
+            }
+      }
+  });
+}
+
+Start();
+setInterval(() => {
+  cekdevice();
+}, 3 * 60 * 1000);
 
 

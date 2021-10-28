@@ -128,7 +128,7 @@
                                                     ?>
                                                 </select>
                                                 @else
-                                                    <input type="text" name="" class="form-control" value="{{$edit->role->name}}" readonly>
+                                                    <input type="text" name="role_id" class="form-control" value="{{$edit->role->name}}" readonly>
                                                 @endif
                                             </div>
                                         </div>
@@ -140,8 +140,8 @@
                                         </div>
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
-                                                <label>Foto Profil</label>
-                                                <input type="file" class="form-control" name="foto  " value="" id="">
+                                                <label>Masukkan Link Foto Profil</label>
+                                                <input type="text" class="form-control" name="link" value="{{$edit->foto_profile}}" id="">
                                             </div>
                                         </div>
                                     </div>

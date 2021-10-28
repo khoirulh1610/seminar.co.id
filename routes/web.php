@@ -51,7 +51,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/event/save','EventController@save')->name('event.save');
     Route::get('/event/edit/{id}','EventController@edit')->name('event.edit');
     Route::get('event/hapus/{id}','EventController@hapus')->name('event.hapus');
-
+    Route::get('sertifikat/{kode_event}','EventController@sertifikat')->name('sertifikat');
+    Route::get('/sertifikat-download/{id}','EventController@download')->name('sertifikat.download');
+    Route::get('cw/{kode_event}','EventController@cw')->name('cw');
 
     Route::get('/profile', 'ProfileController@index')->name('profile');
     Route::get('profile/edit','ProfileController@edit')->name('profile.edit');
