@@ -8,6 +8,7 @@ use App\Helpers\Whatsapp;
 use App\Models\User;
 use App\Models\Brand;
 use Illuminate\Support\Str;
+use Rap2hpoutre\FastExcel\FastExcel;
 use Auth;
 
 class DeviceController extends Controller
