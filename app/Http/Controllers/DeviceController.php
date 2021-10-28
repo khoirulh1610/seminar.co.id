@@ -185,7 +185,7 @@ class DeviceController extends Controller
 
     public function getAllGroup(Request $request)
     {
-        $kontaks = Whatsapp::getcontacts(["instance"=>(String)$request->id]);
+        $kontaks = "contacts_".$request->id.".json";
         $data = file_get_contents(url('device_info/'.$kontaks));        
         $data = json_decode($data,true);        
         $i = 1;
