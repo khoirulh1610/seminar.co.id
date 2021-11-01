@@ -97,7 +97,7 @@ let dataSet = [
 	});
 
    var exp = $('.table-export').DataTable({
-        dom: 'Bfrtip',
+        dom: 'Bfrtlip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]

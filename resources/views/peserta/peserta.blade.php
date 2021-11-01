@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example5" class="table display table-responsive-lg table-export">
+                            <table id="" class="table display table-responsive-lg table-export">
                                 <thead>
                                     <tr>
                                         <!-- <th style="text-align:center">
