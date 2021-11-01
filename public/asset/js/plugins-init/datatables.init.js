@@ -95,5 +95,12 @@ let dataSet = [
 	$('#example tbody').on('click', 'tr', function () {
 		var data = table.row( this ).data();
 	});
+
+   var exp = $('.table-export').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+   });
    
 })(jQuery);

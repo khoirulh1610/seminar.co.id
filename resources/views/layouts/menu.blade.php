@@ -29,6 +29,7 @@
                             <li><a href="{{url('absen/'.$e->kode_event)}}">Absen {{$e->brand}}</a></li>
                             <li><a href="{{url('sertifikat/'.$e->kode_event)}}">Sertifikat {{$e->brand}}</a></li>
                             <li><a href="{{url('cw/'.$e->kode_event)}}">CopyWriting {{$e->brand}}</a></li>
+                            <li><a href="{{url('seminar/komisi/'.$e->kode_event)}}">Komisi {{$e->brand}}</a></li>
                             @endif
                         </ul>
                      </li>

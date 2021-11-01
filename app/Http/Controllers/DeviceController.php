@@ -210,7 +210,7 @@ class DeviceController extends Controller
             if($g=='Group'){
                 $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$no]);
                 if($group){
-                    $g = json_decode($group);
+                    $g = json_decode($group);                    
                     foreach ($g->data->participants as $kontak) {
                         if($request->view){
                             echo "<tr>

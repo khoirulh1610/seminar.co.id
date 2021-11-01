@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/peserta/importkeuser','PesertaController@importkeuser')->name('peserta.importkeuser');
     Route::get('/peserta/delete/{id}','PesertaController@remove')->name('peserta.delete');
     Route::get('/seminar/rangking/{kode_event}','PesertaController@rangking')->name('peserta.rangking');
+    Route::get('/seminar/komisi/{kode_event}','PesertaController@Komisi')->name('peserta.komisi');
 
     Route::get('/absen/{kode_event}','AbsenController@index')->name('absen');
 

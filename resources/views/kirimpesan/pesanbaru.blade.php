@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-sm-12 col-md-6 d-none" id="div_upload">
                                 <label for="">File</label> [<small class="text-danger"> <a href="{{url('template_kirim_seminar.xlsx')}}">Download Template Disini</a> </small>]
-                                <input type="file" name="file" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <input type="file" name="file" class="form-control" addf>
                                 
                             </div>
                             <div class="col-sm-12 col-md-12">
