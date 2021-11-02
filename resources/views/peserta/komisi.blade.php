@@ -23,7 +23,7 @@
         <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Data Pengundang tertinggi</h4>
+                        <h4 class="card-title">Data Komisi</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -43,6 +43,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($peserta as $p)
+                                    @if($p->komisi>0)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$p->kode_event}} <br><small> {{$p->tgl_seminar}} </small></td>
@@ -54,6 +55,7 @@
                                         <td>{{$p->user->bank ?? ''}}</td>                                                                   					
                                         <td>{{$p->user->rek_bank ?? ''}}</td>                                                                   					
                                     </tr>
+                                    @endif
                                     @endforeach
                                 </tbody>
                             </table>
