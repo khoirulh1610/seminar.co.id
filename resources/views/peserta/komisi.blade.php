@@ -6,7 +6,7 @@
         <div class="page-titles">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Seminar</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Rangking</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Komisi</a></li>
             </ol>
         </div>
         <div class="row">
