@@ -255,12 +255,7 @@ const newinstance = async (number, no) => {
     // mgcontatcs.insertOne(data);
     contacts.forEach(r => {   
       console.log("Insert Ke Mongo"); 
-      mgcontatcs.insertOne(r);
-      if(r.name){              
-        let sql = "insert into "+contact_device+"(user_id,device_id,phone,name)values("+user_id+","+number+",'"+ToPhone(r.jid)+"','"+r.name+"')";
-        // console.log(sql);
-        con.query(sql);
-      }          
+      mgcontatcs.insertOne(r);              
     });
 
     // con.query("select * from devices where id="+number,function(error,rows,f){
