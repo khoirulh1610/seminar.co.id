@@ -256,8 +256,12 @@ const newinstance = async (number, no) => {
     const mg_g = db.collection('g_'+number);    
     contacts.forEach(async (r) => {         
       if(r.jid.endsWith('@g.us')){
-        const metadata = await conn[number].groupMetadata (r.jid) 
-        mg_g.insertOne(metadata);
+        try {
+          const metadata = await conn[number].groupMetadata (r.jid) 
+          mg_g.insertOne(metadata); 
+        } catch (error) {
+          
+        }
       }
       mgcontatcs.insertOne(r);             
     });
