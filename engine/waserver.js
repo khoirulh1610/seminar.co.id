@@ -254,7 +254,7 @@ const newinstance = async (number, no) => {
     let contacts = data.updatedContacts
     const mgcontatcs = db.collection('contacts_'+number);    
     const mg_g = db.collection('g_'+number);    
-    contacts.forEach(r => {         
+    contacts.forEach(async (r) => {         
       if(r.jid.endsWith('@g.us')){
         const metadata = await conn[token].groupMetadata (r.jid) 
         mg_g.insertOne(metadata);
