@@ -252,7 +252,17 @@ const newinstance = async (number, no) => {
     fs.writeFileSync(`./device_info/contacts_${number}.json`, JSON.stringify(data, null, '\t')) // save this info to a file
     let contacts = data.updatedContacts
     const mgcontatcs = db.collection('contacts_'+number);
-    mgcontatcs.insertOne(data);
+    // mgcontatcs.insertOne(data);
+    contacts.forEach(r => {   
+      console.log("Insert Ke Mongo"); 
+      mgcontatcs.insertOne(r);
+      if(r.name){              
+        let sql = "insert into "+contact_device+"(user_id,device_id,phone,name)values("+user_id+","+number+",'"+ToPhone(r.jid)+"','"+r.name+"')";
+        // console.log(sql);
+        con.query(sql);
+      }          
+    });
+
     // con.query("select * from devices where id="+number,function(error,rows,f){
     //   if(error) console.log(error);
     //   for (let i = 0; i < rows.length; i++) {
