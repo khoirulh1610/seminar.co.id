@@ -251,6 +251,7 @@ const newinstance = async (number, no) => {
   conn[number].on('contacts-received',data=>{
     fs.writeFileSync(`./device_info/contacts_${number}.json`, JSON.stringify(data, null, '\t')) // save this info to a file
     let contacts = data.updatedContacts
+    const mgcontatcs = db.collection('contacts_'+number);
     con.query("select * from devices where id="+number,function(error,rows,f){
       if(error) console.log(error);
       for (let i = 0; i < rows.length; i++) {
@@ -259,7 +260,8 @@ const newinstance = async (number, no) => {
         let user_id = device.user_id;
         con.query("delete from "+contact_device+" where device_id="+number,function (err, result){
           if(err) console.log(err);
-          contacts.forEach(r => {          
+          contacts.forEach(r => {    
+            mgcontatcs.insertOne(r);
             if(r.name){              
               let sql = "insert into "+contact_device+"(user_id,device_id,phone,name)values("+user_id+","+number+",'"+ToPhone(r.jid)+"','"+r.name+"')";
               // console.log(sql);
