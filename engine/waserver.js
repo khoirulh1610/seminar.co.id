@@ -22,7 +22,7 @@ var con  = mysql.createPool({
 
 const { MongoClient } = require('mongodb');
 const client = new MongoClient('mongodb://localhost:27017');
-await client.connect();
+client.connect();
 console.log('Connected successfully to server');
 const db = client.db(dbName);
 
