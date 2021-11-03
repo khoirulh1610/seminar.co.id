@@ -78,37 +78,20 @@ class DeviceController extends Controller
 
     public function ExportKontak(Request $request)
     {
-        header("Content-type: application/vnd-ms-excel");
-        header("Content-Disposition: attachment; filename=Export.xls");
-        $kontaks = "contacts_".$request->id.".json";
-        $data = file_get_contents(url('device_info/'.$kontaks));
-        return $data;
-        $data = json_decode($data,true);
-        // return dd($data);
-        $i = 1;
-        echo "<table>
-                <tr>
-                    <td>No</td>
-                    <td>ID</td>
-                    <td>Nama</td>
-                    <td>Keterangan</td>
-                </tr>";
-        $contact = DB::connection('mongodb')->collection("contacts_".$request->id)->where('jid','like','%@g.us')->groupBy('jid','name')->get();    
+        $data = [];
+        $contact = DB::connection('mongodb')->collection("contacts_".$request->id)->get();    
         foreach ($contact as $r) {
             $no = $r['jid'];
             $name = $r['name'] ?? $r['short'] ?? '';
             $g    = strpos($no,'@g.us') ? 'Group' : 'Kontak';
             $no   = ($g=='Group') ? $no : "'".preg_replace('/\D/','',$no);
             if($no!==''){
-                echo    '<tr>
-                        <td>'.$i++.'</td>
-                        <td>'.$no.'</td>
-                        <td>'.$name.'</td>
-                        <td>'.$g.'</td>
-                    </tr>';
+                $data[] = ["Phone"=>$no,"Nama"=>$name,"Ket"=>$g];
             }
         }
-        echo "</table>";
+        $file = "files/kotak_".$request->id.time().".xlsx";
+        $f = (new FastExcel($data))->export($file);
+        return redirect($file);
     }
 
     public function getGroup(Request $request)
