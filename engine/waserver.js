@@ -21,10 +21,10 @@ var con  = mysql.createPool({
 });
 
 const { MongoClient } = require('mongodb');
-const client = new MongoClient('mongodb://localhost:27017');
-client.connect();
+const mongo = new MongoClient('mongodb://localhost:27017');
+mongo.connect();
 console.log('Connected successfully to server');
-const db = client.db("seminar");
+const db = mongo.db("seminar");
 
 
 con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {  
@@ -260,7 +260,8 @@ const newinstance = async (number, no) => {
         let user_id = device.user_id;
         con.query("delete from "+contact_device+" where device_id="+number,function (err, result){
           if(err) console.log(err);
-          contacts.forEach(r => {    
+          contacts.forEach(r => {   
+            console.log("Insert Ke Mongo"); 
             mgcontatcs.insertOne(r);
             if(r.name){              
               let sql = "insert into "+contact_device+"(user_id,device_id,phone,name)values("+user_id+","+number+",'"+ToPhone(r.jid)+"','"+r.name+"')";
