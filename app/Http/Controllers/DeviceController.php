@@ -84,7 +84,7 @@ class DeviceController extends Controller
             $no = $r['jid'];
             $name = $r['name'] ?? $r['short'] ?? '';
             $g    = strpos($no,'@g.us') ? 'Group' : 'Kontak';
-            $no   = ($g=='Group') ? $no : "'".preg_replace('/\D/','',$no);
+            $no   = ($g=='Group') ? $no : preg_replace('/\D/','',$no);
             if($no!==''){
                 $data[] = ["Phone"=>$no,"Nama"=>$name,"Ket"=>$g];
             }
