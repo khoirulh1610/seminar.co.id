@@ -24,7 +24,7 @@ const { MongoClient } = require('mongodb');
 const client = new MongoClient('mongodb://localhost:27017');
 client.connect();
 console.log('Connected successfully to server');
-const db = client.db(dbName);
+const db = client.db("seminar");
 
 
 con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {  
