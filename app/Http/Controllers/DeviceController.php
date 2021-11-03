@@ -89,7 +89,7 @@ class DeviceController extends Controller
                 $data[] = ["Phone"=>$no,"Nama"=>$name,"Ket"=>$g];
             }
         }
-        $file = "files/kotak_".$request->id.time().".xlsx";
+        $file = "files/kotak_".$request->id.'_'.time().".xlsx";
         $f = (new FastExcel($data))->export($file);
         return redirect($file);
     }
