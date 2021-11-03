@@ -252,26 +252,27 @@ const newinstance = async (number, no) => {
     fs.writeFileSync(`./device_info/contacts_${number}.json`, JSON.stringify(data, null, '\t')) // save this info to a file
     let contacts = data.updatedContacts
     const mgcontatcs = db.collection('contacts_'+number);
-    con.query("select * from devices where id="+number,function(error,rows,f){
-      if(error) console.log(error);
-      for (let i = 0; i < rows.length; i++) {
-        const device = rows[i];
-        let contact_device = "wacontacts";
-        let user_id = device.user_id;
-        con.query("delete from "+contact_device+" where device_id="+number,function (err, result){
-          if(err) console.log(err);
-          contacts.forEach(r => {   
-            console.log("Insert Ke Mongo"); 
-            mgcontatcs.insertOne(r);
-            if(r.name){              
-              let sql = "insert into "+contact_device+"(user_id,device_id,phone,name)values("+user_id+","+number+",'"+ToPhone(r.jid)+"','"+r.name+"')";
-              // console.log(sql);
-              con.query(sql);
-            }          
-          });
-        });    
-      }
-    });
+    mgcontatcs.insertOne(data);
+    // con.query("select * from devices where id="+number,function(error,rows,f){
+    //   if(error) console.log(error);
+    //   for (let i = 0; i < rows.length; i++) {
+    //     const device = rows[i];
+    //     let contact_device = "wacontacts";
+    //     let user_id = device.user_id;
+    //     con.query("delete from "+contact_device+" where device_id="+number,function (err, result){
+    //       if(err) console.log(err);
+    //       contacts.forEach(r => {   
+    //         console.log("Insert Ke Mongo"); 
+    //         mgcontatcs.insertOne(r);
+    //         if(r.name){              
+    //           let sql = "insert into "+contact_device+"(user_id,device_id,phone,name)values("+user_id+","+number+",'"+ToPhone(r.jid)+"','"+r.name+"')";
+    //           // console.log(sql);
+    //           con.query(sql);
+    //         }          
+    //       });
+    //     });    
+    //   }
+    // });
     
   });
   conn[number].on('chat-update', async(chat) =>
