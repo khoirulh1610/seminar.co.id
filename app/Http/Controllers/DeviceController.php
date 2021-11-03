@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Auth;
 use Excel;
+use DB;
 
 class DeviceController extends Controller
 {
@@ -111,12 +112,7 @@ class DeviceController extends Controller
 
     public function getGroup(Request $request)
     {
-        $kontaks = "contacts_".$request->id.".json";
-        $data = file_get_contents(url('device_info/'.$kontaks));
-        // dd($data);
-        // exit;
-        $data = json_decode($data,true);
-        // return dd($data);
+        $contact = DB::connection('mongodb')->collection("contacts_".$request->id)->where('jid','like','%@g.us')->groupBy('jid','name')->get();     
         $i = 1;
         echo "<table border='1' style='border-collapse: collapse;border-spacing: 10px'>
                 <tr>
@@ -125,7 +121,7 @@ class DeviceController extends Controller
                     <td>Nama</td>
                     <td>Keterangan</td>
                 </tr>";
-        foreach ($data['updatedContacts'] as $r) {
+        foreach ($contact as $r) {
             $no   = $r['jid'];
             $name = $r['name'] ?? $r['short'] ?? '';
             $g    = strpos($no,'@g.us') ? 'Group' : 'Kontak';
@@ -187,65 +183,24 @@ class DeviceController extends Controller
 
     public function getAllGroup(Request $request)
     {
-        $kontaks = "contacts_".$request->id.".json";
-        $data = file_get_contents(url('device_info/'.$kontaks));        
-        $data = json_decode($data,true);        
-        $i = 1;
-        $ggg = [];
-        $device = Device::where('id',$request->id)->first();
-        if($request->view){
-            echo "<table border='1' style='border-collapse: collapse;border-spacing: 10px'>
-                <tr>
-                    <td>No</td>
-                    <td>ID</td>
-                    <td>Nama</td>
-                    <td>Keterangan</td>
-                </tr>";
-        }
-        foreach ($data['updatedContacts'] as $r) {
-            $no   = $r['jid'];
-            $name = $r['name'] ?? $r['short'] ?? '';
-            $g    = strpos($no,'@g.us') ? 'Group' : 'Kontak';
-            $no   = ($g=='Group') ? $no : "'".preg_replace('/\D/','',$no);
-            if($g=='Group'){
-                $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$no]);
-                if($group){
-                    $g = json_decode($group);                    
-                    foreach ($g->data->participants as $kontak) {
-                        if($request->view){
-                            echo "<tr>
-                                    <td>".$i++."</td>
-                                    <td>".preg_replace('/\D/','',$kontak->jid)."</td>
-                                    <td>".($kontak->vname ?? '')."</td>
-                                    <td>".($request->nama ?? $g->data->subject ?? '')."</td>
-                                </tr>";
-                        }
-                        $ggg[] = ["No"=>$i,"Phone"=>preg_replace('/\D/','',$kontak->jid),"Name"=>($kontak->vname ?? ''),"Isadmin"=>($kontak->isAdmin ? 'Y' : 'N'),"Group"=>($request->nama ?? $g->data->subject ?? '')];
-                    }
+        $contact = DB::connection('mongodb')->collection("contacts_".$request->id)->where('jid','like','%@g.us')->groupBy('jid','name')->get(); 
+        $i =1;
+        $data = [];
+        foreach ($contact as $g) {
+            // echo $g['jid']."<br>";
+            $group =  DB::connection('mongodb')->collection("g_".$request->id)->where('id',$g['jid'])->get();             
+            foreach ($group as $gd) {                
+                foreach ($gd['participants'] as $k) {
+                    $nama_group = $g['name'] ?? '';
+                    $phone      = preg_replace('/\D/','',$k['jid']);
+                    $nama       = $k['name'] ?? $k['shot'] ?? $k['notify'] ?? $k['vname'] ?? '';
+                    $data[]     = ["No"=>$i++,"phone"=>$phone,"nama"=>$nama,"group"=>$nama_group];
                 }
             }
-        }
-        if($request->view){
-            echo "</table>";
-        }
-        //  $fil = Auth::id().time().".csv";
-        // (new FastExcel($ggg))->export();
-        // $fp = fopen( $fil, 'w');
-        // foreach ($ggg as $fields) {
-        //     fputcsv($fp, $fields);
-        // }
-
-        // fclose($fp);
-        // return redirect($fil);
-        // Excel::create('Filename', function($excel) {
-
-        //     $excel->sheet('Sheetname', function($sheet) {
-        
-        //         $sheet->fromArray($ggg);
-        
-        //     });
-        
-        // })->export('xls');
+        }  
+        $file = $request->id.".xlsx";
+        $f = (new FastExcel($data))->export($file);
+        return redirect($file);
     }
 
 

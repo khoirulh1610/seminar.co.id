@@ -94,9 +94,9 @@ return [
             'driver' => 'mongodb',
             'host' => env('MGO_HOST', '127.0.0.1'),
             'port' => env('MGO_PORT', 27017),
-            'database' => env('MGO_DATABASE', 'homestead'),
-            'username' => env('MGO_USERNAME', 'homestead'),
-            'password' => env('MGO_PASSWORD', 'secret'),
+            'database' => env('MGO_DATABASE', 'seminar'),
+            'username' => env('MGO_USERNAME', 'default'),
+            'password' => env('MGO_PASSWORD', '123456'),
             'options' => [               
                 'database' => env('DB_AUTHENTICATION_DATABASE', 'admin'), // required with Mongo 3+
             ],
