@@ -19,6 +19,14 @@ var con  = mysql.createPool({
   port            : process.env.DB_PORT,
   charset         : 'utf8mb4_general_ci'
 });
+
+const { MongoClient } = require('mongodb');
+const client = new MongoClient('mongodb://localhost:27017');
+await client.connect();
+console.log('Connected successfully to server');
+const db = client.db(dbName);
+
+
 con.query('SELECT 1 + 1 AS solution', function (error, results, fields) {  
   if (error) return console.error(error);
   console.log('Cek Koneksi : ', results[0].solution>0 ? 'Online' : 'Offline');

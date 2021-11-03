@@ -91,29 +91,34 @@ class EventController extends Controller
         $nama   = trim(strtoupper(Auth::user()->nama));
         $no     = 'NO: SGM/'.Auth::user()->id.'/'.date('m/Y');
         $file   = Auth::id().'-'.time().".jpg";
-        $img    = Image::make(public_path('assets/images/sertif.png'));  
+        $img    = Image::make(public_path('assets/images/sertifsgm.png'));
         $j      = strlen($nama)/2;
-        $x      = 2600-(100*$j);
-        $img->text($nama, $x, 2000, function($font) {
+        // return $j;
+        $x      = (2250)-(380+960+($j*110));
+        // return $x;
+        // $x=960+380;
+        // $x  = 2300;
+        // $x  = 380;
+        $img->text($nama, $x, 1000, function($font) {
             $font->file(realpath('assets/font/AstroSpace.ttf'));
-            $font->size(300);
+            $font->size(150);
         });
         $img->text('27 Oktober 2021',
-            2900, 2505, function($font) {
-            $font->file(realpath('assets/font/Myriad.ttf'));
-            $font->size(100);
+            1425, 1240, function($font) {
+            $font->file(realpath('assets/font/Montserratmed.ttf'));
+            $font->size(50);
         });
         $name   = "sertikat-".Date('DmY').".JPG";
-        $img->save(public_path('images/sertifikat-'.$file)); 
+        $img->save(public_path('images/sertifikat-'.$file));
         $user   = User::where('id',Auth::user()->id)->first();
-        $file   = "images/sertifikat".'-'.$file; 
+        $file   = "images/sertifikat".'-'.$file;
         return response()->download($file,$name);
     }
 
     public function cw(Request $request)
-    {   
+    {
         $cw     = ReplaceArray(Auth::user(),Setting::first()->cw);
-        $cw2    = ReplaceArray(Auth::user(),Setting::first()->cw2);  
+        $cw2    = ReplaceArray(Auth::user(),Setting::first()->cw2);
         return view('event.copywriting',compact('cw','cw2'));
     }
 }
