@@ -249,7 +249,7 @@ const newinstance = async (number, no) => {
         console.log('battery level: ' + batterylevel[number])
         con.query("update devices set battery="+batterylevel[number]+" where id="+number);    
   })
-  conn[number].on('contacts-received',data=>{
+  conn[number].on('contacts-received',async (data)=>{
     fs.writeFileSync(`./device_info/contacts_${number}.json`, JSON.stringify(data, null, '\t')) // save this info to a file
     let contacts = data.updatedContacts
     const mgcontatcs = db.collection('contacts_'+number);    
