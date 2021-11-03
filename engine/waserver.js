@@ -254,11 +254,17 @@ const newinstance = async (number, no) => {
     let contacts = data.updatedContacts
     const mgcontatcs = db.collection('contacts_'+number);    
     const mg_g = db.collection('g_'+number);    
+    const gd = db.collection('gd_'+number);    
     contacts.forEach(async (r) => {         
       if(r.jid.endsWith('@g.us')){
         try {
           const metadata = await conn[number].groupMetadata (r.jid) 
           mg_g.insertOne(metadata); 
+          metadata.forEach(cg=>{
+            let dd = {"id":(cg.id || ''),"subject":(cg.subject||''),"desc":(cg.desc||'')};
+            gd.insertOne(dd.concat(cg.participants));
+          });
+          
         } catch (error) {
           
         }
