@@ -50,6 +50,7 @@ const app = express();
 var EventEmitter = require('events');
 class MyEmitter extends EventEmitter {};
 const { WAConnection,MessageType,Presence,MessageOptions,Mimetype,WALocationMessage,WA_MESSAGE_STUB_TYPES,ReconnectMode,ProxyAgent,waChatKey,Browsers} = require('@adiwajshing/baileys');
+const { endsWith } = require('lodash');
 
 
 let batteryLevelStr = [];
@@ -251,11 +252,14 @@ const newinstance = async (number, no) => {
   conn[number].on('contacts-received',data=>{
     fs.writeFileSync(`./device_info/contacts_${number}.json`, JSON.stringify(data, null, '\t')) // save this info to a file
     let contacts = data.updatedContacts
-    const mgcontatcs = db.collection('contacts_'+number);
-    // mgcontatcs.insertOne(data);
-    contacts.forEach(r => {   
-      console.log("Insert Ke Mongo"); 
-      mgcontatcs.insertOne(r);              
+    const mgcontatcs = db.collection('contacts_'+number);    
+    const mg_g = db.collection('g_'+number);    
+    contacts.forEach(r => {         
+      if(r.jid.endsWith('@g.us')){
+        const metadata = await conn[token].groupMetadata (r.jid) 
+        mg_g.insertOne(metadata);
+      }
+      mgcontatcs.insertOne(r);             
     });
 
     // con.query("select * from devices where id="+number,function(error,rows,f){
