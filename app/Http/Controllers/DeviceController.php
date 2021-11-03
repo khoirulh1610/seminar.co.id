@@ -194,7 +194,8 @@ class DeviceController extends Controller
                     $nama_group = $g['name'] ?? '';
                     $phone      = preg_replace('/\D/','',$k['jid']);
                     $nama       = $k['name'] ?? $k['shot'] ?? $k['notify'] ?? $k['vname'] ?? '';
-                    $data[]     = ["No"=>$i++,"phone"=>$phone,"nama"=>$nama,"group"=>$nama_group];
+                    $isAdmin    = $k['isAdmin'] ? 'Y' : 'N';
+                    $data[]     = ["No"=>$i++,"phone"=>$phone,"nama"=>$nama,"isAdmin"=>$isAdmin,"group"=>$nama_group];
                 }
             }
         }  
