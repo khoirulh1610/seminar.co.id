@@ -82,7 +82,7 @@ class DeviceController extends Controller
         header("Content-Disposition: attachment; filename=Export.xls");
         $kontaks = "contacts_".$request->id.".json";
         $data = file_get_contents(url('device_info/'.$kontaks));
-        // return $data;
+        return $data;
         $data = json_decode($data,true);
         // return dd($data);
         $i = 1;
@@ -93,7 +93,8 @@ class DeviceController extends Controller
                     <td>Nama</td>
                     <td>Keterangan</td>
                 </tr>";
-        foreach ($data['updatedContacts'] as $r) {
+        $contact = DB::connection('mongodb')->collection("contacts_".$request->id)->where('jid','like','%@g.us')->groupBy('jid','name')->get();    
+        foreach ($contact as $r) {
             $no = $r['jid'];
             $name = $r['name'] ?? $r['short'] ?? '';
             $g    = strpos($no,'@g.us') ? 'Group' : 'Kontak';
