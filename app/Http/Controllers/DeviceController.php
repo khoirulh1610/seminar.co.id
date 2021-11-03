@@ -198,7 +198,7 @@ class DeviceController extends Controller
                 }
             }
         }  
-        $file = $request->id.".xlsx";
+        $file = "files/g".$request->id.".xlsx";
         $f = (new FastExcel($data))->export($file);
         return redirect($file);
     }
