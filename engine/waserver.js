@@ -126,10 +126,14 @@ app.post('/new', express.json(), async (req, res) => {
       log = {"status": true, "instance": id_device, "qrcode": "", "message": "AUTHENTICATED"}
       res.json(log);
     } else {
-        if(QR[id_device]!=''){
-          const ress = await qrcode.toDataURL(QR[id_device]);
-          log = {"status": true, "instance": id_device, "qrcode": ress, "message": "Ready to Scan"}
-          console.log(log);
+        if(QR[id_device]!==''){
+          try {
+            const ress = await qrcode.toDataURL(QR[id_device]);
+            log = {"status": true, "instance": id_device, "qrcode": ress, "message": "Ready to Scan"}
+            console.log(log);
+          } catch (error) {
+            
+          }
           res.json(log);
         }else{
           conn[id_device].clearAuthInfo();        

@@ -1,9 +1,9 @@
 {
 	"user": {
 		"jid": "62856087433938@s.whatsapp.net",
-		"name": "Khoirul",
+		"name": "Khoirulh3938",
 		"phone": {
-			"wa_version": "2.21.11.17",
+			"wa_version": "2.21.19.21",
 			"mcc": "510",
 			"mnc": "001",
 			"os_version": "11",
@@ -15,8 +15,8 @@
 	},
 	"auth": {
 		"clientID": "0TPKlVM3bCs2wiot9nU3GQ==",
-		"serverToken": "1@6fMYgEM4/iim7Ax2MG/m+Pc5r2H3i4mih6qQhBX7lJu99Wpm/zWBt3P68lS+RX5/dGVQ9fLcEZrZqw==",
-		"clientToken": "klX1wmcEeHBzvXbJPHwJN1wzuqdPIx0wYIgLIb4zzZI=",
+		"serverToken": "1@Ar/5T8ioOu1Xs7lHb1rkA+nXu2M8ro70I59kMddEhoXzEi9CGI+Yq5fHl5h/7KVQ0u0pdCepTy4hog==",
+		"clientToken": "SvO9c4hhIZ1Nlz1JnStOAKVobyYrg5CLdP8jPseJll8=",
 		"encKey": {
 			"type": "Buffer",
 			"data": [

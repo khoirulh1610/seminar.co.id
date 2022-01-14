@@ -1,6 +1,9 @@
 /node_modules
 /engine/node_modules
+/engine/files
+/engine
 /public/hot
+/public/*.xlsx
 /public/storage
 /storage/*.key
 /vendor

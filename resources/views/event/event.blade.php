@@ -26,8 +26,14 @@
                             <div class="col-md-12 col-lg-12">
                                 <div class="new-arrival-content position-relative">
                                     <h4><a href="#">{{$ev->event_title}}</a></h4>
-                                    <p class="price">IDR {{number_format($ev->harga)}}</p>
-                                    <p class="review-text">({{$ev->seminar->where('status',1)->count('id')}} Payment) / ({{$ev->seminar->count('id')}} Registrant)</p>
+                                    @if($ev->harga>0)
+                                        <p class="price">IDR {{number_format($ev->harga)}}</p>
+                                        <p class="review-text">({{$ev->seminar->where('status',1)->count('id')}} Payment) / ({{$ev->seminar->count('id')}} Registrant)</p>
+                                    @else
+                                        <p class="price">GRATIS</p>
+                                        <p class="review-text">{{number_format($ev->seminar->count('id'))}} Registrant</p>
+                                    @endif
+                                    
                                     <p>Status : 
                                         @if($ev->status)
                                         <span class="item"> Available <i class="fa fa-check-circle text-success"></i></span>
@@ -41,8 +47,10 @@
                                     <br>
                                     <center><button type="button" class="btn btn-info btn-sm btn-rounded" data-toggle="collapse" data-target="#demo">Detail Seminar</button>
                                     @if(Auth::user()->role_id<=2)
-                                        <a href="{{url('event/edit/'.$ev->id)}}" class="btn btn-sm btn-success btn-rounded">Edit</a>
-                                    @endif</center>
+                                    <a href="{{ route('event.absen', ['event' => $ev->kode_event]) }}" class="btn btn-primary btn-rounded btn-sm">Absen</a>
+                                    <a href="{{url('event/edit/'.$ev->id)}}" class="btn btn-sm btn-success btn-rounded">Edit</a>
+                                    @endif
+                                    </center>
                                     <div id="demo" class="collapse text-content">{!!nl2br($ev->event_detail)!!}</div>
                                     <!-- <div class="comment-review star-rating text-right"> -->
                                         <!-- <ul>

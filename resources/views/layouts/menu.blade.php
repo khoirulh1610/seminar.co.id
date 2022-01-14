@@ -41,7 +41,8 @@
                     <span class="nav-text">Event</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{url('event')}}">Event</a></li>
+                    <li><a href="{{url('event')}}">Event Aktif</a></li>
+                    <li><a href="{{url('event')}}/?status=0">Event Nonaktif</a></li>
                     @if(Auth::user()->role_id==1)
                     <li><a href="{{url('event/baru')}}">Event Baru</a></li>
                     @endif

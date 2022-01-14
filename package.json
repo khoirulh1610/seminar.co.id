@@ -16,7 +16,7 @@
         "postcss": "^8.1.14"
     },
     "dependencies": {
-        "@adiwajshing/baileys": "^3.5.2",
+        "@adiwajshing/baileys": "^3.5.3",
         "dotenv": "^10.0.0",
         "events": "^3.3.0",
         "fs": "^0.0.1-security",
@@ -30,6 +30,7 @@
         "path": "^0.12.7",
         "qrcode": "^1.4.4",
         "qrcode-terminal": "^0.12.0",
+        "tsc-node": "0.0.3",
         "url": "^0.11.0",
         "url-exists": "^1.0.3"
     }

@@ -28,7 +28,8 @@
 		{
 			"jid": "6281515951796@s.whatsapp.net",
 			"name": "Q",
-			"short": "Q"
+			"vname": "Za Olshop",
+			"verify": "0"
 		},
 		{
 			"jid": "6282137595002@s.whatsapp.net",
@@ -103,8 +104,7 @@
 		{
 			"jid": "6281336406749@s.whatsapp.net",
 			"name": "Fandi",
-			"vname": "Affandy Mohammad",
-			"verify": "0"
+			"short": "Fandi"
 		},
 		{
 			"jid": "6287878431081@s.whatsapp.net",
@@ -228,6 +228,11 @@
 			"short": "Rian"
 		},
 		{
+			"jid": "62812153844320@s.whatsapp.net",
+			"vname": "Quods",
+			"verify": "0"
+		},
+		{
 			"jid": "628563315434@s.whatsapp.net",
 			"name": "Om Rio (Defi)",
 			"short": "Om"
@@ -319,11 +324,6 @@
 			"jid": "6287888051099@s.whatsapp.net",
 			"name": "P. Hands Fingkey AccDoor",
 			"short": "P. Hands"
-		},
-		{
-			"jid": "6281225799639@s.whatsapp.net",
-			"name": "As Eko Wahyu",
-			"short": "As"
 		},
 		{
 			"jid": "6281233299129@s.whatsapp.net",
@@ -670,6 +670,11 @@
 			"short": "Riza"
 		},
 		{
+			"jid": "6285784303161@s.whatsapp.net",
+			"name": "Evin",
+			"short": "Evin"
+		},
+		{
 			"jid": "6287853311140@s.whatsapp.net",
 			"name": "Maestro store",
 			"vname": "I7UI2¥0N0 I77@€$TI20 $T0I2€",
@@ -950,7 +955,8 @@
 		{
 			"jid": "6281333597784@s.whatsapp.net",
 			"name": "Jv STORE",
-			"short": "Jv"
+			"vname": "Java Store",
+			"verify": "0"
 		},
 		{
 			"jid": "6287782371432@s.whatsapp.net",
@@ -1198,11 +1204,6 @@
 			"short": "Ilhan"
 		},
 		{
-			"jid": "6285655650520@s.whatsapp.net",
-			"name": "supridi",
-			"short": "supridi"
-		},
-		{
 			"jid": "6285731555256@s.whatsapp.net",
 			"name": "Arif M As",
 			"short": "Arif"
@@ -1406,6 +1407,11 @@
 			"jid": "628561393940@s.whatsapp.net",
 			"name": "Batara GA",
 			"short": "Batara"
+		},
+		{
+			"jid": "6287758960453@s.whatsapp.net",
+			"name": "Sucip Ponrgo",
+			"short": "Sucip"
 		},
 		{
 			"jid": "628113476764@s.whatsapp.net",
@@ -1777,6 +1783,11 @@
 			"short": "Tian"
 		},
 		{
+			"jid": "6282245115976@s.whatsapp.net",
+			"name": "Ivan",
+			"short": "Ivan"
+		},
+		{
 			"jid": "6282264428704@s.whatsapp.net",
 			"name": "Genio Rejoso",
 			"short": "Genio"
@@ -1895,7 +1906,7 @@
 		{
 			"jid": "6282285048989@s.whatsapp.net",
 			"name": "Antrean Bpjs",
-			"vname": "kodebiru.com",
+			"vname": "kodebiru.com (Aan)",
 			"verify": "0"
 		},
 		{
@@ -2068,6 +2079,9 @@
 			"jid": "6285710000734@s.whatsapp.net",
 			"name": "Dflash Center2",
 			"short": "Dflash"
+		},
+		{
+			"jid": "6281228060666@s.whatsapp.net"
 		},
 		{
 			"jid": "6281234091114@s.whatsapp.net",
@@ -2295,8 +2309,7 @@
 		{
 			"jid": "6281249101995@s.whatsapp.net",
 			"name": "Rental mobil Jember",
-			"vname": "Jember Ekspress",
-			"verify": "0"
+			"short": "Rental"
 		},
 		{
 			"jid": "6282298526005@s.whatsapp.net",
@@ -2327,6 +2340,12 @@
 			"jid": "6285852382308@s.whatsapp.net",
 			"name": "Alif",
 			"short": "Alif"
+		},
+		{
+			"jid": "6285100775107@s.whatsapp.net",
+			"name": "pembeli corolla",
+			"vname": "Ali Hafidz Toyota",
+			"verify": "0"
 		},
 		{
 			"jid": "6285730705988@s.whatsapp.net",

@@ -45,8 +45,8 @@
                                         <th style="text-align:center">Harga</th>
                                         <th style="text-align:center">Status</th>
                                         @endif
-                                        @if(Auth::user()->role_id==1)
-                                        <th style="text-align:center">Action</th>
+                                        @if(Auth::user()->role_id==1)                                            
+                                            <th style="text-align:center">Action</th>
                                         @endif
                                     </tr>
                                 </thead>

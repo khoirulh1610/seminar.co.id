@@ -89,7 +89,7 @@ class ApiseminarController extends Controller
         $kota       = DB::table('kabupatens')->where('id',$kab)->first()->full_name ?? DB::table('kabupatens')->where('id',$kab)->first()['full_name'] ??'';
         $profesi    = $request->profesi;
         $ref        = $request->ref ?? null;
-        $referal = User::where('kode_ref',$ref)->orWhere('phone',$ref)->first();        
+        $referal    = User::where('kode_ref',$ref)->orWhere('phone',$ref)->first();        
         if(!$referal){
             if($ref){
                 $ref        = preg_replace('/^0/','62',$ref);
@@ -122,14 +122,21 @@ class ApiseminarController extends Controller
                 // $notif      = Wa::Notif($phone,$message);
             }
             // return redirect()->back()->with('error','Data Hp :'.$phone.' Email : '.$email.' Sudah terdaftar, Gunakan email yg lain');
+            if($event->type=='gratis'){
+                $message    = "Email / Phone Sudah Terdaftar";
+            }
             return ['status'=>false,"message"=>$message];
         }else{
                 $harga      = $event->harga ?? 0;
                 $unix       = $this->unix($kode_event) ?? 0;                
                 $total      = $harga + $unix;
                 // try {
-                    $ary                        = ["nama"=>$nama,"email"=>$email,"total"=>number_format($total,0),"phone"=>$phone,"provinsi"=>$provinsi,"sapaan"=>$sapaan,"tgl_seminar"=>$event->tanggal,"panggilan"=>$panggilan,"ref"=>$ref,"kota"=>$kota];
+                    $ary                        = ["nama"=>$nama,"email"=>$email,"total"=>number_format($total,0),"phone"=>$phone,"provinsi"=>$provinsi,"sapaan"=>$sapaan,"tgl_seminar"=>$event->tanggal,"panggilan"=>$panggilan,"profesi"=>$profesi,"ref"=>$ref,"kota"=>$kota];
                     $message                    = ReplaceArray($ary,$event->cw_register);
+                    $message2                   = false; 
+                    if($event->cw_register2){
+                        $message2                    = ReplaceArray($ary,$event->cw_register2);
+                    }
                     $seminar                    = new Seminar();
                     $seminar->sapaan            = $sapaan;
                     $seminar->panggilan         = $panggilan;
@@ -163,7 +170,11 @@ class ApiseminarController extends Controller
                     $WaNotif->judul = "Notifikasi user daftar";
                     $WaNotif->nama  = $nama;
                     $WaNotif->save();
-                    $notif                      = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$phone,"message"=>$message,"engine"=>$event->notifikasi,"delay"=>1]);
+                    $notif                      = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$phone,"message"=>$message,"engine"=>$event->notifikasi,"delay"=>1]);                    
+                    if($message2){
+                        $notif2                 = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$phone,"message"=>$message2,"engine"=>$event->notifikasi,"delay"=>1]);
+                    }
+                    // $notif                      = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>'120363023657414562@g.us',"message"=>$message,"engine"=>$event->notifikasi,"delay"=>1]);
                     // web Notif
                     $data = [   
                         "title"=>"Pendaftar Seminar ".$kode_event ,
@@ -200,6 +211,7 @@ class ApiseminarController extends Controller
                                 $WaNotif->nama  = $referal->nama ?? null;
                                 $WaNotif->save();
                                 $notif           = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$ref,"message"=>$cw_referral,"engine"=>$event->notifikasi]);
+                                $notif_g         = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>'120363023657414562@g.us',"message"=>$cw_referral,"engine"=>$event->notifikasi]);
                         }
                     }
                     // Email Ke Peserta

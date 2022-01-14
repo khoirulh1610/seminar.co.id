@@ -10,8 +10,13 @@ class Event extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+    protected $casts = [
+        'tgl_event' => 'datetime'
+    ];
+
     public function seminar()
     {
-        return $this->hasMany(Seminar::class, 'kode_event','kode_event');
+        return $this->hasMany(Seminar::class, 'kode_event', 'kode_event');
     }
 }
