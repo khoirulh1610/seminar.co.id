@@ -53,13 +53,13 @@
                                 <label for="">Fitur tambahan</label>
                                 <select name="addf" id="addf" class="form-control">.
                                         <option value="text">--</option>
-                                        <option value="image">Lampiran Image</option>
+                                        <option value="image">Lampiran</option>
                                         <option value="link" disabled>Button Link</option>
                                 </select>
                             </div>
                             <div class="col-sm-12 col-md-12 d-none" id="msg_img">
-                                <label for="">Image (Optional)</label> 
-                                <input type="file" name="lampiran" class="form-control" accept="image/*">
+                                <label for="">File (Optional)</label> 
+                                <input type="file" name="lampiran" class="form-control">
                             </div>
                             <div class="col-sm-12 col-md-12 d-none" id="msg_link">
                                 <label for="" class="text-red">Link (Optional)</label> 

@@ -29,9 +29,34 @@ class KirimpesanController extends Controller
 
     public function process(Request $request)
     {
-        Antrian::where('user_id',Auth::id())->where('phone',"")->update(["status"=>3,"report"=>"No Tidak Valid"]);
-        Antrian::where('user_id',Auth::id())->where('phone',null)->update(["status"=>3,"report"=>"No Tidak Valid"]);
-        $kirimpesan = Antrian::where('user_id',Auth::id())->where('status',0)->update(["status"=>1]);
+        // Antrian::where('user_id',Auth::id())->where('phone',"")->update(["status"=>3,"report"=>"No Tidak Valid"]);
+        // Antrian::where('user_id',Auth::id())->where('phone',null)->update(["status"=>3,"report"=>"No Tidak Valid"]);
+        // $kirimpesan = Antrian::where('user_id',Auth::id())->where('status',0)->update(["status"=>1]);
+
+        $update                     = Antrian::where('user_id', Auth::user()->id)->where('status',0)->update(["status"=>1]);
+        $data                       = Antrian::selectRaw('device_id')->where('user_id', Auth::id())->where('status',1)->groupBy('device_id')->get();
+        $pesan = [];
+        foreach ($data as $row) {            
+            $all                    = Antrian::selectRaw('message, phone, id, pause,file file_url')->where('user_id', Auth::id())->where('status', 1)->where('device_id', $row->device_id)->get();
+            $p =[];
+            foreach ($all as $rr) {
+                $p[] =[
+                    "id"=>$rr->id,
+                    "phone"=>$rr->phone,
+                    "message"=>$rr->message,
+                    "file_url"=>$rr->file_url,
+                    "pause"=>$rr->pause
+                ];
+            }
+            $pesan = [
+                'token' => $row->device_id,
+                "renew" => true,
+                'data' => $p
+            ];
+            
+            $kirim = Whatsapp::queue($pesan);
+        }
+
         return redirect('/kirimpesan');
     }        
 
@@ -71,18 +96,20 @@ class KirimpesanController extends Controller
                     $message               = ReplaceArray($exl,$request->message);                                    
                     $phone                 = preg_replace('/^0/','62',$exl['phone']);
                     $phone                 = preg_replace('/\D/','',$phone);
-                    $antrian               = new Antrian();
-                    $antrian->user_id      = Auth::id();
-                    $antrian->device_id    = $request->device_id;
-                    $antrian->phone        = $phone;
-                    $antrian->message      = $message;
-                    $antrian->status       = 0;
-                    $antrian->pause        = rand($request->min ?? 0,$request->max ?? 10);
-                    $antrian->file         = $lampiran;
-                    $antrian->file_name    = $file_name;
-                    $antrian->file_path    = $path_lampiran;
-                    $antrian->type_message = $request->addf;
-                    $antrian->save();                    
+                    if($phone){
+                        $antrian               = new Antrian();
+                        $antrian->user_id      = Auth::id();
+                        $antrian->device_id    = $request->device_id;
+                        $antrian->phone        = $phone;
+                        $antrian->message      = $message;
+                        $antrian->status       = 0;
+                        $antrian->pause        = rand($request->min ?? 0,$request->max ?? 10);
+                        $antrian->file         = $lampiran;
+                        $antrian->file_name    = $file_name;
+                        $antrian->file_path    = $path_lampiran;
+                        $antrian->type_message = $request->addf;
+                        $antrian->save();                    
+                    }
                 }
             }
         }else{
@@ -91,18 +118,20 @@ class KirimpesanController extends Controller
                 // Proses Data
                 for ($i=0; $i < count($data); $i++) {                                    
                     $phone               = preg_replace('/^0/','62',$data[$i]);
-                    $antrian             = new Antrian();
-                    $antrian->user_id    = Auth::id();
-                    $antrian->device_id  = $request->device_id;
-                    $antrian->phone      = $phone;
-                    $antrian->message    = $request->message;
-                    $antrian->status     = 0;
-                    $antrian->pause      = rand($request->min ?? 0,$request->max ?? 10);
-                    $antrian->file       = $lampiran;
-                    $antrian->file_name  = $file_name;
-                    $antrian->file_path  = $path_lampiran;
-                    $antrian->type_message = $request->addf;
-                    $antrian->save();                    
+                    if($phone){
+                        $antrian             = new Antrian();
+                        $antrian->user_id    = Auth::id();
+                        $antrian->device_id  = $request->device_id;
+                        $antrian->phone      = $phone;
+                        $antrian->message    = $request->message;
+                        $antrian->status     = 0;
+                        $antrian->pause      = rand($request->min ?? 0,$request->max ?? 10);
+                        $antrian->file       = $lampiran;
+                        $antrian->file_name  = $file_name;
+                        $antrian->file_path  = $path_lampiran;
+                        $antrian->type_message = $request->addf;
+                        $antrian->save();                    
+                    }
                 }
             }
         }
@@ -112,8 +141,10 @@ class KirimpesanController extends Controller
     public function send(Request $request)
     {
         $antrian = Antrian::where('user_id',Auth::id())->where('id',$request->id)->first();
+        
         if($antrian){
-            $notif = Whatsapp::send(["instance"=>$antrian->device_id,"number"=>$antrian->phone,"message"=>$antrian->message,"file_url"=>$antrian->file,"file_name"=>$antrian->file_name]);
+            $data = ["token"=>$antrian->device_id,"phone"=>$antrian->phone,"message"=>$antrian->message,"file_url"=>$antrian->file,"file_name"=>$antrian->file_name];            
+            $notif = Whatsapp::send($data);            
             $r = json_decode($notif);
             if($r){
                 if($r->message=='Terkirim'){

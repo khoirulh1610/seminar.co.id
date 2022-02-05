@@ -19,4 +19,9 @@ class Device extends Model
     {
         return $this->hasMany(Antrian::class,'device_id','id');
     }
+
+    public function server()
+    {
+        return $this->belongsTo(Server::class);
+    }
 }

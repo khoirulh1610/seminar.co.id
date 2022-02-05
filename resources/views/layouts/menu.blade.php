@@ -22,14 +22,14 @@
                      </a>
                         <ul aria-expanded="false">
                             @if(Auth::user()->role_id<=4)
-                            <li><a href="{{url('peserta/'.$e->kode_event)}}">Peserta {{$e->brand}}</a></li>
+                            <li><a href="{{url('peserta/'.$e->kode_event)}}">Peserta {{$e->event_title}}</a></li>
                             @endif
-                            <li><a href="{{url('seminar/rangking/'.$e->kode_event)}}">Rangking {{$e->brand}}</a></li>
+                            <li><a href="{{url('seminar/rangking/'.$e->kode_event)}}">Rangking {{$e->event_title}}</a></li>
                             @if(Auth::user()->role_id<=2)
-                            <li><a href="{{url('absen/'.$e->kode_event)}}">Absen {{$e->brand}}</a></li>
-                            <li><a href="{{url('sertifikat/'.$e->kode_event)}}">Sertifikat {{$e->brand}}</a></li>
-                            <li><a href="{{url('cw/'.$e->kode_event)}}">CopyWriting {{$e->brand}}</a></li>
-                            <li><a href="{{url('seminar/komisi/'.$e->kode_event)}}">Komisi {{$e->brand}}</a></li>
+                            <li><a href="{{url('absen/'.$e->kode_event)}}">Absen {{$e->event_title}}</a></li>
+                            <li><a href="{{url('sertifikat/'.$e->kode_event)}}">Sertifikat {{$e->event_title}}</a></li>
+                            <li><a href="{{url('cw/'.$e->kode_event)}}">CopyWriting {{$e->event_title}}</a></li>
+                            <li><a href="{{url('seminar/komisi/'.$e->kode_event)}}">Komisi {{$e->event_title}}</a></li>
                             @endif
                         </ul>
                      </li>

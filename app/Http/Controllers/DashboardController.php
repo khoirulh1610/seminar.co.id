@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absensi;
 use Illuminate\Http\Request;
 use App\Models\Seminar;
 use App\Models\Event;
@@ -19,10 +20,10 @@ class DashboardController extends Controller
         }
         
         $seminar  = Seminar::get();
-        // return $pluck;
-
+        $absen    = Absensi::pluck('seminar_id');
+        
         $title = "Dashboard";
-        return view('dashboard',compact('seminar','event','title'));
+        return view('dashboard',compact('seminar','event','title','absen'));
     }
 
     public function saveToken(Request $request)

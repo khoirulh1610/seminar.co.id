@@ -91,13 +91,16 @@ let dataSet = [
     });
 	
 	// 
-	var table = $('#example3, #example4, #example5').DataTable();
+	var table = $('#example3, #example4, #example5').DataTable({
+        lengthMenu : [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
+    });
 	$('#example tbody').on('click', 'tr', function () {
 		var data = table.row( this ).data();
 	});
 
    var exp = $('.table-export').DataTable({
         dom: 'Bfrtlip',
+        lengthMenu : [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]

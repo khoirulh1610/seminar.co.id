@@ -86,7 +86,7 @@
                             <div class="media-body text-right">
                                 @if(Auth::user()->role_id<=2) 
                                     <p class="fs-18 text-white mb-2">Total Pendaftar</p>
-                                    <span class="fs-20 text-white font-w600">{{$ev->kode_event}} : {{App\Models\Seminar::where('kode_event',$ev->kode_event)->count('id')}}</span>
+                                    <span class="fs-20 text-white font-w600">{{$ev->kode_event}} : {{App\Models\Seminar::where('kode_event',$ev->kode_event)->where('message','<>','SEMINAR MR')->count('id')}}</span>
                                 @else
                                     <p class="fs-18 text-white mb-2">Referral Anda</p>
                                     <span class="fs-20 text-white font-w600">{{$seminar->where('kode_event',$ev->kode_event)->where('ref',Auth::user()->phone)->count()}}</span>
@@ -105,11 +105,12 @@
                             </span>
                             <div class="media-body text-right">
                                 @if(Auth::user()->role_id<=2) 
-                                    <p class="fs-18 text-white mb-2">Peserta Appoved</p>
-                                    <span class="fs-20 text-white font-w600">{{$seminar->where('kode_event',$ev->kode_event)->where('status',1)->count()}}</span>
+                                    <p class="fs-18 text-white mb-2">Peserta Hadir</p>
+                                    <span class="fs-20 text-white font-w600">{{$seminar->where('kode_event',$ev->kode_event)->whereIn('id',$absen)->count()}}</span>
                                 @else
-                                    <p class="fs-18 text-white mb-2">Peserta Appoved</p>
-                                    <span class="fs-20 text-white font-w600">{{$seminar->where('kode_event',$ev->kode_event)->where('ref',Auth::user()->phone)->where('status',1)->count()}}</span>
+                                    <p class="fs-18 text-white mb-2">Peserta Hadir</p>
+                                    <span class="fs-20 text-white font-w600">{{$seminar->where('kode_event',$ev->kode_event)->whereIn('seminar_id',$absen)->count()}}</span>
+                                    {{-- <span class="fs-20 text-white font-w600">{{$seminar->where('kode_event',$ev->kode_event)->where('ref',Auth::user()->phone)->where('status',1)->count()}}</span> --}}
                                 @endif
                             </div>
                         </div>

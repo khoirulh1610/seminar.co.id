@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absensi;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Notif;
@@ -12,6 +13,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Helpers\Notifikasi;
+use Illuminate\Support\Str;
 
 class EventController extends Controller
 {
@@ -61,7 +64,7 @@ class EventController extends Controller
 
         $event->event_title         = $request->nama;
         $event->open_register       = $request->open;
-        $event->kode_event          = "DNA-01";
+        $event->kode_event          = Str::random(5);
         $event->close_register      = $request->close;
         $event->tgl_event           = $request->tanggal;
         $event->cw_register         = $request->pendaftaran;
@@ -130,52 +133,144 @@ class EventController extends Controller
     }
 
 
-
-
     public function absen(Request $request, Event $event)
     {
         return view('event.absen', [
             'event' => $event,
-            'peserta' => Seminar::sudahAbsen($event->kode_event)
+            'peserta' => Absensi::with('seminar')->today($event->kode_event)->get()
         ]);
     }
 
     public function absenAdd(Request $request, Event $event)
     {
-        $peserta = Seminar::firstPhone($request->id);
+        $phone   = preg_replace('/^0/','62',$request->id);
+        $peserta = Seminar::where('phone',$phone)->first();        
         if ($peserta) {
-            $hadir = $peserta->update([
-                'absen_at' => Carbon::now()
-            ]);
-            if ($hadir) {
-                $peserta = Seminar::sudahAbsen($event->kode_event);
-                return view('event.tbody-absen', [
-                    'peserta' => $peserta
+            $cekAbsen = Absensi::where('kode_event', $event->kode_event)->where('seminar_id', $peserta->id)->whereDate('created_at', Carbon::now())->first();
+            if (!$cekAbsen) {
+                # Lakukan Absensi Kehadiran
+                $hadir = Absensi::create([
+                    'seminar_id' => $peserta->id,
+                    'kode_event' => $event->kode_event,
+                    "tgl_absen"=>Date('Y-m-d')
                 ]);
+                $notif   = Notifikasi::send(["device_key"=>'8niD7OgjZ737XWh',"phone"=>$peserta->phone,"message"=>ReplaceArray($peserta,$event->cw_absen),"engine"=>'quods',"delay"=>1]);                    
+                if($peserta->ref){
+                    $peng = Seminar::where('phone',$peserta->ref)->first();
+                    if(!$peng){
+                        $peng = User::where('phone',$peserta->ref)->first();
+                    }
+                    if($peng){
+                        $pengundang = [
+                            "ref_sapaan"=>$peng->sapaan,
+                            "ref_nama"  =>$peng->nama,
+                            "ref_panggilan"=>$peng->panggilan,
+                            "nama"=>$peserta->nama,
+                            "sapaan"=>$peserta->sapaan,
+                            "panggilan"=>$peserta->panggilan,
+                            "phone"=>$peserta->phone
+                        ];
+                        $notif_ref = Notifikasi::send(["device_key"=>'8niD7OgjZ737XWh',"phone"=>$peng->phone,"message"=>ReplaceArray($pengundang,$event->cw_absen_ref),"engine"=>'quods',"delay"=>1]);                    
+                    }                    
+                }
+                // return view('event.tbody-absen', [
+                //     'peserta' => $peserta
+                // ]);
+            } else {
+                # Sudah Pernah Absen
+                return [
+                    'status' => 'sudah-absen',
+                    'phone' => $request->id
+                ];
             }
-            return false;
         }
-        return false;
+
+        return [
+            'status' => 'tidak-ada',
+            'phone' => $request->id
+        ];
     }
 
     public function pesertaHadir(Event $event)
     {
-        $peserta = Seminar::sudahAbsen($event->kode_event);
+        $peserta = Absensi::with('seminar')->today($event->kode_event)->get();
         return view('event.tbody-absen', [
             'peserta' => $peserta
         ]);
     }
 
+    public function tiketImg()
+    {
+        // $tiket = Browsershot::url('https://example.com')->setScreenshotType('jpeg', 100);
+    }
+
     public function tiket(Request $request, Event $event)
     {
-        $seminar = Seminar::where('phone', $request->phone)
+        $seminar = Seminar::phone($request->phone)
             ->where('kode_event', $event->kode_event)
             ->first();
-        $qrcode = QrCode::size(300)->generate($seminar->phone);
+        if ($seminar) {
+            $qrcode = QrCode::size(250)->generate($seminar->phone);
+        } else {
+            $qrcode = null;
+        }
         return view('event.tiket', [
             'peserta' => $seminar,
             'event' => $event,
             'qrcode' => $qrcode
         ]);
+    }
+
+    public function tiketall(Request $request)
+    {
+        $seminar = Seminar::phone($request->phone)->first();
+        $event   = Event::where('kode_event',$seminar->kode_event)->first() ?? null;
+        if ($seminar) {
+            $qrcode = QrCode::size(250)->generate($seminar->phone);
+        } else {
+            $qrcode = null;
+        }
+        return view('event.tiketall', [
+            'peserta' => $seminar,
+            'event' => $event,
+            'qrcode' => $qrcode
+        ]);
+    }
+
+    public function tiket2(Request $request, Event $event)
+    {
+        $seminar = Seminar::phone($request->phone)
+            ->where('kode_event', $event->kode_event)
+            ->first();
+        if ($seminar) {
+            try {
+                $image = QrCode::format('png')
+                    ->margin(10)
+                    ->size(1000)->errorCorrection('H')
+                    ->generate($seminar->phone);
+                return response($image)->header('Content-type', 'image/png');
+            } catch (\Throwable $th) {
+                return $th->getMessage();
+            }
+        } else {
+            return "data tidak ditemukan";
+        }
+    }
+
+    public function pesertaDelete(Request $request, Event $event)
+    {
+        $absen = Absensi::where('id', $request->id)->first();        
+        if ($absen) {            
+            if ($absen) {
+                $absen->delete();
+            }
+            $peserta = Absensi::where('kode_event',$event->kode_event)->get();
+            return view('event.tbody-absen', [
+                'peserta' => $peserta
+            ]);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

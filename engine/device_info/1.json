@@ -15,8 +15,8 @@
 	},
 	"auth": {
 		"clientID": "bTQR6t4GKl008Ct6grj/tQ==",
-		"serverToken": "1@7PbHAFaMuW2qMe1KM0PZ1ApVOhKbWyEigNULQVXSWX2Lm54Ql+86NJO1AViuZnmLyFhwGgs/4vdClg==",
-		"clientToken": "CinL4SFTFoT6RBswrPaGDfUxw+cs0b8lxwSYV/L6Kl0=",
+		"serverToken": "1@IEjdz3Ypo6aFNQ/iFdUVnGD+juEp6vGwngYLr8iQRw2jo4WQn3HstV/7RKcuLDpe0HIhoRog+YT9JQ==",
+		"clientToken": "nuaPRe4UF67YgV1d/6RZcFLKfQ3BdjXXPEspaV4cPd8=",
 		"encKey": {
 			"type": "Buffer",
 			"data": [
@@ -91,6 +91,5 @@
 				10
 			]
 		}
-	},
-	"isNewUser": true
+	}
 }

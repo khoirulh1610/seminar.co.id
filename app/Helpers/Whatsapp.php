@@ -1,78 +1,106 @@
 <?php
 
 namespace App\Helpers;
-use App\Helpers\Whatsapp;
 
-class Whatsapp{
+use App\Models\Device;
 
-    public static function host()
-    {
-        return "http://127.0.0.1:".ENV('APP_WA_PORT',7001)."/";
-    }
-
+class Whatsapp
+{
     public static function start($data)
     {
-        return self::curl(self::host()."new",$data);
+        return self::curl("api/start", $data);
     }
 
     public static function qrcode($data)
     {
-        return self::curl(self::host()."qrcode",$data);
+        return self::curl("api/qrcode", $data, "GET");
     }
 
     public static function send($data)
     {
-        return self::curl(self::host()."send",$data);
+        return self::curl("api/send", $data);
     }
 
-    public static function reset($data)
+    public static function group($data)
     {
-        $close = self::curl(self::host()."close",$data,"GET");
-        return   self::curl(self::host()."new",$data);
-    }
-    
-    public static function getcontacts($data)
-    {
-        return self::curl(self::host()."getcontacts",$data,"GET");
+        return self::curl("api/group-list", $data);
     }
 
-    public static function getgroup($data)
+    public static function queue($data)
     {
-        return self::curl(self::host()."group-info",$data,"GET");
+        return self::curl("api/antrian", $data);
+    }
+
+    public static function delete($data)
+    {
+        return self::curl("api/delete-antrian", $data);
     }
 
     public static function logout($data)
     {
-        return self::curl(self::host()."logout",$data,"GET");
+        return self::curl("api/logout", $data, "POST");
     }
 
-    static function curl($url,$data,$method="POST")
+    public static function cpu()
     {
-        $curl = curl_init();
-        curl_setopt_array($curl, [
-        CURLOPT_PORT => ENV('APP_WA_PORT',"7001"),
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => $method,
-        CURLOPT_POSTFIELDS => json_encode($data),
-        CURLOPT_HTTPHEADER => [
-            "Content-Type: application/json"
-        ],
-        ]);
+        $device = Device::first();
+        return self::curl("cpu", ['token'=>$device->id], "GET");
+    }
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+    public static function list()
+    {
+        $device = Device::first();
+        return self::curl("api/devices", ['token'=>$device->id], "GET");
+    }
 
-        curl_close($curl);
+    public static function servers()
+    {
+        $device = Device::first();
+        return self::curl("api/servers", ['token'=>$device->id], "GET");
+    }
 
-        if ($err) {
-            return "cURL Error #:" . $err;
+    public static function restart()
+    {
+        $device = Device::first();
+        return self::curl("api/restart", ['token'=>$device->id]);
+    }
+
+    static function curl($url, $data, $method = "POST")
+    {
+        $device = Device::where('id', $data['token'])->first();
+        // return $device;
+        if ($device) {
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => $device->server->ip . ":" . $device->server->port . "/" . $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => $method,
+                CURLOPT_POSTFIELDS => json_encode($data),
+                CURLOPT_HTTPHEADER => [
+                    "Content-Type: application/json",
+                    "apikey: " . $device->server->apikey
+
+                ],
+            ]);
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                return [
+                    'status' => false,
+                    'message' => "cURL Error #:" . $err,
+                ];
+            } else {
+                return $response;
+            }
         } else {
-            return $response;
+            return $data;
         }
     }
 }

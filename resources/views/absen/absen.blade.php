@@ -12,33 +12,31 @@
                 <div class="card">                    
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example5" class="table display table-responsive-lg">
+                            <table id="" class="table-export table display table-responsive-lg">
                                 <thead>
-                                    <tr>
-                                        <!-- <th style="text-align:center">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="checkAll" required="">
-                                                <label class="custom-control-label" for="checkAll"></label>
-                                            </div>
-                                        </th> -->
-                                        <th style="text-align:center">Event Id</th>
+                                    <tr>                                        
+                                        <th style="text-align:center">Sapaan</th>
+                                        <th style="text-align:center">Panggilan</th>
                                         <th style="text-align:center">Nama</th>
-                                        <!-- <th style="text-align:center">Phone</th> -->
+                                        <th style="text-align:center">Phone</th>
+                                        <th style="text-align:center">Kota</th>
+                                        <th style="text-align:center">Profesi</th>                                        
+                                        <th style="text-align:center">Tgl Lahir</th>
+                                        <th style="text-align:center">Absen</th>
                                         <th style="text-align:center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($absen as $abs)
                                     <tr>
-                                        <!-- <td style="text-align:center">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheckBox2" required="">
-                                                <label class="custom-control-label" for="customCheckBox2"></label>
-                                            </div>
-                                        </td> -->
-                                        <td style="text-align:center">{{$abs->kode_event}}</td>
-                                        <td style="text-align:center">{{$abs->nama}} <br><small>{{$abs->phone}}</small></td>
-                                        <!-- <td style="text-align:center">{{$abs->phone}}</td> -->
+                                        <td style="text-align:center">{{$abs->sapaan}}</td>
+                                        <td style="text-align:center">{{$abs->panggilan}}</td>
+                                        <td style="text-align:center">{{$abs->nama}}</td>
+                                        <td style="text-align:center">{{$abs->phone}}</td>
+                                        <td style="text-align:center">{{$abs->kota}}</td>
+                                        <td style="text-align:center">{{$abs->profesi}}</td>
+                                        <td style="text-align:center">{{$abs->b_tanggal}}/{{$abs->b_bulan}}{{$abs->b_tahun ? '/'.$abs->b_tahun : ''}}</td>
+                                        <td style="text-align:center">{{$abs->masuk}}</td>
                                         <td style="text-align:center">
                                             <a href="" class="btn btn-sm btn-info btn-rounded"><em class="flaticon-381-edit"></em></a>
                                             <a href="" class="btn btn-sm btn-danger btn-rounded"><em class="flaticon-381-trash"></em></a>

@@ -34,7 +34,9 @@ class PesertaController extends Controller
                 ->orderBy('peserta','desc')
                 ->skip(0)->take(10)
                 ->get();
-         return view('peserta.rangking',compact('peserta','title'));
+        $jpeserta = Seminar::where('kode_event',$kode_event)
+                ->whereNotNull('ref')->count();
+         return view('peserta.rangking',compact('peserta','title','jpeserta'));
     }
 
     public function Komisi($kode_event)
@@ -121,5 +123,19 @@ class PesertaController extends Controller
         $Seminar = Seminar::find($id);
     	$Seminar->delete();
         return redirect('/peserta');
+    }
+
+    public function save(Request $request)
+    {
+        $seminar = Seminar::where('id',$request->id)->first();
+        if($seminar){
+            $seminar->nama = $request->nama;
+            $seminar->panggilan = $request->panggilan;
+            $seminar->sapaan = $request->sapaan;
+            $seminar->email  = $request->email;
+            $seminar->phone  = $request->phone;
+            $seminar->save();
+        }
+        return redirect()->back();
     }
 }

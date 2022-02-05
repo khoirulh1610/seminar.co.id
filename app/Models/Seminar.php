@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
+use Carbon\Carbon;
 
 class Seminar extends Model
 {
@@ -32,17 +33,19 @@ class Seminar extends Model
         return $this->belongsTo(User::class, 'ref', 'phone');
     }
 
-    public function scopeSudahAbsen($query, $kode_event)
+    public function scopeWithAbsen($query, $kode_event)
     {
-        return $query->whereNotNull('absen_at')
-            ->where('kode_event', $kode_event)
-            ->orderBy('absen_at', 'DESC')
-            ->get();
+        return $query->with('absen')->where('kode_event', $kode_event);
     }
 
-    public function scopeFirstPhone($query, $phone)
+    public function absen()
+    {
+        return $this->hasOne(Absensi::class);
+    }
+
+    public function scopePhone($query, $phone)
     {
         $phone = preg_replace('/^0/', 62, $phone);
-        return $query->where('phone', $phone)->first();
+        return $query->where('phone', $phone);
     }
 }

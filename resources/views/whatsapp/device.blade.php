@@ -33,7 +33,7 @@
                                     <th style="text-align:center">Device</th>
                                     <th style="text-align:center">User</th>
                                     <th style="text-align:center">Nomor</th>
-                                    <th style="text-align:center">Server</th>
+                                    <th style="text-align:center">Mode</th>
                                     <th style="text-align:center">Pesan</th>
                                     <th style="text-align:center">Status</th>
                                     <th style="text-align:center">Action</th>
@@ -43,10 +43,10 @@
                                 @foreach($device as $de)
                                 <tr>
                                     <td style="text-align:center">{{$loop->iteration}}</td>
-                                    <td style="text-align:center">{{$de->id}}/{{$de->device_key}}</td>
+                                    <td style="text-align:center">{{$de->id}}-{{$de->server->id}}</td>
                                     <td style="text-align:center">{{$de->user->nama}}</td>
                                     <td style="text-align:center">{{$de->phone}}</td>
-                                    <td style="text-align:center;">{{$de->nama}}</td>
+                                    <td style="text-align:center;">{{$de->mode == 'md' ? 'Mulidevice' : 'Standart'}}</td>
                                     <td style="text-align:center;">{{$de->antrian->where('status',1)->count()}}/{{$de->antrian->count()}}</td>
                                     <td style="text-align:center;">
                                     @if($de->status=='AUTHENTICATED')
@@ -101,11 +101,11 @@
                         <option value="{{$ur->id}}">{{$ur->nama}} - {{$ur->email}}</option>
                         @endforeach
                     </select>
-                    <label for="" style="color:black">Brand</label>
-                    <select name="brand" id="" class="form-control">
+                    <label for="" style="color:black">Server</label>
+                    <select name="server_id" id="server_id" class="form-control">
                         <option value="">--</option>
-                        @foreach($brand as $br)
-                        <option value="{{$br->brand}}">{{$br->brand}}</option>
+                        @foreach($server as $br)
+                        <option value="{{$br->id}}">{{$br->nama}}</option>
                         @endforeach
                     </select>
                 </div>

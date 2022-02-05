@@ -21,6 +21,8 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/register', 'Auth\RegisterController@index')->name('register');
 Route::post('/register', 'Auth\RegisterController@save')->name('register.save');
 Route::get('/event/{event:kode_event}/tiket/{phone}', 'EventController@tiket')->name('event.tiket');
+Route::get('/event/tiket/{phone}', 'EventController@tiketall')->name('event.tiketall');
+Route::get('/event/{event:kode_event}/tiket2/{phone}', 'EventController@tiket2')->name('event.tiket2');
 Route::get('/lp', function () {
     return view('welcome');
 });
@@ -36,6 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/peserta/{kode_event}', 'PesertaController@index')->name('peserta');
     Route::post('/peserta/approve', 'PesertaController@approve')->name('peserta.approve');
+    Route::post('/peserta/save', 'PesertaController@save')->name('peserta.save');
     Route::post('/peserta/importkeuser', 'PesertaController@importkeuser')->name('peserta.importkeuser');
     Route::get('/peserta/delete/{id}', 'PesertaController@remove')->name('peserta.delete');
     Route::get('/seminar/rangking/{kode_event}', 'PesertaController@rangking')->name('peserta.rangking');
@@ -58,8 +61,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/event/{event:kode_event}/absen', 'EventController@absen')->name('event.absen');
     Route::post('/event/{event:kode_event}/absen', 'EventController@absenAdd');
-
     Route::get('/event/{event:kode_event}/absensi', 'EventController@pesertaHadir')->name('event.absensi');
+    Route::delete('/event/{event:kode_event}/absen/{id}', 'EventController@pesertaDelete');
 
     Route::get('/profile', 'ProfileController@index')->name('profile');
     Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');

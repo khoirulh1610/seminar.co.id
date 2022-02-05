@@ -24,6 +24,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Data Peserta</h4>
+                        
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -38,11 +39,12 @@
                                         </th> -->
                                         <th style="text-align:center">Kode Event</th>
                                         <th style="text-align:center">Pengundang</th>
+                                        <th style="text-align:center">Sapaan</th>
                                         <th style="text-align:center">Nama</th>
                                         <th style="text-align:center">Phone</th>
+                                        <th style="text-align:center">Kota</th>
                                         <th style="text-align:center">Tanggal Daftar</th>
-                                        @if(Auth::user()->role_id==1 || Auth::user()->role_id==1 || Auth::user()->role_id==3)
-                                        <th style="text-align:center">Harga</th>
+                                        @if(Auth::user()->role_id==1 || Auth::user()->role_id==1 || Auth::user()->role_id==3)                                        
                                         <th style="text-align:center">Status</th>
                                         @endif
                                         @if(Auth::user()->role_id==1)                                            
@@ -55,32 +57,39 @@
                                     <tr>
                                         <td style="text-align:center">{{$p->kode_event}} <br><small> {{$p->tgl_seminar}} </small></td>
                                         <td style="text-align:center">{{$p->pengundang->nama ?? $p->user->nama ?? ''}} <br> {{$p->pengundang->phone ?? $p->user->phone ?? ''}}</td>
+                                        <td style="text-align:center">{{$p->sapaan}}</td>
                                         <td style="text-align:center">{{$p->nama}}</td>
                                         @if(Auth::user()->role_id==4)
                                         <td style="text-align:center"> ********{{substr($p->phone,-4)}} <br><small> xxxx{{substr(explode('@',$p->email)[0],-4)}}{{'@'.explode('@',$p->email)[1]}} </small></td>
                                         @elseif(Auth::user()->role_id==1 || Auth::user()->role_id==2 || Auth::user()->role_id==3)
-                                        <td style="text-align:center">{{$p->phone}} <br> {{$p->email}}</td>
+                                        <td style="text-align:center">{{$p->phone}}</td>
                                         @endif
+                                        <td style="text-align:center">{{$p->kota}}</td>
                                         <!-- <td style="text-align:center"> {{$p->phone}} <br><small> {{$p->email}} </small></td> -->
                                         <td style="text-align:center">{{$p->created_at}}</td>
                                     @if(Auth::user()->role_id==1 || Auth::user()->role_id==2 || Auth::user()->role_id==3)    
-                                        <td style="text-align:center">Rp. {{number_format($p->total ?? 0,0)}}</td>
                                         <td style="text-align:center">
-                                        @if($p->status==0)
-                                            <span class="badge light badge-danger">Belum Lunas</span>
-                                        @elseif($p->status==1)
-                                                <span class="badge light badge-success align-center">Lunas</span>
-                                            @if($p->type_bayar)             
-                                                <br>                                   
-                                                <i type="button" class="" data-container="body" data-toggle="popover" data-placement="top" data-content="{{$p->catatan}}" title="Catatan" style="font-size:8pt">{{$p->type_bayar}}</i>
+                                            @if($p->total==0)
+                                            GRATIS
+                                            @else
+                                                Rp. {{number_format($p->total ?? 0,0)}} <br>
+                                                @if($p->status==0)
+                                                    <span class="badge light badge-danger">Belum Lunas</span>
+                                                @elseif($p->status==1)
+                                                        <span class="badge light badge-success align-center">Lunas</span>
+                                                    @if($p->type_bayar)             
+                                                        <br>                                   
+                                                        <i type="button" class="" data-container="body" data-toggle="popover" data-placement="top" data-content="{{$p->catatan}}" title="Catatan" style="font-size:8pt">{{$p->type_bayar}}</i>
+                                                    @endif
+                                                @endif
                                             @endif
-                                        @endif
                                         </td>
                                     @endif
                                         @if(Auth::user()->role_id==1)
                                         <td style="text-align:center">
+                                            <button type="button" class="btn btn-success btn-xs btn-rounded" onclick="Edit({{$p->id}},'{{$p->nama}}','{{$p->sapaan}}','{{$p->email}}','{{$p->phone}}','{{$p->panggilan}}')"><em class="flaticon-381-edit"></em></button>                                            
                                             @if($p->status==0)
-                                            <button type="button" class="btn btn-success btn-xs btn-rounded" onclick="Approve({{$p->id}})"><em class="flaticon-381-edit"></em></button>                                            
+                                            <button type="button" class="btn btn-success btn-xs btn-rounded" onclick="Approve({{$p->id}})"><em class="flaticon-381-success"></em></button>                                            
                                             @endif
                                             <button type="button" class="btn btn-info btn-xs btn-rounded" onclick="ImportUser({{$p->id}},'{{$p->email}}')"><em class="flaticon-381-user-7"></em></button>
                                             <a class="btn btn-xs btn-danger btn-rounded" onclick="hapus()" href="{{ route('peserta.delete', $p->id) }}"><i class="fa fa-trash"></i></a>
@@ -177,6 +186,54 @@
         </form>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="EditModal">
+    <div class="modal-dialog" role="document">
+        <form action="{{url('peserta/save')}}" autocomplete="off" method="post">
+        @csrf
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-black" >Edit Peserta</h5>
+                    <input type="hidden" name="id" id="_id" value="" >
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-black">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="">Sapaan</label><br>
+                        <input class="form-control" type="text" name="sapaan" id="_sapaan">
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="">Panggilan</label><br>
+                        <input class="form-control" type="text" name="panggilan" id="_panggilan">
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="">Nama</label><br>
+                        <input class="form-control" type="hidden" name="id" id="edit_id">
+                        <input class="form-control" type="text" name="nama" id="_nama">
+                    </div>
+                    
+                    <div class="col-sm-12">
+                        <label for="">Email</label><br>
+                        <input class="form-control" type="text" name="email" id="_email">
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="">Phone</label><br>
+                        <input class="form-control" type="text" name="phone" id="_phone">
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
 @endsection
 
 @section('js')
@@ -185,6 +242,17 @@
         $('#_id').val(_id);
         console.log(_id);
         $('#basicModal').modal('show');
+    }
+
+    function Edit(_id,nama,sapaan,email,phone,panggilan) {
+        $('#edit_id').val(_id);
+        $('#_nama').val(nama);
+        $('#_sapaan').val(sapaan);
+        $('#_email').val(email);
+        $('#_phone').val(phone);
+        $('#_panggilan').val(panggilan);
+        console.log(_id);
+        $('#EditModal').modal('show');
     }
 
     function ImportUser(_id,_email) {

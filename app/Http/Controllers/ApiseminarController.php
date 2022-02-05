@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Helpers\Notifikasi;
+use App\Helpers\Whatsapp;
 use DB;
 use App\Models\Seminar;
 use App\Models\Provinsi;
@@ -16,8 +17,10 @@ use App\Models\Setting;
 use App\Mail\RegistrasiMail;
 use Illuminate\Support\Facades\Mail;
 use App\Jobs\RegisterMailJob;
+use App\Models\Absensi;
 use App\Models\Notifikasi as WaNotif;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class ApiseminarController extends Controller
 {
@@ -31,13 +34,13 @@ class ApiseminarController extends Controller
         $refff = preg_replace('/^0/','62',$request->ref);
         $event = Event::where('kode_event',$request->kode_event)->first();
         $ref = User::where('kode_ref',$refff)->orWhere('phone',$refff)->first();        
+        $status = false;
         if(!$ref){
-            $ref = Seminar::where('phone',$refff)->where('kode_event',$request->kode_event)->first();
+            $ref = Seminar::where('phone',$refff)->first();
         }
-        if($event){
-            $status = false;
+        if($event){            
+            $status = true;
             if($ref){
-                $status = true;
                 $pengundang_sapaan = $ref->sapaan;
                 $pengundang_nama = $ref->nama;
                 $pengundang_phone = $ref->phone;
@@ -123,7 +126,7 @@ class ApiseminarController extends Controller
             }
             // return redirect()->back()->with('error','Data Hp :'.$phone.' Email : '.$email.' Sudah terdaftar, Gunakan email yg lain');
             if($event->type=='gratis'){
-                $message    = "Email / Phone Sudah Terdaftar";
+                $message    = "Email / Phone Sudah Terdaftar" .$cek->phone." ".$cek->email." ".$cek->kode_event;
             }
             return ['status'=>false,"message"=>$message];
         }else{
@@ -211,7 +214,7 @@ class ApiseminarController extends Controller
                                 $WaNotif->nama  = $referal->nama ?? null;
                                 $WaNotif->save();
                                 $notif           = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$ref,"message"=>$cw_referral,"engine"=>$event->notifikasi]);
-                                $notif_g         = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>'120363023657414562@g.us',"message"=>$cw_referral,"engine"=>$event->notifikasi]);
+                                $notif_g         = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>'6281228060666-1635994060@g.us',"message"=>$cw_referral,"engine"=>$event->notifikasi]);
                         }
                     }
                     // Email Ke Peserta
@@ -249,17 +252,52 @@ class ApiseminarController extends Controller
 
     public function absen(Request $request)
     {
-        $emailorphone = preg_replace('/^0/','62',$request->email);
+        $emailorphone = preg_replace('/^0/','62',$request->id);
         $kode_event   = $request->kode_event;
         $seminar = Seminar::where('kode_event',$kode_event)->where('email',$emailorphone)->first();
         if(!$seminar){
             $seminar = Seminar::where('kode_event',$kode_event)->where('phone',$emailorphone)->first();
         }
         if($seminar){
-            return ["status"=>true,"id"=>$seminar->id,"nama"=>$seminar->nama,"sapaan"=>$seminar->sapaan,"panggilan"=>$seminar->panggilan];
+            return ["status"=>true,"data"=>$seminar];
         }else{
             return ["status"=>false];
         }
     }
     
+    public function absen_save(Request $request)
+    {
+        $phone = preg_replace('/^0/','62',$request->phone);
+        $seminar = Seminar::where('phone',$phone)->first();            
+        if($seminar){
+            $cek   = Absensi::where('seminar_id',$seminar->id)->where('tgl_absen',Date('Y-m-d'))->first();
+            if(!$cek){
+                $absen = new Absensi();
+                $absen->seminar_id = $seminar->id;
+                $absen->kode_event = $seminar->kode_event;
+                $absen->tgl_absen  = Date('Y-m-d');
+                $absen->save();
+                $event = Event::where('kode_event',$seminar->kode_event)->first();
+                if($event){
+                    $cw = ReplaceArray($seminar,$event->cw_absen);
+                    $kirim = Whatsapp::send(['token'=>3,'phone'=>$seminar->phone,'message'=>$cw]);
+                    if($seminar->ref){
+                        $ref_seminar = Seminar::where('phone',$seminar->ref)->first();                        
+                        if($ref_seminar){
+                            // Log::debug($ref_seminar);
+                            $cw_ref_data = ['phone'=>$seminar->phone,'ref_panggilan'=>$ref_seminar->panggilan ?? $ref_seminar->nama,'ref_sapaan'=>$ref_seminar->sapaan,'nama'=>$seminar->nama];
+                            $cw_ref      = ReplaceArray($cw_ref_data,$event->cw_absen_ref);
+                            $d = Whatsapp::send(['token'=>3,'phone'=>$ref_seminar->phone,'message'=>$cw_ref]);
+                            // Log::info($d);
+                        }
+                    }
+                    return ["message"=>"Selamat Absen sudah berhasil"];
+                }
+            }else{
+                return ["message"=>"Anda sudah Absen sebelumnya"];
+            }
+        }else{
+            return ["message"=>"Data tidak Ditemukan"];
+        }
+    }
 }

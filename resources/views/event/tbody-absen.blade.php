@@ -1,13 +1,13 @@
 @foreach ($peserta as $ps)
 <tr>
     <td>{{ ($loop->remaining + 1) }}</td>
-    <td>{{ $ps->nama }}</td>
-    <td>{{ $ps->phone }}</td>
-    <td>{{ $ps->absen_at->format('H:i:s') }}</td>
+    <td>{{ $ps->seminar->nama }}</td>
+    <td>{{ $ps->seminar->phone }}</td>
+    <td>{{ $ps->created_at->format('H:i:s') }}</td>
     <td>
-        <a href="#">
+        <button class="btn btn-sm" onclick="ShowDelete({{ $ps->id }})">
             <i class="fa fa-trash"></i>
-        </a>
+        </button>
     </td>
 </tr>
 @endforeach

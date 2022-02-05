@@ -53,7 +53,7 @@
             @if ($peserta)
             <div class="bg-ticket text-white rounded-sm shadow-sm border mx-auto">
                 <div class="p-3 text-end">
-                    <h2 class="w-100 text-white mb-0">{{ $event->tema }}</h2>
+                    <h2 class="w-100 text-white mb-0">{{ strtoupper($event->tema) }}</h2>
                     <div class="w-100">{{ $event->event_title }}</div>
                 </div>
                 <div class="d-flex justify-content-center flex-column align-items-center">
@@ -71,7 +71,7 @@
                     <div class="text-center mt-4 border-bottom pb-3">
                         <small class="text-dark">
                             <i class="flaticon-381-location-2"></i>
-                            {{ strtoupper('cadillac ballroom Hotel meotel jember') }}
+                            {{ strtoupper($event->lokasi) }}
                         </small>
                     </div>
                     <table class="table table-borderless mx-auto table-sm text-dark">

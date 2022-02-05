@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Device;
 use App\Helpers\Whatsapp;
 use App\Models\User;
-use App\Models\Brand;
+use App\Models\Server;
 use Illuminate\Support\Str;
 use Rap2hpoutre\FastExcel\FastExcel;
-use Auth;
-use Excel;
-use DB;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Excel;
+use Illuminate\Support\Facades\DB;
 
 class DeviceController extends Controller
 {
@@ -29,9 +29,9 @@ class DeviceController extends Controller
             $device = Device::where('user_id',Auth::id())->get();
         }
         $user = User::where('role_id','<=',3)->get();
-        $brand = Brand::get();
+        $server = Server::get();
         $title = "List Device";
-        return view('whatsapp.device',compact('device','title','user','brand'));
+        return view('whatsapp.device',compact('device','title','user','server'));
     }
 
     public function show(Request $request)
@@ -45,32 +45,54 @@ class DeviceController extends Controller
     {        
         $device = Device::where('id',$request->id)->first();
         if($device){
-            return Whatsapp::start(["instance"=>(String)$device->id]);
+            return Whatsapp::start(["token"=>$device->id,'mode'=>$device->mode]);
         }        
     }
 
     public function baru(Request $request)
     {
-        $device             = new Device;
-        $device->device_key = Str::random(10);;
-        $device->user_id    = $request->user;
-        $device->brand      = $request->brand;
-        $device->nama       = $request->nama ?? '';
-        $device->save();
-        // return $device;
+        $device             = new Device;        
+        $device->user_id    = $request->user;        
+        $device->label      = Str::random(10);
+        $device->server_id  = $request->server_id;
+        $device->save();        
         return redirect('/device/device');
     }
 
     public function qrcode(Request $request)
     {
-        return Device::where('id',$request->id)->first();        
+        try {
+            $device             = Device::where('id', $request->id)->first();
+            $resp               = Whatsapp::qrcode(["token"=>(String)$device->id]);
+            $r = json_decode($resp); 
+            if($r->message=='token tidak tersedia'){
+                return Whatsapp::start(["token"=>(String)$device->id,'mode'=>$device->mode]);
+            }
+            // return $resp;
+            if ($device) {               
+                $data = $r->data ?? null;
+                if($data){                    
+                    $device->status = 'AUTHENTICATED';
+                    $phone = explode(':',$r->data->id)[0] ?? '';
+                    $device->phone  = explode('@',$phone)[0] ?? '';
+                    $device->name   = $r->data->name ?? '';
+                    $device->pic_url = $r->pic;
+                    $device->save();
+                }
+                return $resp;
+            } else {
+                return ["message" => "Device Not Found"];
+            }
+        } catch (\Throwable $th) {
+            return abort(500, $th->getMessage());
+        }
     }
     
     public function delete(Request $request)
     {
         $device = Device::where('id',$request->id)->first();
         if($device){
-            $logout = Whatsapp::logout(["instance"=>(String)$device->id]);
+            $logout = Whatsapp::logout(["token"=>(String)$device->id]);
             $device = Device::where('id',$request->id)->delete();
         }
         return redirect('/device/device');
@@ -96,32 +118,7 @@ class DeviceController extends Controller
 
     public function getGroup(Request $request)
     {
-        $contact = DB::connection('mongodb')->collection("contacts_".$request->id)->where('jid','like','%@g.us')->groupBy('jid','name')->get();     
-        $i = 1;
-        echo "<table border='1' style='border-collapse: collapse;border-spacing: 10px'>
-                <tr>
-                    <td>No</td>
-                    <td>ID</td>
-                    <td>Nama</td>
-                    <td>Keterangan</td>
-                </tr>";
-        foreach ($contact as $r) {
-            $no   = $r['jid'];
-            $name = $r['name'] ?? $r['short'] ?? '';
-            $g    = strpos($no,'@g.us') ? 'Group' : 'Kontak';
-            $no   = ($g=='Group') ? $no : "'".preg_replace('/\D/','',$no);
-            if($g=='Group'){
-                echo    '<tr>
-                        <td>'.$i++.'</td>
-                        <td>'.$no.'</td>
-                        <td>'.$name.'</td>
-                        <td><a target="_blank" href="'.url('device/export-group').'/?id='.$request->id.'&gid='.$no.'&nama='.$name.'">'.$g.'</a></td>
-                    </tr>';
-            }
-        }
-        echo "</table>";
-        echo '<a href="'.url('device/export-allgroup?id='.$request->id).'">Download ALL</a>';
-        echo '<a href="'.url('device/export-allgroup?id='.$request->id).'&view=Y">View ALL</a>';
+        return Whatsapp::group(['token'=>$request->id]);
     }
 
     public function ExportGroup(Request $request)
@@ -131,7 +128,7 @@ class DeviceController extends Controller
         $file   = time().".xlsx";
         $ggg = [];
         if($device){
-            $group = Whatsapp::getgroup(["instance"=>(String)$device->id,"gid"=>$request->gid]);
+            $group = Whatsapp::getgroup(["token"=>(String)$device->id,"gid"=>$request->gid]);
             // dd($group);
             if($group){
                 $g = json_decode($group);

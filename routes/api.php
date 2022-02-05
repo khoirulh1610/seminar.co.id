@@ -21,6 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/event','ApiseminarController@index');
 Route::post('/register','ApiseminarController@register');
 Route::any('/absen','ApiseminarController@absen');
+Route::any('/absen-save','ApiseminarController@absen_save');
 
 Route::get('/provinsi','ApiseminarController@provinsi');
 Route::get('/kabupaten','ApiseminarController@kabupaten');
+
+Route::any('antrian','Api\AntrianController@antrian');
+Route::any('device','Api\AntrianController@device');
+Route::any('callback','Api\AntrianController@callback');

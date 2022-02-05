@@ -18,7 +18,8 @@
                         <div class="row">
                             <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
                                 <!-- Tab panes -->
-                                <div class="tab-content" style="text-align:center" id="qr">                                
+                                <div class="tab-content" style="text-align:center">                                
+                                    <img src="" id="qrcode" alt="" srcset="" style="width: 300px">
                                 </div><br>
                             </div>
                             <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
@@ -31,7 +32,7 @@
                                             <tr>
                                                 <td class="m-b-15">Device</td>
                                                 <td>:</td>
-                                                <td> <span id="_device"> {{$device->id}} / {{$device->device_key}}</span> </td>
+                                                <td> <span id="_device"> {{$device->id}} / {{$device->mode=='md' ? 'Multidevice' : 'Standart'}}</span> </td>
                                             </tr>
                                             <tr>
                                                 <td class="m-b-15">Nomor Whatsapp</td>
@@ -72,76 +73,98 @@
 @section('js')
 
 <script>
-    var id = '{{$device->id}}';
-    var scanmode    = true;
-	function start() {
+    // var id = '{{$device->id}}';
+    // var scanmode    = true;
+	// function start() {
+    //     $.ajax({
+    //         "url" : "{{url('device/start')}}",
+    //         "data" : {id:id},
+    //         "success" : function (resp) {
+    //             // console.log(resp);
+    //             resp = JSON.parse(resp);
+    //             if(resp.qrcode){
+    //                 let qr = '<img src="'+resp.qrcode+'" alt="" srcset="">';                    
+    //                 $("#qr").html(qr);                                        
+    //             }
+    //         }
+    //     })
+    // }
+
+    // function reset() {
+    //     $.ajax({
+    //         "url" : "{{url('reset')}}/"+id,
+    //         "data" : {},
+    //         "success" : function (resp) {
+    //             console.log(resp);
+    //             loadQr();
+    //         }
+    //     })
+    // }
+    
+    // function logout() {
+    //     $.ajax({
+    //         "url" : "{{url('logout')}}/"+id,
+    //         "data" : {},
+    //         "success" : function (resp) {
+    //             console.log(resp);
+    //             location.reload();
+    //         }
+    //     })
+    // }
+
+    // function loadQr() {            
+    //     $.ajax({
+    //         "url" : "{{url('device/scanqr')}}",
+    //         "data" : {id:id},
+    //         "success" : function (resp) {
+    //             console.log(resp);
+    //             resp = JSON.parse(resp);
+    //             if(resp.qrcode){
+    //                 let qr = '<img src="'+resp.qrcode+'">';                    
+    //                 // console.log(qr);
+    //                 $("#qr").html(qr);
+    //                 setTimeout(() => {
+    //                     loadQr();
+    //                 }, 5000);
+    //             }else{                    
+    //                 if(resp.status=='AUTHENTICATED'){
+    //                     $("#_nama").html(resp.data.name);
+    //                     $("#_phone").html(resp.data.id);
+    //                     $('#_start').html('<i class="fa fa-whatsapp mr-2"></i>AUTHENTICATED');
+    //                     if(resp.profile_url){
+    //                         console.log(resp.profile_url); 
+    //                         $("#qr").html('<img src="'+resp.profile_url+'" style="width: 150px;border: 1px solid #ddd; border-radius: 4px;padding: 5px;">');
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     })
+    // }   
+
+    
+    // loadQr(); 
+
+    function getQrcode() {
         $.ajax({
-            "url" : "{{url('device/start')}}",
-            "data" : {id:id},
-            "success" : function (resp) {
-                // console.log(resp);
-                resp = JSON.parse(resp);
-                if(resp.qrcode){
-                    let qr = '<img src="'+resp.qrcode+'" alt="" srcset="">';                    
-                    $("#qr").html(qr);                                        
+            url:"{{url('device/scanqr')}}",
+            data: {id:'{{ $device->id }}'},
+            success:function(json){
+                let scan = JSON.parse(json)
+                console.log(scan);
+                if(scan.qrcode){
+                    $('#qrcode').attr('src',scan.qrcode);
+                }else{
+                    $('#qrcode').attr('src',scan.pic);
+                    $("#_nama").html(scan.data.name);
+                    $("#_phone").html(scan.data.id);
                 }
             }
-        })
+        });
     }
-
-    function reset() {
-        $.ajax({
-            "url" : "{{url('reset')}}/"+id,
-            "data" : {},
-            "success" : function (resp) {
-                console.log(resp);
-                loadQr();
-            }
-        })
-    }
-    
-    function logout() {
-        $.ajax({
-            "url" : "{{url('logout')}}/"+id,
-            "data" : {},
-            "success" : function (resp) {
-                console.log(resp);
-                location.reload();
-            }
-        })
-    }
-
-    function loadQr() {            
-        $.ajax({
-            "url" : "{{url('device/scanqr')}}",
-            "data" : {id:id},
-            "success" : function (resp) {
-                
-                // resp = JSON.parse(resp);
-                if(resp.qrcode){
-                    let qr = '<img src="'+resp.qrcode+'">';                    
-                    // console.log(qr);
-                    $("#qr").html(qr);
-                    setTimeout(() => {
-                        loadQr();
-                    }, 5000);
-                }else{                    
-                    if(resp.status=='AUTHENTICATED'){
-                        $("#_nama").html(resp.nama);
-                        $("#_phone").html(resp.phone);
-                        $('#_start').html('<i class="fa fa-whatsapp mr-2"></i>AUTHENTICATED');
-                        if(resp.profile_url){
-                            console.log(resp.profile_url); 
-                            $("#qr").html('<img src="'+resp.profile_url+'" style="width: 150px;border: 1px solid #ddd; border-radius: 4px;padding: 5px;">');
-                        }
-                    }
-                }
-            }
-        })
-    }   
-
-    
-    loadQr(); 
+    getQrcode();
+    setInterval(() => {
+        getQrcode();
+    }, 5000);
 
 </script>
 

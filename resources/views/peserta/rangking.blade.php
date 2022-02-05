@@ -24,6 +24,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Data Pengundang tertinggi</h4>
+                        <p>Total Peserta : {{ $jpeserta }}</p>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
