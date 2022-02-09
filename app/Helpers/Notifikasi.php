@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Helpers;
-use App\Helpers\Notifikasi;
+
 use App\Models\user;
+use Illuminate\Support\Facades\Log;
 
 class Notifikasi{
 
@@ -67,13 +68,9 @@ class Notifikasi{
 
         // Close connection
         curl_close($ch);
-        \Log::info($result);
+        Log::info($result);
         // FCM response
         // dd($result);        
     }
-
-    public function seminar($data)
-    {
-        
-    }
+   
 }
