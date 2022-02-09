@@ -71,7 +71,7 @@
                     <div class="text-center mt-4 border-bottom pb-3">
                         <small class="text-dark">
                             <i class="flaticon-381-location-2"></i>
-                            {{ strtoupper('cadillac ballroom Hotel meotel jember') }}
+                            {{ strtoupper('KJ Hotel') }}
                         </small>
                     </div>
                     <table class="table table-borderless mx-auto table-sm text-dark">

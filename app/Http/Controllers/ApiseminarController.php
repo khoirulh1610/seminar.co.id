@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Helpers\Notifikasi;
 use App\Helpers\Whatsapp;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\Seminar;
 use App\Models\Provinsi;
 use App\Models\Kabupaten;
@@ -82,7 +82,8 @@ class ApiseminarController extends Controller
         $Access->user_agent = $request->header('User-Agent');
         $Access->ip = $request->ip();
         $Access->save();
-        \Log::info($request->all());
+        Log::info($request->all());
+
         $nama       = $request->nama;
         $email      = strtolower($request->email);
         $phone      = preg_replace('/^0/','62',$request->phone);
@@ -99,7 +100,7 @@ class ApiseminarController extends Controller
             }
             $referal = Seminar::where('phone',$ref)->where('kode_event',$request->kode_event)->first();
         }        
-        \Log::info($referal);
+        Log::info($referal);
         $panggilan  = $request->panggilan;
         $sapaan     = $request->sapaan;
         $kode_event = $request->kode_event;
@@ -173,16 +174,24 @@ class ApiseminarController extends Controller
                     $WaNotif->judul = "Notifikasi user daftar";
                     $WaNotif->nama  = $nama;
                     $WaNotif->save();
-                    $notif                      = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$phone,"message"=>$message,"engine"=>$event->notifikasi,"delay"=>1]);                    
-                    if($message2){
-                        $notif2                 = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$phone,"message"=>$message2,"engine"=>$event->notifikasi,"delay"=>1]);
-                    }
+
+                    // $notif                      = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$phone,"message"=>$message,"engine"=>$event->notifikasi,"delay"=>0]);                    
+                    // if($message2){
+                    //     $notif2                 = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$phone,"message"=>$message2,"engine"=>$event->notifikasi,"delay"=>0]);
+                    // }
                     // $notif                      = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>'120363023657414562@g.us',"message"=>$message,"engine"=>$event->notifikasi,"delay"=>1]);
                     // web Notif
+                    $notif1 =  Whatsapp::send(["token"=>$event->device_id,"phone"=>$phone,"message"=>$message]);
+                    if($message2){
+                        $notif2 =  Whatsapp::send(["token"=>$event->device_id,"phone"=>$phone,"message"=>$message2]);
+                    }
+                    $notif3 =  Whatsapp::send(["token"=>$event->device_id,"phone"=>'6281228060666-1635994060@g.us',"message"=>$message]);
+
                     $data = [   
                         "title"=>"Pendaftar Seminar ".$kode_event ,
                         "body"=>"Nama : ".$nama." Email : ".$email
                     ];
+
                     $webnotif = Notifikasi::fcmAll($data); 
                     // Notifikasi Ke Pengundang
                     if($referal){
@@ -213,8 +222,11 @@ class ApiseminarController extends Controller
                                 $WaNotif->judul = "Notifikasi user daftar ke pengundang";
                                 $WaNotif->nama  = $referal->nama ?? null;
                                 $WaNotif->save();
-                                $notif           = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$ref,"message"=>$cw_referral,"engine"=>$event->notifikasi]);
-                                $notif_g         = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>'6281228060666-1635994060@g.us',"message"=>$cw_referral,"engine"=>$event->notifikasi]);
+
+                                // $notif           = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$ref,"message"=>$cw_referral,"engine"=>$event->notifikasi]);
+                                // $notif_g         = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>'6281228060666-1635994060@g.us',"message"=>$cw_referral,"engine"=>$event->notifikasi]);
+                                $notif4 =  Whatsapp::send(["token"=>$event->device_id,"phone"=>$ref,"message"=>$cw_referral]);
+                                $notif5 =  Whatsapp::send(["token"=>$event->device_id,"phone"=>'6281228060666-1635994060@g.us',"message"=>'Info Group :\r\n'.$cw_referral]);
                         }
                     }
                     // Email Ke Peserta

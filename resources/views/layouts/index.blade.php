@@ -34,9 +34,10 @@
     <link href="{{url('asset/css/style.css')}}" rel="stylesheet">
     <!-- Daterange picker -->
     <link href="{{url('asset/vendor/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
-	<link href="//fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+	{{-- <link href="//fonts.googleapis.com/icon?family=Material+Icons" Content-Type="text/css"> --}}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -201,7 +202,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="{{url('asset/js/plugins-init/datatables.init.js')}}"></script>
     <!-- pusher -->
     <!-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script> -->

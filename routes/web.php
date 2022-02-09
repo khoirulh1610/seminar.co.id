@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebNotificationController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +15,11 @@ use App\Http\Controllers\WebNotificationController;
 |
 */
 
-Route::get('/', 'Auth\LoginController@index')->name('login');
+// Route::get('/provinsi', 'DaftarEventController@provinsi');    
+
+
 Route::get('/login', 'Auth\LoginController@index')->name('login');
-Route::post('/login', 'Auth\LoginController@login')->name('login');
+Route::post('/login', 'Auth\LoginController@login')->name('login24');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/register', 'Auth\RegisterController@index')->name('register');
@@ -26,13 +30,24 @@ Route::get('/event/{event:kode_event}/tiket2/{phone}', 'EventController@tiket2')
 Route::get('/lp', function () {
     return view('welcome');
 });
-
 Route::get('landingpage', 'LandingpageController@index')->name('landingpage');
+Route::get('/kabupaten', 'DaftarEventController@kabupaten');  
+
+
+Route::group(array('domain' => '{subdomain}.seminar.co.id'), function($subdomain) {
+    if($subdomain){
+        Route::get('/', 'DaftarEventController@index');              
+        Route::post('/seminar-register', 'DaftarEventController@register');              
+    }else{
+        Route::get('/', 'Auth\LoginController@index')->name('login.1');
+    }    
+});
 
 Route::group(['middleware' => ['auth']], function () {
 
     // Route::get('/','DashboardController@index')->name('dashboard.1');
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/', 'DashboardController@index')->name('dashboard2');
     Route::get('/users', 'UserController@index')->name('users');
     Route::get('/user/delete/{id}', 'UserController@hapus')->name('user.delete');
 
@@ -46,7 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/absen/{kode_event}', 'AbsenController@index')->name('absen');
 
-    Route::get('/setting', 'SettingController@index')->name('absen');
+    Route::get('/setting', 'SettingController@index')->name('absen2');
     Route::get('/setting/baru', 'SettingController@baru')->name('setting.babru');
     Route::get('/setting/save', 'SettingController@save')->name('setting.baru');
 
@@ -67,7 +82,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile', 'ProfileController@index')->name('profile');
     Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
     Route::post('profile/save', 'ProfileController@save')->name('profile.save');
-    Route::get('/profile/edit/{id}', 'ProfileController@edit')->name('profile.edit');
+    Route::get('/profile/edit/{id}', 'ProfileController@edit')->name('profile.editByID');
 
     Route::get('/kirimpesan', 'KirimpesanController@index')->name('kirimpesan');
     Route::get('/kirimpesan/baru', 'KirimpesanController@create')->name('kirimpesan.baru');
@@ -79,7 +94,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/device/device', 'DeviceController@device')->name('DeviceController.device');
     Route::get('/device/show', 'DeviceController@show')->name('DeviceController.show');
-    Route::get('/device/start', 'DeviceController@start')->name('DeviceController.device');
+    Route::get('/device/start', 'DeviceController@start')->name('DeviceController.device_start');
     Route::get('/device/scanqr', 'DeviceController@qrcode')->name('DeviceController.qrcode');
     Route::get('/device/test', 'DeviceController@test')->name('DeviceController.test');
     Route::get('/device/delete', 'DeviceController@delete')->name('device.delete');
@@ -97,7 +112,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::any('/logut', function () {
-        \Auth::logout();
+        Auth::logout();
         return redirect('login');
     });
 

@@ -34,11 +34,11 @@
                                 <label>Tema</label>
                                 <input type="text" class="form-control" name="tema" id="tema" placeholder="Tema Event" value="{{$event->tema}}">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label>Harga Registrasi</label>
-                                <input type="text" name="harga" id="harga" class="form-control" value="{{$event->harga}}">
+                                <input type="number" name="harga" id="harga" class="form-control" value="{{$event->harga}}">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="">Layanan Notifikasi</label><br>
                                 <select name="notif" id="notif" class="form-control">
                                     <option value="">--</option>
@@ -48,8 +48,38 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
+                                <label>Tipe Seminar</label>
+                                <select name="type" class="form-control">
+                                     @foreach ( $type as $tp )
+                                        <option value="berbayar" {{ $tp->type == $event->type ? 'selected' : ''}}>Berbayar</option>
+                                        <option value="gratis" {{ $tp->type == $event->type ? 'selected' : ''}}>Gratis</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="select-mitra">Mitra Id</label><br>
+                                <input type="text" name="mitra_id" list="select-mitra" class="form-control" value="{{ $event->mitra_id }}">
+                                <datalist id="select-mitra">
+                                    @foreach($user as $us)
+                                    <option value="{{$us->id}}" {{ $us->id == $event->mitra_id ? 'selected' : ''}} >{{ $us->nama }}</option>
+                                    @endforeach
+                                </datalist>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Komisi Mitra</label>
+                                <input type="number" name="komisi_mitra" class="form-control" value="{{ $event->komisi_mitra }}">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Lokasi Event</label>
+                                <input type="text" name="lokasi" class="form-control" value="{{$event->lokasi}}">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Detail Event</label>
+                                <textarea type="text" name="event_detail" class="form-control" style="height:300px">{{$event->event_detail}}</textarea>
+                            </div>
+                            <div class="form-group col-md-4">
                                 <label>Tanggal Event</label>
-                                <input type="date" name="tanggal" id="mdate" class="form-control" value="{{$event->tgl_event}}">
+                                <input type="text" name="tanggal" id="mdate" class="form-control" value="{{$event->tgl_event}}">
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Open Register</label>
@@ -61,21 +91,42 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <h5><b> Copywriting Whatsapp </b></h5>
-                                <label>Copywriting konfirmasi pendaftaran</label>
+                                <label>Copywriting Pendaftaran 1</label>
                                 <textarea type="text" class="form-control" name="pendaftaran" id="pendaftaran" style="height:300px;">{{$event->cw_register}}</textarea>
                             </div>
                             <div class="form-group col-md-12">
-                                <label>Copywriting konfirmasi pembayaran</label>
-                                <textarea type="text" class="form-control" name="pembayaran" id="pembayaran" style="height:300px;">{{$event->cw_payment}}</textarea>
-                            </div><br>
-                            <div class="form-group col-md-12">
-                                <br><h5><b> Copywriting Email </b></h5>
-                                <label>Copywriting konfirmasi pendaftaran</label>
-                                <textarea type="text" class="form-control" name="pendaftaran2" id="editor" placeholder="">{{$event->cw_email_register}}</textarea>
+                                <label>Copywriting Pendaftaran 2</label>
+                                <textarea type="text" class="form-control" name="pendaftaran2" style="height:300px;">{{$event->cw_register2}}</textarea>
                             </div>
                             <div class="form-group col-md-12">
-                                <label>Copywriting konfirmasi pembayaran</label>
-                                <textarea type="text" class="form-control" name="pembayaran2" id="editor2" placeholder="">{{$event->cw_email_payment}}</textarea>
+                                <label>Copywriting Konfirmasi Pendaftaran untuk Referral</label>
+                                <textarea type="text" class="form-control" name="pendaftaran_ref" style="height:300px;">{{$event->cw_referral}}</textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Copywriting Konfirmasi Pembayaran</label>
+                                <textarea type="text" class="form-control" name="pembayaran" id="pembayaran" style="height:300px;">{{$event->cw_payment}}</textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Copywriting Pembayaran untuk Referral</label>
+                                <textarea type="text" class="form-control" name="pembayaran_ref" style="height:300px;">{{$event->cw_payment_ref}}</textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Copywriting Absen Seminar</label>
+                                <textarea type="text" class="form-control" name="absen" style="height:300px;">{{$event->cw_absen}}</textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Copywriting Absen Seminar untuk Referral</label>
+                                <textarea type="text" class="form-control" name="absen_ref" style="height:300px;">{{$event->cw_absen_ref}}</textarea>
+                            </div>
+                            <br>
+                            <div class="form-group col-md-12">
+                                <br><h5><b> Copywriting Email </b></h5>
+                                <label>Copywriting Konfirmasi Pendaftaran</label>
+                                <textarea type="text" class="form-control" name="pendaftaran_email" id="editor" placeholder="">{{$event->cw_email_register}}</textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Copywriting Konfirmasi Pembayaran</label>
+                                <textarea type="text" class="form-control" name="pembayaran_email" id="editor2" placeholder="">{{$event->cw_email_payment}}</textarea>
                             </div>
                         </div>
                     </div>

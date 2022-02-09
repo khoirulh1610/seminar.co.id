@@ -32,16 +32,20 @@ class EventController extends Controller
 
     public function baru(Request $request)
     {
+        $user   = User::where('role_id', 4)->get();
+        $type   = Event::where('id', $request->id)->groupBy('type')->select('type')->get();
         $notif  = Notif::get();
         $title  = "Event Baru";
-        return view('event.eventbaru', compact('notif', 'title'));
+        return view('event.eventbaru', compact('notif', 'title', 'type', 'user'));
     }
 
     public function edit(Request $request)
     {
+        $user   = User::where('role_id', 4)->get();
+        $type   = Event::where('id', $request->id)->groupBy('type')->select('type')->get();
         $event  = Event::where('id', $request->id)->first();
         $notif  = Notif::get();
-        return view('event.eventedit', compact('event', 'notif'));
+        return view('event.eventedit', compact('event', 'notif', 'type', 'user'));
     }
 
     public function save(Request $request)
@@ -50,6 +54,7 @@ class EventController extends Controller
             $event                  = Event::find($request->id);
         } else {
             $event                  = new Event();
+            $event->kode_event      = Str::random(5);
         }
         if ($request->flayer) {
             $file                   = $request->file('flayer');
@@ -64,19 +69,27 @@ class EventController extends Controller
 
         $event->event_title         = $request->nama;
         $event->open_register       = $request->open;
-        $event->kode_event          = Str::random(5);
         $event->close_register      = $request->close;
         $event->tgl_event           = $request->tanggal;
         $event->cw_register         = $request->pendaftaran;
+        $event->cw_register2        = $request->pendaftaran2;
+        $event->cw_referral         = $request->pendaftaran_ref;
         $event->cw_payment          = $request->pembayaran;
-        $event->cw_email_register   = $request->pendaftaran2;
-        $event->cw_email_payment    = $request->pembayaran2;
+        $event->cw_payment_ref      = $request->pembayaran_ref;
+        $event->cw_absen            = $request->absen;
+        $event->mitra_id            = $request->mitra_id;
+        $event->komisi_mitra        = $request->komisi_mitra;
+        $event->cw_absen_ref        = $request->absen_ref;
+        $event->cw_email_register   = $request->pendaftaran_email;
+        $event->cw_email_payment    = $request->pembayaran_email;
         $event->harga               = $request->harga;
         $event->narasumber          = $request->narasumber;
         $event->tema                = $request->tema;
-        $event->save();
-
+        $event->type                = $request->type;
+        $event->lokasi              = $request->lokasi;
+        $event->event_detail        = $request->event_detail;
         // return $event;
+        $event->save();
         return redirect('/event');
     }
 
@@ -223,7 +236,7 @@ class EventController extends Controller
 
     public function tiketall(Request $request)
     {
-        $seminar = Seminar::phone($request->phone)->first();
+        $seminar = Seminar::phone($request->phone)->orderBy('id','desc')->first();
         $event   = Event::where('kode_event',$seminar->kode_event)->first() ?? null;
         if ($seminar) {
             $qrcode = QrCode::size(250)->generate($seminar->phone);

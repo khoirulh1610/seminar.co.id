@@ -14,7 +14,6 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
-                        
                         <div class="row m-b-30">
                             <div class="col-md-5 col-lg-12">
                                 <div class="new-arrival-product mb-4 mb-lg-4 mb-md-0">
@@ -45,24 +44,13 @@
                                     <p>Brand: <span class="item">{{$ev->brand}}</span></p>
                                     <p>Peserta : ({{$ev->seminar->where('status',1)->count('id')}} Payment) / ({{$ev->seminar->count('id')}} Registrant)</p>
                                     <br>
-                                    <center><button type="button" class="btn btn-info btn-sm btn-rounded" data-toggle="collapse" data-target="#demo">Detail Seminar</button>
+                                    <center><button type="button" class="btn btn-info btn-sm btn-rounded" data-toggle="collapse" data-target="#demo{{ $ev->id }}">Detail Seminar</button>
                                     @if(Auth::user()->role_id<=2)
                                     <a href="{{ route('event.absen', ['event' => $ev->kode_event]) }}" class="btn btn-primary btn-rounded btn-sm">Absen</a>
                                     <a href="{{url('event/edit/'.$ev->id)}}" class="btn btn-sm btn-success btn-rounded">Edit</a>
                                     @endif
                                     </center>
-                                    <div id="demo" class="collapse text-content">{!!nl2br($ev->event_detail)!!}</div>
-                                    <!-- <div class="comment-review star-rating text-right"> -->
-                                        <!-- <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star-half-empty"></i></li>
-                                            <li><i class="fa fa-star-half-empty"></i></li>
-                                        </ul> -->
-                                        <!-- <span class="review-text"></span>
-                                    </div> -->
-                                    
+                                    <div id="demo{{ $ev->id }}" class="collapse text-content">{!!nl2br($ev->event_detail)!!}</div>                                    
                                 </div>
                             </div>
                         </div>

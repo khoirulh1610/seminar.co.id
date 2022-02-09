@@ -1,5 +1,7 @@
 <?php
 
+use App\Helpers\Whatsapp;
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +31,10 @@ Route::get('/kabupaten','ApiseminarController@kabupaten');
 Route::any('antrian','Api\AntrianController@antrian');
 Route::any('device','Api\AntrianController@device');
 Route::any('callback','Api\AntrianController@callback');
+
+Route::get('/test',function(){
+    $event = Event::where('sub_domain','madiun')->orderBy('id','desc')->first();
+    if($event){
+        return  Whatsapp::send(["token"=>$event->device_id,"phone"=>"085232843165","message"=>"test"]);
+    }
+});

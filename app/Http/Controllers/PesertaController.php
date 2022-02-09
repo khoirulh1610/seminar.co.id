@@ -122,7 +122,7 @@ class PesertaController extends Controller
     {
         $Seminar = Seminar::find($id);
     	$Seminar->delete();
-        return redirect('/peserta');
+        return redirect()->back();
     }
 
     public function save(Request $request)

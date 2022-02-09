@@ -71,4 +71,9 @@ class Notifikasi{
         // FCM response
         // dd($result);        
     }
+
+    public function seminar($data)
+    {
+        
+    }
 }

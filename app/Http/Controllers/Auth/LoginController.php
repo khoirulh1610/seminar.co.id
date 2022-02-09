@@ -6,14 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Seminar;
-use Auth, Hash;
-use Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
     public function index(Request $request)
     {
-        if(Auth::user()){
+        if (Auth::user()) {
             return redirect('/dashboard');
         }
         return view('Auth.login');
@@ -27,14 +28,14 @@ class LoginController extends Controller
         ]);
 
         $email = $request->email;
-        $cek1 = User::where('email',$email)->first();
-        if(!$cek1){
-            $cek_seminar = Seminar::where('email',$email)->first();
-            if($cek_seminar){
-                $cek_user = User::where('phone',$cek_seminar->phone)->first();
-                if($cek_user){
-                    return redirect()->back()->with('error' ,'Nomor '.$cek_seminar->phone.' yang didaftarkan di seminar, Sudah masuk sebagai user dengan email '.$cek_user->email); 
-                }else{
+        $cek1 = User::where('email', $email)->first();
+        if (!$cek1) {
+            $cek_seminar = Seminar::where('email', $email)->first();
+            if ($cek_seminar) {
+                $cek_user = User::where('phone', $cek_seminar->phone)->first();
+                if ($cek_user) {
+                    return redirect()->back()->with('error', 'Nomor ' . $cek_seminar->phone . ' yang didaftarkan di seminar, Sudah masuk sebagai user dengan email ' . $cek_user->email);
+                } else {
                     // craete user from seminar
                     $user = new User();
                     $user->sapaan    = $cek_seminar->sapaan;
@@ -52,33 +53,33 @@ class LoginController extends Controller
                     $user->b_tahun   = $cek_seminar->b_tahun;
                     $user->kode_ref  = Str::random(8);
                     $user->password  = Hash::make('123456');
-                    $user->role_id   = 4;                    
+                    $user->role_id   = 4;
                     $user->save();
                 }
             }
         }
 
-        if($cek1->status!==1){
-            return redirect()->back()->with('error' ,'Mohon maaf email '.$email.' tidak diijinkan login, SIlahkan hubungi admin'); 
+        if ($cek1->status !== 1) {
+            return redirect()->back()->with('error', 'Mohon maaf email ' . $email . ' tidak diijinkan login, SIlahkan hubungi admin');
         }
-        
+
         //TAMPUNG INFORMASI LOGINNYA, DIMANA KOLOM TYPE PERTAMA BERSIFAT DINAMIS BERDASARKAN VALUE DARI PENGECEKAN DIATAS
         $login = [
             'email'     => $email,
             'password'  => $request->password
         ];
-               
+
         //LAKUKAN LOGIN
-        if (auth()->attempt($login)) {                        
+        if (auth()->attempt($login)) {
             return redirect('/dashboard');
         }
         //JIKA SALAH, MAKA KEMBALI KE LOGIN DAN TAMPILKAN NOTIFIKASI 
-        return redirect()->back()->with('error' ,'Email / Password salah! '. $request->email);
+        return redirect()->back()->with('error', 'Email / Password salah! ' . $request->email);
     }
 
     public function logout(Request $request)
     {
-        if(Auth::user()){
+        if (Auth::user()) {
             Auth::logout();
         }
         return redirect('/login');
