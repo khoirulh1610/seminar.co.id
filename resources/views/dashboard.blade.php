@@ -126,12 +126,11 @@
                                         @if (Auth::user()->role_id <= 2)
                                             <th>Total Pendaftar</th>
                                             <th>Peserta Hadir</th>
-                                            <th>Peserta Payment</th>
-                                            <th>Total Payment</th>
+                                            <th>Komisi</th>
+                                            <th>Komisi Mitra</th>
                                         @else
                                             <th>Referral Anda</th>
-                                            <th>Peserta Hadir</th>
-                                            <th>Peserta Payment</th>
+                                            <th>Peserta Hadir</th>                                           
                                             <th>Total Komisi</th>
                                         @endif
                                         <th>Status</th>
@@ -147,7 +146,7 @@
                                             Open Register : {{ $e->open_register }} <br>
                                             Close Register : {{ $e->close_register }}
                                         </td>
-                                        <td>{{ $e->tgl_event }}</td>
+                                        <td>{{ Date( 'd/m/Y',strtotime($e->tgl_event)) }}</td>
                                         <td>{{ $e->narasumber }}</td>
                                         @if (Auth::user()->role_id == 1)
                                             <td >{{App\Models\Seminar::where('kode_event',$e->kode_event)->where('message','<>','SEMINAR MR')->count('id')}} {{App\Models\Seminar::where('kode_event',$e->kode_event)->where('message','=','SEMINAR MR')->count() ? '| '.App\Models\Seminar::where('kode_event',$e->kode_event)->where('message','=','SEMINAR MR')->count('id') : '' }}</td>
@@ -168,6 +167,9 @@
                                         <td class="text-center">
                                             @if($e->open_register < Carbon\Carbon::now() && $e->close_register > Carbon\Carbon::now() )
                                                 <a href="javascript:void()" class="badge badge-rounded badge-info">Proses</a> 
+                                                @if(Auth::user()->role_id<=2)
+                                                    <a href="{{ url('event/'.$e->kode_event.'/absen') }}" class="badge badge-rounded badge-info">Absen</a> 
+                                                @endif
                                             @else
                                                 <a href="javascript:void()" class="badge badge-rounded badge-warning">SELESAI</a> 
                                             @endif

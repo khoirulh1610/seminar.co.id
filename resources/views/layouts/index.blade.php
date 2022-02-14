@@ -14,7 +14,7 @@
 	<meta property="og:image" content="{{url('seminar.jpeg')}}" />
 	<meta name="format-detection" content="telephone=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ENV('APP_NAME','')}}</title>
+    <title>SEMINAR.CO.ID</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{url('asset/images/favicon.png')}}">
 	<link href="{{url('asset/vendor/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
@@ -68,16 +68,17 @@
         ***********************************-->
         <div class="nav-header">
             <a href="{{url('/')}}" class="brand-logo">
-				<svg class="logo-abbr" width="66.5px" height="66.5px" xmlns="http://www.w3.org/2000/svg">
+                <img src="{{ asset('logo_seminar.png') }}" alt="" srcset="" width="66.5px" height="66.5px" style="background-color: rgb(24, 24, 13)">
+				{{-- <svg class="logo-abbr" width="66.5px" height="66.5px" xmlns="http://www.w3.org/2000/svg">
 				<g>
 					<path class="svg-logo-circle" fill-rule="evenodd" d="M32.999,66.000 C14.774,66.000 -0.000,51.225 -0.000,33.000 C-0.000,14.775 14.774,-0.000 32.999,-0.000 C51.225,-0.000 66.000,14.775 66.000,33.000 C66.000,51.225 51.225,66.000 32.999,66.000 Z" style="fill: rgb(220, 53, 69);"/>
 				</g>
 				<text style="fill: rgb(240, 236, 236); font-family: Arial, sans-serif; font-size: 2.2px; white-space: pre;" transform="matrix(24.352608, 9.17268, -6.999513, 18.58305, -2247.595459, -1306.554077)" x="99.427" y="23.422">S</text>
-				</svg>
+				</svg> --}}
                     <!-- &nbsp;&nbsp;<h4 style="color:#DC3545;"><b> SEMINAR.CO.ID </b></h4> -->
-				<svg class="brand-title" width="150px" height="29.5px" xmlns="http://www.w3.org/2000/svg">
+				{{-- <svg class="brand-title" width="150px" height="29.5px" xmlns="http://www.w3.org/2000/svg">
 					<text style="fill: rgb(220, 53, 69); font-family: Arial, sans-serif; font-size: 3px; white-space: pre;" x="4.648" y="11.225" transform="matrix(3.571264, 0, 0, 9.579959, -11.932273, -86.044098) " >SEMINAR.CO.ID</text>
-				</svg>
+				</svg> --}}
 
             </a>
             <div class="nav-control">

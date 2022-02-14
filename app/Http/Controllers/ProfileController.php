@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Seminar;
 use App\Models\Brand;
-use Auth,Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {

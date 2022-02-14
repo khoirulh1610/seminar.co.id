@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Seminar;
 use App\Models\Event;
 use App\Helpers\Notifikasi;
+use App\Helpers\Whatsapp;
 use App\Models\User;
-use Hash, DB, Auth, Str;
+use Hash, DB, Illuminate\Support\Facades\Auth, Str;
 
 class PesertaController extends Controller
 {
@@ -20,6 +21,19 @@ class PesertaController extends Controller
         }
         $title      = "Data Seminar";
         return view('peserta.peserta',compact('peserta','title'));
+    }
+
+    public function ResendNotif($id)
+    {
+        $seminar = Seminar::where('id',$id)->orderBy('id','desc')->first();
+        if($seminar){
+            $event = Event::where('kode_event',$seminar->kode_event)->orderBy('id','desc')->first();
+            if($event){
+                Whatsapp::send(["token"=>$event->device_id,"phone"=>$seminar->phone,"message"=>ReplaceArray($seminar,$event->cw_register)]);
+                Whatsapp::send(["token"=>$event->device_id,"phone"=>$seminar->phone,"message"=>ReplaceArray($seminar,$event->cw_register2)]);
+            }
+        }
+        return redirect()->back();
     }
 
     public function rangking($kode_event)

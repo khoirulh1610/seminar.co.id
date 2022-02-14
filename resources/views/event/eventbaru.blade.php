@@ -19,11 +19,15 @@
                             <div class="form-row" style="color:black">
                                 <div class="form-group col-md-6">
                                     <label>Nama Event</label>
-                                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Seminar.co.id">
+                                    <input type="text" class="form-control" name="nama" id="nama" placeholder="NAMA Event">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Subdomain</label>
+                                    <input type="text" class="form-control" name="sub_domain" id="sub_domain" placeholder="https://xyz.seminar.co.id => xyz">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Flayer Event</label>
-                                    <input type="file" class="form-control" name="flayer" id="flayer" placeholder="Password">
+                                    <input type="file" class="form-control" name="flayer" id="flayer">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Narasumber</label>
@@ -42,7 +46,7 @@
                                     <select name="notif" id="notif" class="form-control">
                                         <option value="">--</option>
                                         @foreach($notif as $n)
-                                        <option value="{{$n->device_key}}">{{$n->service}}</option>
+                                            <option value="{{$n->id}}">{{$n->phone}}</option>
                                         @endforeach
                                     </select>
                                 </div>

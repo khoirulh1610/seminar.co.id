@@ -19,6 +19,7 @@
                                         <th style="text-align:center">Panggilan</th>
                                         <th style="text-align:center">Nama</th>
                                         <th style="text-align:center">Phone</th>
+                                        <th style="text-align:center">Email</th>
                                         <th style="text-align:center">Kota</th>
                                         <th style="text-align:center">Profesi</th>                                        
                                         <th style="text-align:center">Tgl Lahir</th>
@@ -33,6 +34,7 @@
                                         <td style="text-align:center">{{$abs->panggilan}}</td>
                                         <td style="text-align:center">{{$abs->nama}}</td>
                                         <td style="text-align:center">{{$abs->phone}}</td>
+                                        <td style="text-align:center">{{$abs->email}}</td>
                                         <td style="text-align:center">{{$abs->kota}}</td>
                                         <td style="text-align:center">{{$abs->profesi}}</td>
                                         <td style="text-align:center">{{$abs->b_tanggal}}/{{$abs->b_bulan}}{{$abs->b_tahun ? '/'.$abs->b_tahun : ''}}</td>

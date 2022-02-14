@@ -14,6 +14,7 @@
                         <button type="submit" class="btn btn-success btn-rounded float-right m-1">Simpan</button>
                     </div>
                 </div>
+                
                 <div class="card-body">
                     <div class="basic-form">
                     <input type="hidden" name="id" id="id" value="{{$event->id}}">
@@ -21,6 +22,10 @@
                             <div class="form-group col-md-6">
                                 <label >Nama Event</label>
                                 <input type="text" class="form-control" name="nama" id="nama" placeholder="Seminar.co.id" value="{{$event->event_title}}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Subdomain</label>
+                                <input type="text" class="form-control" name="sub_domain" id="sub_domain" value="{{$event->sub_domain}}" placeholder="https://xyz.seminar.co.id => xyz">
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Flayer Event</label>
@@ -43,7 +48,7 @@
                                 <select name="notif" id="notif" class="form-control">
                                     <option value="">--</option>
                                     @foreach($notif as $n)
-                                        <option value="{{$n->device_key }}">{{$n->service}}</option>
+                                        <option value="{{$n->id }}">{{$n->phone}}</option>
                                     @endforeach
                                 </select>
                             </div>

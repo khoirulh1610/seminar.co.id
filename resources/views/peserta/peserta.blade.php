@@ -41,8 +41,10 @@
                                         <th style="text-align:center">Pengundang</th>
                                         <th style="text-align:center">Sapaan</th>
                                         <th style="text-align:center">Nama</th>
+                                        <th style="text-align:center">Panggilan</th>
                                         <th style="text-align:center">Phone</th>
                                         <th style="text-align:center">Kota</th>
+                                        <th style="text-align:center">EMail</th>
                                         <th style="text-align:center">Tanggal Daftar</th>
                                         @if(Auth::user()->role_id==1 || Auth::user()->role_id==1 || Auth::user()->role_id==3)                                        
                                         <th style="text-align:center">Status</th>
@@ -59,13 +61,14 @@
                                         <td style="text-align:center">{{$p->pengundang->nama ?? $p->user->nama ?? ''}} <br> {{$p->pengundang->phone ?? $p->user->phone ?? ''}}</td>
                                         <td style="text-align:center">{{$p->sapaan}}</td>
                                         <td style="text-align:center">{{$p->nama}}</td>
+                                        <td style="text-align:center">{{$p->panggilan}}</td>
                                         @if(Auth::user()->role_id==4)
                                         <td style="text-align:center"> ********{{substr($p->phone,-4)}} <br><small> xxxx{{substr(explode('@',$p->email)[0],-4)}}{{'@'.explode('@',$p->email)[1]}} </small></td>
                                         @elseif(Auth::user()->role_id==1 || Auth::user()->role_id==2 || Auth::user()->role_id==3)
                                         <td style="text-align:center">{{$p->phone}}</td>
                                         @endif
                                         <td style="text-align:center">{{$p->kota}}</td>
-                                        <!-- <td style="text-align:center"> {{$p->phone}} <br><small> {{$p->email}} </small></td> -->
+                                        <td style="text-align:center"> {{$p->email}} </small></td>
                                         <td style="text-align:center">{{$p->created_at}}</td>
                                     @if(Auth::user()->role_id==1 || Auth::user()->role_id==2 || Auth::user()->role_id==3)    
                                         <td style="text-align:center">
@@ -87,6 +90,7 @@
                                     @endif
                                         @if(Auth::user()->role_id==1)
                                         <td style="text-align:center">
+                                            <a href="{{ url('peserta/resend-notif/'.$p->id) }}" class="btn btn-success btn-xs btn-rounded"> <i class="flaticon-381-share-2"></i> </a>                                            
                                             <button type="button" class="btn btn-success btn-xs btn-rounded" onclick="Edit({{$p->id}},'{{$p->nama}}','{{$p->sapaan}}','{{$p->email}}','{{$p->phone}}','{{$p->panggilan}}')"><em class="flaticon-381-edit"></em></button>                                            
                                             @if($p->status==0)
                                             <button type="button" class="btn btn-success btn-xs btn-rounded" onclick="Approve({{$p->id}})"><em class="flaticon-381-success"></em></button>                                            

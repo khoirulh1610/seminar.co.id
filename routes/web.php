@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebNotificationController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/peserta/{kode_event}', 'PesertaController@index')->name('peserta');
     Route::post('/peserta/approve', 'PesertaController@approve')->name('peserta.approve');
     Route::post('/peserta/save', 'PesertaController@save')->name('peserta.save');
+    Route::get('/peserta/resend-notif/{id}', 'PesertaController@ResendNotif')->name('peserta.ResendNotif');
     Route::post('/peserta/importkeuser', 'PesertaController@importkeuser')->name('peserta.importkeuser');
     Route::get('/peserta/delete/{id}', 'PesertaController@remove')->name('peserta.delete');
     Route::get('/seminar/rangking/{kode_event}', 'PesertaController@rangking')->name('peserta.rangking');
@@ -131,26 +133,9 @@ Route::group(['middleware' => ['auth']], function () {
         return $notif;
     });
 
-    Route::get('/qrcode11/{id}', function ($id) {
-        $notif = App\Helpers\Whatsapp::new(["instance" => (string)$id]);
-        return $notif;
-    });
-
     Route::get('/logout/{id}', function ($id) {
         $db = App\Models\Device::where('id', $id)->update(["status" => "Start", "phone" => null, "profile_url" => null, "nama" => null]);
         $notif = App\Helpers\Whatsapp::logout(["instance" => (string)$id]);
-        return $notif;
-    });
-
-    Route::get('/reset/{id}', function ($id) {
-        $db = App\Models\Device::where('id', $id)->update(["status" => "Start", "phone" => null, "profile_url" => null, "nama" => null]);
-        $notif = App\Helpers\Whatsapp::reset(["instance" => (string)$id]);
-        return $notif;
-    });
-
-    Route::get('/contact/{id}', function ($id) {
-        $db = App\Models\Device::where('id', $id)->update(["status" => "Start", "phone" => null, "profile_url" => null, "nama" => null]);
-        $notif = App\Helpers\Whatsapp::getcontacts(["instance" => (string)$id]);
         return $notif;
     });
 

@@ -122,13 +122,17 @@
         const sfxFail = new Audio("{{ asset('fail.mp3') }}");
         const sfxBeep = new Audio("{{ asset('beep.mp3') }}");
 
-        $('body').on('keyup', function(e) {
-            // Enter insert data
+        $('body').on('keyup', function(e) {            
+            
             if (e.keyCode == 13) {
                 let phone = $('#phone').val();
                 insert(phone)
-            } else if(e.key >= 0 && e.key <= 9) {
-                inputPhone.value += e.key
+            } else if(e.key >= 0 && e.key <= 9) {                
+                if ($('#phone').is(':focus')) {
+                    console.log('Lagi Fokus nih');;
+                }else{
+                    inputPhone.value += e.key
+                }
             }
         });
         document.body.addEventListener('keyup', function (e){
@@ -159,7 +163,7 @@
         
         function insert(id) {
             $.ajax({
-                url : '{{ url("/event/{$event->kode_event}/absen") }}',
+                url : 'https://seminar.co.id/event/{{ $event->kode_event }}/absen',
                 type : 'post',
                 data: {
                     _token: "{{ csrf_token() }}",
@@ -172,10 +176,15 @@
                             duplicateInsert(data.phone)
                         } else if (data.status === 'tidak-ada') {
                             failInsert(data.phone)
+                        }else{
+                            console.log('error mas');
                         }
-                    } else {
+                    } else {                        
                         insertHtml(data) 
                     }
+                },
+                error: function (request, status, error) {
+                    alert(request.responseText);
                 }
             })
         }
@@ -243,7 +252,7 @@
         
         setInterval(() => {
             $.ajax({
-                url : '{{ url("/event/{$event->kode_event}/absensi") }}',
+                url : 'https://seminar.o.id/event/{{$event->kode_event}}/absensi',
                 type : 'get',
                 success:function(data){
                     $('#tbody-absen').html(data);
@@ -264,7 +273,7 @@
             .then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url : '{{ url("/event/{$event->kode_event}/absen") }}/'+id,
+                        url : 'https://seminar.co.id/event/{{$event->kode_event}}/absen/'+id,
                         type : 'post',
                         data: {
                             _token: "{{ csrf_token() }}",

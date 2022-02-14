@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Helpers\Notifikasi;
+use App\Helpers\Whatsapp;
+use App\Models\Device;
 use Illuminate\Support\Str;
 
 class EventController extends Controller
@@ -22,9 +24,9 @@ class EventController extends Controller
     {
         $status = $request->status ?? 1;
         if (Auth::user()->role_id == 1) {
-            $event  = Event::where('status', $status)->get();
+            $event  = Event::where('status', $status)->orderBy('id','desc')->get();
         } else {
-            $event  = Event::where('status', $status)->get();
+            $event  = Event::where('status', $status)->orderBy('id','desc')->get();
         }
         $title      = "Event";
         return view('event.event', compact('event', 'title'));
@@ -34,7 +36,7 @@ class EventController extends Controller
     {
         $user   = User::where('role_id', 4)->get();
         $type   = Event::where('id', $request->id)->groupBy('type')->select('type')->get();
-        $notif  = Notif::get();
+        $notif  = Device::get();
         $title  = "Event Baru";
         return view('event.eventbaru', compact('notif', 'title', 'type', 'user'));
     }
@@ -44,7 +46,7 @@ class EventController extends Controller
         $user   = User::where('role_id', 4)->get();
         $type   = Event::where('id', $request->id)->groupBy('type')->select('type')->get();
         $event  = Event::where('id', $request->id)->first();
-        $notif  = Notif::get();
+        $notif  = Device::get();
         return view('event.eventedit', compact('event', 'notif', 'type', 'user'));
     }
 
@@ -69,6 +71,7 @@ class EventController extends Controller
 
         $event->event_title         = $request->nama;
         $event->open_register       = $request->open;
+        $event->sub_domain          = $request->sub_domain;
         $event->close_register      = $request->close;
         $event->tgl_event           = $request->tanggal;
         $event->cw_register         = $request->pendaftaran;
@@ -159,7 +162,7 @@ class EventController extends Controller
         $phone   = preg_replace('/^0/','62',$request->id);
         $peserta = Seminar::where('phone',$phone)->first();        
         if ($peserta) {
-            $cekAbsen = Absensi::where('kode_event', $event->kode_event)->where('seminar_id', $peserta->id)->whereDate('created_at', Carbon::now())->first();
+            $cekAbsen = Absensi::where('kode_event', $event->kode_event)->where('seminar_id', $peserta->id)->whereDate('created_at', Carbon::now())->first();            
             if (!$cekAbsen) {
                 # Lakukan Absensi Kehadiran
                 $hadir = Absensi::create([
@@ -167,7 +170,8 @@ class EventController extends Controller
                     'kode_event' => $event->kode_event,
                     "tgl_absen"=>Date('Y-m-d')
                 ]);
-                $notif   = Notifikasi::send(["device_key"=>'8niD7OgjZ737XWh',"phone"=>$peserta->phone,"message"=>ReplaceArray($peserta,$event->cw_absen),"engine"=>'quods',"delay"=>1]);                    
+                // $notif   = Notifikasi::send(["device_key"=>'8niD7OgjZ737XWh',"phone"=>$peserta->phone,"message"=>ReplaceArray($peserta,$event->cw_absen),"engine"=>'quods',"delay"=>1]);                    
+                Whatsapp::send(["token"=>$event->device_id,"phone"=>$peserta->phone,"message"=>ReplaceArray($peserta,$event->cw_absen)]);
                 if($peserta->ref){
                     $peng = Seminar::where('phone',$peserta->ref)->first();
                     if(!$peng){
@@ -183,12 +187,13 @@ class EventController extends Controller
                             "panggilan"=>$peserta->panggilan,
                             "phone"=>$peserta->phone
                         ];
-                        $notif_ref = Notifikasi::send(["device_key"=>'8niD7OgjZ737XWh',"phone"=>$peng->phone,"message"=>ReplaceArray($pengundang,$event->cw_absen_ref),"engine"=>'quods',"delay"=>1]);                    
+                        // $notif_ref = Notifikasi::send(["device_key"=>'8niD7OgjZ737XWh',"phone"=>$peng->phone,"message"=>ReplaceArray($pengundang,$event->cw_absen_ref),"engine"=>'quods',"delay"=>1]);                    
+                        Whatsapp::send(["token"=>$event->device_id,"phone"=>$peng->phone,"message"=>ReplaceArray($pengundang,$event->cw_absen_ref)]);
                     }                    
                 }
-                // return view('event.tbody-absen', [
-                //     'peserta' => $peserta
-                // ]);
+                return view('event.tbody-absen', [
+                    'peserta' => Absensi::with('seminar')->today($event->kode_event)->get()
+                ]);
             } else {
                 # Sudah Pernah Absen
                 return [
@@ -196,12 +201,12 @@ class EventController extends Controller
                     'phone' => $request->id
                 ];
             }
+        }else{
+            return [
+                'status' => 'tidak-ada',
+                'phone' => $request->id
+            ];
         }
-
-        return [
-            'status' => 'tidak-ada',
-            'phone' => $request->id
-        ];
     }
 
     public function pesertaHadir(Event $event)

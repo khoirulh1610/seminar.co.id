@@ -37,7 +37,7 @@ class KirimpesanController extends Controller
         $data                       = Antrian::selectRaw('device_id')->where('user_id', Auth::id())->where('status',1)->groupBy('device_id')->get();
         $pesan = [];
         foreach ($data as $row) {            
-            $all                    = Antrian::selectRaw('message, phone, id, pause,file file_url')->where('user_id', Auth::id())->where('status', 1)->where('device_id', $row->device_id)->get();
+            $all                    = Antrian::selectRaw('message, phone, id, pause,file file_url')->where('user_id', Auth::id())->where('status', 1)->where('device_id', $row->device_id)->take(100)->get();
             $p =[];
             foreach ($all as $rr) {
                 $p[] =[
@@ -54,7 +54,8 @@ class KirimpesanController extends Controller
                 'data' => $p
             ];
             
-            $kirim = Whatsapp::queue($pesan);
+           $kirim = Whatsapp::queue($pesan);
+        //    return $kirim;
         }
 
         return redirect('/kirimpesan');

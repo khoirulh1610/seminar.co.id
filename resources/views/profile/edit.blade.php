@@ -128,7 +128,7 @@
                                                     ?>
                                                 </select>
                                                 @else
-                                                    <input type="text" name="role_id" class="form-control" value="{{$edit->role->name}}" readonly>
+                                                    <input type="text" name="role_id" class="form-control" value="{{$edit->role->id}}" readonly>
                                                 @endif
                                             </div>
                                         </div>

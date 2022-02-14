@@ -12,6 +12,7 @@ use App\Helpers\Whatsapp;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Access;
+use Carbon\Carbon;
 
 class DaftarEventController extends Controller
 {
@@ -21,6 +22,9 @@ class DaftarEventController extends Controller
         $event   = Event::where('sub_domain', explode('.',$domain)[0])->first();
         if(!$event){
             return abort(404,'Halaman tidak ditemukan');
+        }
+        if($event->close_register <= Carbon::now() ){
+            return abort(403,'REGISTRASI DITUTUP');
         }
         $ref = $request->ref;
         $pengndang = User::where('phone',$ref)->orWhere('kode_ref',$ref)->first();
@@ -140,7 +144,8 @@ class DaftarEventController extends Controller
                     $seminar->unix              = $unix;
                     $seminar->total             = $total;
                     $seminar->status            = 0;
-                    $seminar->message           = $message;      
+                    $seminar->message           = $message;  
+                    $seminar->message2          = $message2 ?? null;      
                     $seminar->ref               = $referal->phone ?? $ref ?? null;  
                     $seminar->tgl_seminar       = $event->tgl_event;       
                     $seminar->kode_event        = $kode_event;  
