@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Cloudflare;
 use App\Models\Absensi;
 use Illuminate\Http\Request;
 use App\Models\Event;
@@ -93,6 +94,11 @@ class EventController extends Controller
         $event->event_detail        = $request->event_detail;
         // return $event;
         $event->save();
+        try {
+            Cloudflare::add_dns($request->sub_domain);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         return redirect('/event');
     }
 
