@@ -305,7 +305,7 @@
                               </span>
                               <button type="submit" class="btn btn-success">Daftar Sekarang <i class="fa fa-arrow-circle-right"></i></button><br><br>
                               <center>
-                                <p>Butuh Bantuan ? <a href="https://api.whatsapp.com/send/?phone=6287711993838&text=Saya+butuh+bantuan,+pendaftaran"><i class="fa fa-whatsapp"></i> Klik disini</a></p>
+                                <p>Butuh Bantuan ? <a href="{{$link}}"><i class="fa fa-whatsapp"></i> Klik disini</a></p>
                               </center>
                             </div>
                           </div>

@@ -11,6 +11,7 @@ use App\Helpers\Notifikasi;
 use App\Helpers\Whatsapp;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Models\Absensi;
 use App\Models\Access;
 use Carbon\Carbon;
 
@@ -33,10 +34,55 @@ class DaftarEventController extends Controller
             $pengndang = Seminar::where('phone',$ref)->first();
         }
         $pengundang_nama = $pengndang->nama ?? '';
-        $buka_pendaftaran = 1;        
-        return view('DaftarEvent.index',compact('pengundang_nama','buka_pendaftaran','event'));
+        $buka_pendaftaran = 1;   
+        $link = "https://api.whatsapp.com/send/?phone=6287711993838&text=Saya+butuh+bantuan,+pendaftaran+di+".url('/')." %0A%0ABerikut ini data saya: %0ANama: %0AEmail: %0ANo hp: %0ATgl lahir: %0AKota/kab:";     
+        return view('DaftarEvent.index',compact('pengundang_nama','buka_pendaftaran','event','link'));
     }
     
+    public function absen()
+    {
+        $domain = request()->getHttpHost();
+        $event   = Event::where('sub_domain', explode('.',$domain)[0])->first();        
+        return view('DaftarEvent.absen',compact('event'));
+    }
+
+    public function absen_save(Request $request)
+    {
+        $phone = preg_replace('/^0/','62',$request->phone);
+        $seminar = Seminar::where('phone',$phone)->orderBy('id','desc')->first();            
+        if($seminar){
+            $cek   = Absensi::where('seminar_id',$seminar->id)->where('tgl_absen',Date('Y-m-d'))->first();
+            if(!$cek){
+                $absen = new Absensi();
+                $absen->seminar_id = $seminar->id;
+                $absen->kode_event = $request->kode_event ?? $seminar->kode_event;
+                $absen->tgl_absen  = Date('Y-m-d');
+                $absen->save();
+                $event = Event::where('kode_event',$request->kode_event)->first();
+                if($event){
+                    $cw = ReplaceArray($seminar,$event->cw_absen);
+                    $kirim = Whatsapp::send(['token'=>3,'phone'=>$seminar->phone,'message'=>$cw]);
+                    if($seminar->ref){
+                        $ref_seminar = Seminar::where('phone',$seminar->ref)->first();                        
+                        if($ref_seminar){
+                            // Log::debug($ref_seminar);
+                            $cw_ref_data = ['phone'=>$seminar->phone,'ref_panggilan'=>$ref_seminar->panggilan ?? $ref_seminar->nama,'ref_sapaan'=>$ref_seminar->sapaan,'nama'=>$seminar->nama];
+                            $cw_ref      = ReplaceArray($cw_ref_data,$event->cw_absen_ref);
+                            $d = Whatsapp::send(['token'=>3,'phone'=>$ref_seminar->phone,'message'=>$cw_ref]);
+                            $j = Absensi::where('kode_event',$request->kode_event)->count();
+                            $e = Whatsapp::send(['token'=>3,'phone'=>'6281228060666-1635994060@g.us','message'=>$cw_ref]);
+                            // Log::info($d);
+                        }
+                    }
+                    return redirect('absen?message=Selamat Absen sudah berhasil');
+                }
+            }else{
+                return redirect('absen?message=Anda sudah Absen sebelumnya');                
+            }
+        }else{
+            return redirect('absen?message=Data tidak Ditemukan');                            
+        }
+    }
 
     public function kabupaten()
     {

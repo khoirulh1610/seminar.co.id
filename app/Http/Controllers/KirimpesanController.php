@@ -14,7 +14,7 @@ class KirimpesanController extends Controller
     public function index(Request $request)
     {
         $row        = $request->row ?? 10;
-        $kirimpesan = Antrian::where('user_id',Auth::id())->paginate($row);
+        $kirimpesan = Antrian::where('user_id',Auth::id())->orderBy('id','desc')->paginate($row);
         $status_pesan = Antrian::where('user_id',Auth::id())->groupBy('report')->pluck('report');
         $title      = "Kirim Pesan";
         return view('kirimpesan.kirimpesan',compact('kirimpesan','title','status_pesan'));
@@ -37,7 +37,7 @@ class KirimpesanController extends Controller
         $data                       = Antrian::selectRaw('device_id')->where('user_id', Auth::id())->where('status',1)->groupBy('device_id')->get();
         $pesan = [];
         foreach ($data as $row) {            
-            $all                    = Antrian::selectRaw('message, phone, id, pause,file file_url')->where('user_id', Auth::id())->where('status', 1)->where('device_id', $row->device_id)->take(100)->get();
+            $all                    = Antrian::selectRaw('message, phone, id, pause,file file_url')->where('user_id', Auth::id())->where('status', 1)->where('device_id', $row->device_id)->get();
             $p =[];
             foreach ($all as $rr) {
                 $p[] =[

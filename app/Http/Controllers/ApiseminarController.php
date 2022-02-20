@@ -266,9 +266,9 @@ class ApiseminarController extends Controller
     {
         $emailorphone = preg_replace('/^0/','62',$request->id);
         $kode_event   = $request->kode_event;
-        $seminar = Seminar::where('kode_event',$kode_event)->where('email',$emailorphone)->first();
+        $seminar = Seminar::where('email',$emailorphone)->first();
         if(!$seminar){
-            $seminar = Seminar::where('kode_event',$kode_event)->where('phone',$emailorphone)->first();
+            $seminar = Seminar::where('phone',$emailorphone)->first();
         }
         if($seminar){
             return ["status"=>true,"data"=>$seminar];

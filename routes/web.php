@@ -38,6 +38,8 @@ Route::get('/kabupaten', 'DaftarEventController@kabupaten');
 Route::group(array('domain' => '{subdomain}.seminar.co.id'), function($subdomain) {
     if($subdomain){
         Route::get('/', 'DaftarEventController@index');              
+        Route::get('/absen', 'DaftarEventController@absen');    
+        Route::post('/absen-save', 'DaftarEventController@absen_save');
         Route::post('/seminar-register', 'DaftarEventController@register');              
     }else{
         Route::get('/', 'Auth\LoginController@index')->name('login.1');
@@ -129,19 +131,19 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::get('/new/{id}', function ($id) {
-        $notif = App\Helpers\Whatsapp::start(["instance" => (string)$id]);
+        $notif = App\Helpers\Whatsapp::start(["token" => (string)$id]);
         return $notif;
     });
 
     Route::get('/logout/{id}', function ($id) {
         $db = App\Models\Device::where('id', $id)->update(["status" => "Start", "phone" => null, "profile_url" => null, "nama" => null]);
-        $notif = App\Helpers\Whatsapp::logout(["instance" => (string)$id]);
+        $notif = App\Helpers\Whatsapp::logout(["token" => (string)$id]);
         return $notif;
     });
 
     Route::get('/send/{id}', function ($id) {
-        $req = \Request();
-        $notif = App\Helpers\Whatsapp::send(["instance" => (string)$id, "number" => $req->phone ?? "085232843165", "message" => "Test server whatsapp from https://seminar.co.id"]);
+        $req = \Request();        
+        $notif = App\Helpers\Whatsapp::send(["token" => $id, "phone" => $req->phone ?? "085232843165", "message" => "Test server whatsapp from https://seminar.co.id"]);
         return $notif;
     });
 });
