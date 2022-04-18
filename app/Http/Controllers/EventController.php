@@ -91,6 +91,7 @@ class EventController extends Controller
         $event->tema                = $request->tema;
         $event->type                = $request->type;
         $event->lokasi              = $request->lokasi;
+        $event->device_id           = $request->notif ?? 3;
         $event->event_detail        = $request->event_detail;
         // return $event;
         $event->save();

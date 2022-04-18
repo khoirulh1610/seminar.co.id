@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Helpers\Wa;
 use App\Models\Event;
 use App\Helpers\Notifikasi;
+use App\Helpers\Whatsapp;
 
 class Mutasi extends Command
 {
@@ -51,7 +52,7 @@ class Mutasi extends Command
         foreach ($bnk as $bank) {
             $Parser = new BCAParser($bank->username,$bank->password);
             $saldo = $Parser->getSaldo();
-            $Html =  $Parser->getTransaksiCredit(Date('Y-m-d',strtotime("-2 days")), Date('Y-m-d'));
+            $Html =  $Parser->getTransaksiCredit(Date('Y-m-d',strtotime("-1 days")), Date('Y-m-d'));
             $Parser->logout();
             // echo $saldo[0]->saldo;
             foreach ($Html as $row) {
@@ -69,10 +70,12 @@ class Mutasi extends Command
                     $mts->deskripsi = $dec;
                     $mts->nominal   = $nominal_trf;
                     $mts->save();
+                    $notifMutasi =  Whatsapp::send(["token"=>3,"phone"=>'6281228060666-1635994060@g.us',"message"=>$dec."\r\n".$tgl."\r\n".$nominal_trf]);
                 }
                 
                 $peserta    = Seminar::where('status',0)->where('total',$nominal_trf)->first();
-                if($peserta){                    
+                if($peserta){      
+                    echo "Ada";
                     $peserta->status        = '1';
                     $peserta->catatan       = 'Bank Otomatis';
                     $peserta->type_bayar    = 'Bank';
@@ -81,7 +84,9 @@ class Mutasi extends Command
                     if($event){
                         $message                    = ReplaceArray($peserta,$event->cw_payment);
                         $peserta->message2          = $message;
-                        $notif                      = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$peserta->phone,"message"=>$message,"engine"=>$event->notifikasi,"delay"=>1]);
+                        // $notif                      = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$peserta->phone,"message"=>$message,"engine"=>$event->notifikasi,"delay"=>1]);
+                        $notif1 =  Whatsapp::send(["token"=>$event->device_id,"phone"=>$peserta->phone,"message"=>$message]);
+                        $notif2 =  Whatsapp::send(["token"=>$event->device_id,"phone"=>'6281228060666-1635994060@g.us',"message"=>$message]);
                         if($peserta->ref){
                             if($event->cw_payment_ref){
                                 $ref                = User::where('phone',$peserta->ref)->first();
@@ -92,7 +97,8 @@ class Mutasi extends Command
                                     $komisi_total   = Seminar::where('ref',$peserta->ref)->where('kode_event',$peserta->kode_event)->where('status',1)->sum('fee_referral') ?? 0;
                                     $pengundang     = ["nama"=>$peserta->nama,"sapaan"=>$peserta->sapaan,"panggilan"=>$peserta->panggilan,"pengundang_nama"=>$ref->nama,"pengundang_sapaan"=>$ref->sapaan,"pengundang_panggilan"=>$ref->panggilan,"komisi"=>number_format($event->fee_referral),"komisi_total"=>number_format($komisi_total)];
                                     $cw_payment_ref = ReplaceArray($pengundang,$event->cw_payment_ref);
-                                    $notif          = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$peserta->ref,"message"=>$cw_payment_ref,"engine"=>$event->notifikasi,"delay"=>1]);
+                                    // $notif          = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$peserta->ref,"message"=>$cw_payment_ref,"engine"=>$event->notifikasi,"delay"=>1]);
+                                    $notif3 =  Whatsapp::send(["token"=>$event->device_id,"phone"=>$peserta->ref,"message"=>$cw_payment_ref]);
                                 }
                             }
                         }

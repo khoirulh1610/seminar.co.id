@@ -9,6 +9,7 @@ use App\Helpers\Notifikasi;
 use App\Helpers\Whatsapp;
 use App\Models\User;
 use Hash, DB, Illuminate\Support\Facades\Auth, Str;
+use Rap2hpoutre\FastExcel\Facades\FastExcel;
 
 class PesertaController extends Controller
 {
@@ -20,8 +21,22 @@ class PesertaController extends Controller
             $peserta    = Seminar::where("kode_event","like",$kode_event)->where('ref',Auth::user()->phone)->get();
         }
         $title      = "Data Seminar";
-        return view('peserta.peserta',compact('peserta','title'));
+        return view('peserta.peserta',compact('peserta','title','kode_event'));
     }
+
+    public function Export(Request $request,$kode_event)
+    {
+        $event = Event::where('kode_event',$kode_event)->first();
+        if(Auth::user()->role_id<=2){
+            $peserta    = Seminar::where("kode_event","like",$kode_event)->selectRaw('tgl_seminar,sapaan,nama,panggilan,phone,email,concat(b_tahun,"-",b_bulan,"-",b_tanggal)tgl_lahir,kota,total,created_at tgl_daftar')->get();
+        }else{
+            $peserta    = Seminar::where("kode_event","like",$kode_event)->selectRaw('tgl_seminar,sapaan,nama,panggilan,phone,email,concat(b_tahun,"-",b_bulan,"-",b_tanggal)tgl_lahir,kota,total,created_at tgl_daftar')->where('ref',Auth::user()->phone)->get();
+        }
+        $file = './exports/'.$event->event_title.'-'.time().'.xlsx';
+        FastExcel::data($peserta)->export($file);
+        return redirect($file);
+    }
+
 
     public function ResendNotif($id)
     {

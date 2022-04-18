@@ -1,0 +1,25 @@
+{
+	"payload": {
+		"account_id": "OB6D6aFcSMC4gDWUoP3-4w",
+		"object": {
+			"uuid": "2edPPohVTv2sAq1U52TaFg==",
+			"participant": {
+				"user_id": "17013760",
+				"user_name": "Bu Arty# KOTA SUKABUMI",
+				"registrant_id": "DvfSQU66T3ivcSnzfMgKBQ",
+				"id": "DvfSQU66T3ivcSnzfMgKBQ",
+				"join_time": "2022-04-02T08:13:22Z",
+				"email": "artynareswari79@gmail.com"
+			},
+			"id": "99725228452",
+			"type": 2,
+			"topic": "SEMINAR TOKO ONLINE",
+			"host_id": "W_Yl9Aa6RluRhcZ8KSmuEQ",
+			"duration": 180,
+			"start_time": "2022-04-02T07:06:43Z",
+			"timezone": "Asia/Jakarta"
+		}
+	},
+	"event_ts": 1648887210178,
+	"event": "meeting.participant_joined"
+}

@@ -22,12 +22,6 @@
 <!--===============================================================================================-->
 </head>
 <body>
-
-<?php
-
-// echo '<h1>MOHON MAAF ABSEN TELAH DITUTUP</h1>';
-// exit;
-?>
 	<?php
 
 	if(isset($_GET['message'])){
@@ -49,6 +43,78 @@
 				<img src="{{url('ass_absen/images/img-01.png')}}" alt="IMG">
 			</div>
 
+			@if ($event->reg_absen || request()->register=='Y')
+			<form class="contact1-form validate-form" action="{{url('absen-save')}}" method="post">
+				@csrf
+				<span class="contact1-form-title">
+					ABSEN {{$event->event_title ?? 'ONLINE KOMI'}}					
+				</span>
+				<input type="hidden" name="reg_absen" value="1">
+				<input type="hidden" name="kode_event" value="{{$event->kode_event}}">				
+				<div id="data">
+					<div class="wrap-input1 validate-input" data-validate = "Nomor Whtsapp Wajib diisi">					
+						{{-- <label for="">Sapaan</label> --}}
+						<select name="sapaan" id="sapaan" class="input1 form-control" required>							
+							<option value="">Sapaan</option>
+							<option value="Bu">Bu</option>
+							<option value="Pak">Pak</option>
+							<option value="Mas">Mas</option>
+							<option value="Mbak">Mbak</option>
+							<option value="Kak">Kak</option>
+						</select>
+						<span class="shadow-input1"></span>
+					</div>		
+					<div class="wrap-input1 validate-input">
+						{{-- <label for="">Nama Panggilan</label> --}}
+						<input class="input1 text-center" type="text" name="panggilan" id="panggilan" placeholder="Nama Panggilan">
+						<span class="shadow-input1"></span>
+					</div>
+					<div class="wrap-input1 validate-input">
+						{{-- <label for="">Nama Lengkap</label> --}}
+						<input class="input1 text-center" type="text" name="nama" id="nama" placeholder="Nama Lengkap">
+						<span class="shadow-input1"></span>
+					</div>
+					<div class="wrap-input1 validate-input" data-validate = "Nomor Whtsapp Wajib diisi">	
+						{{-- <label for="">Nomor HP (Terdaftar Whatsapp)</label>				 --}}
+						<input class="input1 text-center" type="text" name="phone" id="phone" placeholder="Nomor HP (Terdaftar Whatsapp">
+						<span class="shadow-input1"></span>
+					</div>									
+					<div class="wrap-input1 validate-input">					
+						<input class="input1 text-center" type="email" name="email" id="email" placeholder="Email">
+						<span class="shadow-input1"></span>
+					</div>
+					<div class="wrap-input1 validate-input">					
+						<input class="input1 text-center" type="text" name="profesi" id="profesi" placeholder="Profesi / Pekerjaan">
+						<span class="shadow-input1"></span>
+					</div>
+					<div class="wrap-input1 validate-input">						
+						<select name="prov_id" id="prov_id" class="form-control input1">
+							<option value="">Provinsi</option>
+							@foreach ($provinsi as $item)
+							<option value="{{ $item->id }}">{{ $item->name }}</option>
+							@endforeach
+						</select>
+						<span class="shadow-input1"></span>
+					</div>
+					<div class="wrap-input1 validate-input">
+						<select name="kota_id" id="kota_id" class="form-control input1">
+							<option value="">Kota / Kabupaten</option>
+							@foreach ($kota as $item)
+								<option value="{{ $item->id }}">{{ $item->name }}</option>
+							@endforeach
+						</select>
+						<span class="shadow-input1"></span>
+					</div>
+				</div>
+				<div class="container-contact1-form-btn">
+					<button class="contact1-form-btn">
+						<span>
+							Submit
+						</span>
+					</button>					
+				</div>
+			</form>
+			@else
 			<form class="contact1-form validate-form" action="{{url('absen-save')}}" method="post">
 				@csrf
 				<span class="contact1-form-title">
@@ -86,6 +152,8 @@
 					</div>
 				</div>
 			</form>
+			@endif
+			
 		</div>
 	</div>
 	<?php } ?>
@@ -130,6 +198,16 @@ $('#id').on('keyup',function(a,b){
 				$('#data').removeClass('d-block');
 				$('#data').addClass('d-none');
 			}
+		}
+	})
+});
+$('#prov_id').change(function(){
+	$.ajax({
+		"url" : "{{asset('kabupaten')}}",
+		"data" : {id:this.value,type:'option'},
+		"type" : "get",
+		"success":function(data){                
+			$('#kota_id').html(data);
 		}
 	})
 });

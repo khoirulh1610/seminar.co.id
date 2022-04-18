@@ -81,7 +81,7 @@
                   <p class="mb-0"><i class="fa fa-check" aria-hidden="true"></i> Komunitas </p> -->
                   {!!$event->event_detail ?? ''!!}
                   <div class="col-12 m-2">
-                    <a class="btn-landing btn-lg" href="#reg" >Daftar Gratis</a>
+                    <a class="btn-landing btn-lg" href="#reg" >Daftar</a>
                   </div>
                 </div>
               </div>
@@ -189,7 +189,7 @@
                             <div class="col-sm-12 col-md-7">
                               <div class="wow fadeInUp" data-wow-duration="200ms">
                                 <label for="Nama" style="color:black;">Nama Panggilan</label>
-                                <input type="text" name="panggilan" placeholder="Masukkan Nama Panggilan" class="form-control" autocomplete="off" required>
+                                <input type="text" name="panggilan" id="panggilan" placeholder="Masukkan Nama Panggilan" class="form-control _string" autocomplete="off" required>
                               </div>
                               <!--form-field end-->
                             </div>
@@ -198,14 +198,14 @@
                             <div class="col-sm-12">
                               <div class="wow fadeInUp" data-wow-duration="200ms">
                                 <br><label for="Nama" style="color:black;">Nama Lengkap</label><br>
-                                <input type="text" name="nama" placeholder="Masukkan Nama Anda" class="form-control" autocomplete="off" required>
+                                <input type="text" name="nama" placeholder="Masukkan Nama Anda" class="form-control _string" autocomplete="off" required>
                               </div>
                               <!--form-field end-->
                             </div>
                             <div class="col-sm-12">
                               <div class="wow fadeInUp" data-wow-duration="200ms">
                                 <br><label for="profesi" style="color:black;">Profesi</label><br>
-                                <input type="text" name="profesi" placeholder="Perkerjaan / Bisnis anda" class="form-control" autocomplete="off">
+                                <input type="text" name="profesi" placeholder="Perkerjaan / Bisnis anda" class="form-control _string" autocomplete="off">
                               </div>
                               <!--form-field end-->
                             </div>
@@ -214,7 +214,7 @@
                             <div class="col-sm-6">
                               <div class="wow fadeInUp" data-wow-duration="200ms">
                                 <br><label for="email" style="color:black;">Email</label><br>
-                                <input type="email" name="email" placeholder="demo@gmail.com" class="form-control" autocomplete="off" required>
+                                <input type="email" name="email" placeholder="demo@gmail.com" class="form-control _email" autocomplete="off" required>
                               </div>
                               <!--form-field end-->
                             </div>
@@ -477,7 +477,10 @@ var phone = document.getElementById("phone");
         phone.addEventListener('keyup', function(evt){                    
         phone.value = this.value.replace(/[^0-9,]/g,'');        
          }, false);   
-
+var _mstring = document.getElementById('panggilan');
+_mstring.addEventListener('keyup', function(evt){                    
+    _mstring.value = this.value.replace(/[^a-zA-Z]/g,'');        
+}, false);   
 </script>  
 
 

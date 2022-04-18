@@ -32,6 +32,8 @@ Route::any('antrian','Api\AntrianController@antrian');
 Route::any('device','Api\AntrianController@device');
 Route::any('callback','Api\AntrianController@callback');
 
+Route::any('zoom-webhook','Api\ZoomController@index');
+
 Route::get('/test',function(){
     $event = Event::where('sub_domain','madiun')->orderBy('id','desc')->first();
     if($event){

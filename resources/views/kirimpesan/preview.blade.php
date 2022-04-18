@@ -11,8 +11,13 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Preview Pesan</h4>
-                        <a href="{{url('kirimpesan/process')}}" class="btn btn-success btn-sm btn-rounded m-1">Process</a>
+                        <div class="col-6">
+                            <h4 class="card-title">Preview Pesan</h4>
+                        </div>
+                        <div class="col-6">
+                            <a href="{{url('kirimpesan/batal')}}" class="btn btn-danger btn-sm btn-rounded m-1 float-right">Batal</a>
+                            <a href="{{url('kirimpesan/process')}}" class="btn btn-success btn-sm btn-rounded m-1 float-right">Process</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="row">

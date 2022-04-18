@@ -57,7 +57,7 @@ class AntrianController extends Controller
         $message = $cal->message ?? '';
         $token = $cal->token ?? 0;
         if($phone && strtolower($message)=='hadir'){
-            $seminar = Seminar::where('phone',$phone)->first();            
+            $seminar = Seminar::where('phone',$phone)->where('tgl_seminar',Date('Y-m-d'))->first();            
             if($seminar){
                 $cek   = Absensi::where('seminar_id',$seminar->id)->where('tgl_absen',Date('Y-m-d'))->first();
                 if(!$cek){

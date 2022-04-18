@@ -19,4 +19,9 @@ class Event extends Model
     {
         return $this->hasMany(Seminar::class, 'kode_event', 'kode_event');
     }
+
+    public function seminars()
+    {
+        return $this->belongsTo(Seminar::class, 'kode_event', 'kode_event');
+    }
 }

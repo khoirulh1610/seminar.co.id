@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="" class="table display table-responsive-lg table-export">
+                            <table id="dtb" class="table display table-responsive-lg">
                                 <thead>
                                     <tr>
                                         <!-- <th style="text-align:center">
@@ -44,7 +44,8 @@
                                         <th style="text-align:center">Panggilan</th>
                                         <th style="text-align:center">Phone</th>
                                         <th style="text-align:center">Kota</th>
-                                        <th style="text-align:center">EMail</th>
+                                        <th style="text-align:center">Email</th>
+                                        <th style="text-align:center">Tgl Lahir</th>
                                         <th style="text-align:center">Tanggal Daftar</th>
                                         @if(Auth::user()->role_id==1 || Auth::user()->role_id==1 || Auth::user()->role_id==3)                                        
                                         <th style="text-align:center">Status</th>
@@ -69,6 +70,7 @@
                                         @endif
                                         <td style="text-align:center">{{$p->kota}}</td>
                                         <td style="text-align:center"> {{$p->email}} </small></td>
+                                        <td style="text-align:center">{{$p->b_tahun.'-'.$p->b_bulan.'-'.$p->b_tanggal}}</td>
                                         <td style="text-align:center">{{$p->created_at}}</td>
                                     @if(Auth::user()->role_id==1 || Auth::user()->role_id==2 || Auth::user()->role_id==3)    
                                         <td style="text-align:center">
@@ -269,5 +271,18 @@
       if(!confirm("Are You Sure to delete this"))
       event.preventDefault();
   	}
+
+    $('#dtb').DataTable({
+        dom: 'Bfrtlip',
+        lengthMenu : [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        buttons: [
+            'copy', 'csv', {                
+                text : 'Excel',
+                action:function(e, dt, button, config){
+                    window.location.replace("{{ url('peserta/export/'.$kode_event) }}")
+                }
+            }, 'pdf', 'print'
+        ]
+    });
  </script>
 @endsection

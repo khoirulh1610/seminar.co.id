@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <style>
         .bg-ticket {
-            background: linear-gradient(16deg, rgba(5,2,61,1) 0%, rgb(18 18 183) 35%, rgb(19 189 223) 100%);
+            background: linear-gradient(30deg, rgb(209, 198, 110) 0%, rgb(206, 178, 17) 35%, rgb(134, 148, 11) 100%);
             position: relative !important;
             overflow: hidden;
         }
@@ -47,7 +47,7 @@
 
 </head>
 
-<body style="background: #333" class="vw-100 vh-100" style="overflow-x: hidden; overflow-y: auto">
+<body style="background: rgb(151, 149, 149)" class="vw-100 vh-100" style="overflow-x: hidden; overflow-y: auto">
     <div class="row justify-content-center align-items-center">
         <div class="col-11 col-md-5 col-lg-4 mt-4" style="max-width: 420px">
             @if ($peserta)
@@ -63,18 +63,18 @@
                     </div>
                 </div>
                 <div class="px-3 pb-1 pt-3">
-                    <h3 class="text-white-50">{{ $event->tgl_event->format('M d, Y') }} | {{ $event->jadwal }}</h3>
+                    <h3 class="text-dark-50">{{ $event->tgl_event->format('M d, Y') }} | {{ $event->jadwal }}</h3>
                     <div class="w-100 d-flex justify-content-between">
                         <small>BIAYA : @if ($event->harga == 0) GRATIS @else @rupiah($event->harga) @endif</small>
                         <small>#{{ $peserta->phone }}#</small>
                     </div>
                     <div class="text-center mt-4 border-bottom pb-3">
-                        <small class="text-dark">
+                        <small class="text-white">
                             <i class="flaticon-381-location-2"></i>
-                            {{ strtoupper('KJ Hotel') }}
+                            {{ strtoupper($event->lokasi) }}
                         </small>
                     </div>
-                    <table class="table table-borderless mx-auto table-sm text-dark">
+                    <table class="table table-borderless mx-auto table-sm text-white">
                         <tbody>
                             <tr>
                                 <td>Nama</td>

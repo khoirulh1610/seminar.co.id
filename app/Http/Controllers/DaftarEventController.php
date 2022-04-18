@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\HelperZoom;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -13,7 +14,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Absensi;
 use App\Models\Access;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cookie;
 
 class DaftarEventController extends Controller
 {
@@ -27,13 +31,16 @@ class DaftarEventController extends Controller
         if($event->close_register <= Carbon::now() ){
             return abort(403,'REGISTRASI DITUTUP');
         }
-        $ref = $request->ref;
-        $pengndang = User::where('phone',$ref)->orWhere('kode_ref',$ref)->first();
+        if($request->ref){
+            Cookie::queue('kode_ref', $request->ref, 1 * 60 * 24 * 30);
+        }
+        $ref = $request->ref ?? request()->cookie('kode_ref') ?? '';
+        $pengndang = User::where('phone',$ref)->orWhere('kode_ref',$ref)->whereNotNull('kode_ref')->first();
         if(!$pengndang){
             $ref = preg_replace('/^0/','62',$ref);
             $pengndang = Seminar::where('phone',$ref)->first();
-        }
-        $pengundang_nama = $pengndang->nama ?? '';
+        }        
+        $pengundang_nama = $pengndang->nama ?? '';        
         $buka_pendaftaran = 1;   
         $link = "https://api.whatsapp.com/send/?phone=6287711993838&text=Saya+butuh+bantuan,+pendaftaran+di+".url('/')." %0A%0ABerikut ini data saya: %0ANama: %0AEmail: %0ANo hp: %0ATgl lahir: %0AKota/kab:";     
         return view('DaftarEvent.index',compact('pengundang_nama','buka_pendaftaran','event','link'));
@@ -42,12 +49,36 @@ class DaftarEventController extends Controller
     public function absen()
     {
         $domain = request()->getHttpHost();
-        $event   = Event::where('sub_domain', explode('.',$domain)[0])->first();        
-        return view('DaftarEvent.absen',compact('event'));
+        $event   = Event::where('sub_domain', explode('.',$domain)[0])->first();    
+        $provinsi = Provinsi::all();    
+        $kota  = Kabupaten::all();
+        return view('DaftarEvent.absen',compact('event','provinsi','kota'));
     }
 
     public function absen_save(Request $request)
     {
+        if($request->reg_absen){
+            $cek = Seminar::where('kode_event',$request->kode_event)->where(function($s) use ($request){
+                $s->where('phone',$request->phone)->orWhere('email',$request->email);
+            })->first();
+
+            if(!$cek){
+                $seminar = New Seminar();
+                $seminar->kode_event = $request->kode_event;
+                $seminar->sapaan = $request->sapaan;
+                $seminar->nama = $request->nama;
+                $seminar->panggilan = $request->panggilan;
+                $seminar->phone = preg_replace('/^0/','62',$request->phone);
+                $seminar->email = $request->email;
+                $seminar->prov_id = $request->prov_id;
+                $seminar->provinsi = Provinsi::where('id',$request->prov_id)->first()->name ?? '';
+                $seminar->kota_id = $request->kota_id;
+                $seminar->kota = Kabupaten::where('id',$request->kota_id)->first()->name ?? '';
+                $seminar->tgl_seminar = Date('Y-m-d');
+                $seminar->profesi = $request->profesi;
+                $seminar->save();                
+            }
+        }
         $phone = preg_replace('/^0/','62',$request->phone);
         $seminar = Seminar::where('phone',$phone)->orderBy('id','desc')->first();            
         if($seminar){
@@ -70,7 +101,7 @@ class DaftarEventController extends Controller
                             $cw_ref      = ReplaceArray($cw_ref_data,$event->cw_absen_ref);
                             $d = Whatsapp::send(['token'=>3,'phone'=>$ref_seminar->phone,'message'=>$cw_ref]);
                             $j = Absensi::where('kode_event',$request->kode_event)->count();
-                            $e = Whatsapp::send(['token'=>3,'phone'=>'6281228060666-1635994060@g.us','message'=>$cw_ref]);
+                            $e = Whatsapp::send(['token'=>3,'phone'=>$event->group_info,'message'=>$cw_ref]);
                             // Log::info($d);
                         }
                     }
@@ -80,7 +111,7 @@ class DaftarEventController extends Controller
                 return redirect('absen?message=Anda sudah Absen sebelumnya');                
             }
         }else{
-            return redirect('absen?message=Data tidak Ditemukan');                            
+            return redirect('absen?register=Y');                            
         }
     }
 
@@ -125,15 +156,15 @@ class DaftarEventController extends Controller
         $kab        = $request->kota;
         $kota       = DB::table('kabupatens')->where('id',$kab)->first()->full_name ?? DB::table('kabupatens')->where('id',$kab)->first()['full_name'] ??'';
         $profesi    = $request->profesi;
-        $ref        = $request->ref ?? null;
+        $ref        = $request->ref ?? 'admin';
         $referal    = User::where('kode_ref',$ref)->orWhere('phone',$ref)->first();        
         if(!$referal){
             if($ref){
                 $ref        = preg_replace('/^0/','62',$ref);
             }
-            $referal = Seminar::where('phone',$ref)->where('kode_event',$request->kode_event)->first();
+            $referal = Seminar::where('phone',$ref)->first();
         }        
-        Log::info($referal);
+        // Log::info($referal);
         $panggilan  = $request->panggilan;
         $sapaan     = $request->sapaan;
         $kode_event = $request->kode_event;
@@ -169,7 +200,8 @@ class DaftarEventController extends Controller
                 $unix       = rand(1,999) ?? 0;                
                 $total      = ($harga > 0 ? $harga + $unix : 0);
                 // try {
-                    $ary                        = ["nama"=>$nama,"email"=>$email,"total"=>number_format($total,0),"phone"=>$phone,"provinsi"=>$provinsi,"sapaan"=>$sapaan,"tgl_seminar"=>$event->tanggal,"panggilan"=>$panggilan,"profesi"=>$profesi,"ref"=>$ref,"kota"=>$kota];
+                    $join_zoom                  = $event->meeting_id ? (HelperZoom::join($sapaan,$panggilan.', '.$kota,$email,$event->meeting_id) ?? $event->link_zoom ?? null) : null;
+                    $ary                        = ["nama"=>$nama,"email"=>$email,"total"=>'Rp. '.number_format($total,0),"phone"=>$phone,"provinsi"=>$provinsi,"sapaan"=>$sapaan,"tgl_seminar"=>$event->tanggal,"panggilan"=>$panggilan,"profesi"=>$profesi,"ref"=>$ref,"kota"=>$kota,'join_zoom'=>$join_zoom];
                     $message                    = ReplaceArray($ary,$event->cw_register);
                     $message2                   = false; 
                     if($event->cw_register2){
@@ -197,9 +229,10 @@ class DaftarEventController extends Controller
                     $seminar->kode_event        = $kode_event;  
                     $seminar->fee_referral      = $event->fee_referral ?? 0;
                     $seminar->fee_admin         = $event->fee_admin ?? 0;
-                    $seminar->b_tanggal         = $request->b_tanggal;
-                    $seminar->b_bulan           = $request->b_bulan;
-                    $seminar->b_tahun           = $request->b_tahun;     
+                    $seminar->b_tanggal         = $b_tanggal;
+                    $seminar->b_bulan           = $b_bulan;
+                    $seminar->b_tahun           = $b_tahun;     
+                    $seminar->join_zoom         = $join_zoom;
                     $seminar->save();           
                     // Notifikasi ke peserta                 
                     $WaNotif = new WaNotif();
@@ -260,13 +293,16 @@ class DaftarEventController extends Controller
                                 // $notif           = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$ref,"message"=>$cw_referral,"engine"=>$event->notifikasi]);
                                 // $notif_g         = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>'6281228060666-1635994060@g.us',"message"=>$cw_referral,"engine"=>$event->notifikasi]);
                                 $notif4 =  Whatsapp::send(["token"=>$event->device_id,"phone"=>$ref,"message"=>$cw_referral]);
-                                $notif5 =  Whatsapp::send(["token"=>$event->device_id,"phone"=>'6281228060666-1635994060@g.us',"message"=>'*Info Group :* '.$cw_referral]);
+                                $notif5 =  Whatsapp::send(["token"=>$event->device_id,"phone"=>$event->group_info,"message"=>'*Info Group :*
+'.$cw_referral]);
+//                                 $notif5 =  Whatsapp::send(["token"=>$event->device_id,"phone"=>'120363042484148885@g.us',"message"=>'*Info Group :*
+// '.$cw_referral]);
                         }
                     }
                     
                     
                     // return ['status'=>true,"message"=>$message,"ref"=>$ref];
-                    return redirect()->back()->with(['message'=>$message,'status'=>1]);
+                    return redirect('/')->with(['message'=>$message,'status'=>1]);
                 // } catch (\Throwable $th) {
                 //     return ['status'=>false,"message"=>'Register Failed : '.$th->getMessage()];
                 // }          

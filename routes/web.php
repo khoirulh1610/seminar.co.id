@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\HelperZoom;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebNotificationController;
 use Illuminate\Support\Facades\Auth;
@@ -55,6 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/user/delete/{id}', 'UserController@hapus')->name('user.delete');
 
     Route::get('/peserta/{kode_event}', 'PesertaController@index')->name('peserta');
+    Route::get('/peserta/export/{kode_event}', 'PesertaController@Export')->name('peserta.export');
     Route::post('/peserta/approve', 'PesertaController@approve')->name('peserta.approve');
     Route::post('/peserta/save', 'PesertaController@save')->name('peserta.save');
     Route::get('/peserta/resend-notif/{id}', 'PesertaController@ResendNotif')->name('peserta.ResendNotif');
@@ -108,7 +110,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/device/export-group', 'DeviceController@ExportGroup')->name('device.ExportGroup');
     Route::get('/device/export-allgroup', 'DeviceController@getAllGroup')->name('device.getAllGroup');
 
+    Route::get('/semuaPeserta', 'LaporanController@semuaPeserta');
+    Route::get('/pesertaOffline', 'LaporanController@pesertaOffline');
+    Route::get('/pesertaOnline', 'LaporanController@pesertaOnline');
+
     Route::post('/save-token', 'DashboardController@saveToken')->name('save-token');
+
+    Route::get('/cek/komisi', 'KomisiController@cek')->name('cek');
 
 
     Route::get('/eventbaru', function () {
@@ -158,4 +166,8 @@ Route::get('/fcm', function () {
         "image" => "https://cdns.klimg.com/dream.co.id/resized/640x320/news/2019/05/17/108124/tips-dapatkan-foto-keren-saat-traveling-1905170.jpg"
     ];
     $notif = App\Helpers\Notifikasi::fcmAll($data);
+});
+
+Route::get('/zoom',function(){
+    return HelperZoom::users();
 });

@@ -33,6 +33,11 @@ class Seminar extends Model
         return $this->belongsTo(User::class, 'ref', 'phone');
     }
 
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'kode_event', 'kode_event');
+    }
+
     public function scopeWithAbsen($query, $kode_event)
     {
         return $query->with('absen')->where('kode_event', $kode_event);

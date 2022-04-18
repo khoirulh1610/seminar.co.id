@@ -43,7 +43,7 @@
                                 @foreach($device as $de)
                                 <tr>
                                     <td style="text-align:center">{{$loop->iteration}}</td>
-                                    <td style="text-align:center">{{$de->id}}-{{$de->server->id}}</td>
+                                    <td style="text-align:center">{{$de->id}}-{{$de->server->id ?? ''}}</td>
                                     <td style="text-align:center">{{$de->user->nama}}</td>
                                     <td style="text-align:center">{{$de->phone}}</td>
                                     <td style="text-align:center;">{{$de->mode == 'md' ? 'Mulidevice' : 'Standart'}}</td>
