@@ -15,12 +15,35 @@ class Seminar extends Model
     protected $dates = ['deleted_at'];
     protected $guarded = ['id'];
     protected $casts = [
-        'absen_at' => 'datetime'
+        'absen_at' => 'datetime',
+        'tgl_seminar' => 'datetime'
+    ];
+
+    protected $hidden = [
+        'message',
+        'message2',
+        'att1',
+        'catatan',
+        'type_bayar',
+        'join_zoom',
+        'ref_produk',
+        'ref_exp',
+        'fee_referral',
+        'fee_admin',
+        'total',
+        'unix',
+        'harga',
+        'id'
     ];
 
     public function pengundang()
     {
         return $this->belongsTo(self::class, 'ref', 'phone');
+    }
+
+    public function downline()
+    {
+        return $this->hasMany(self::class, 'ref', 'phone');
     }
 
     public function rangking()

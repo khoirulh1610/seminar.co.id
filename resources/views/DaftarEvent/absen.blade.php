@@ -148,7 +148,7 @@
 					</button>
 					<br>
 					<div class="row m-1">
-						<a href="https://wa.me/6287711993838?&text=hadir" target="absen" class="contact1-form-btn" style="background-color: coral;"> Absen Lewat Whatsapp</a>
+						{{-- <a href="https://wa.me/6287711993838?&text=hadir" target="absen" class="contact1-form-btn" style="background-color: coral;"> Absen Lewat Whatsapp</a> --}}
 					</div>
 				</div>
 			</form>

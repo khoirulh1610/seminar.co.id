@@ -19,7 +19,11 @@
                             <div class="card-body card-body  text-center border-bottom profile-bx">
                                 <h3 >Profile</h3>
                                 <div class="profile-image mb-4" style="width:100%">
-                                    <img src="{{Auth::user()->foto_profile}}" style="width:20%" class="rounded-circle" alt="">
+                                    @if (Auth::user()->foto_profile)
+                                        <img src="{{Auth::user()->foto_profile}}" style="width:20%" class="rounded-circle" alt="">
+                                    @else
+                                        <img src="https://hmsai.geografi.ugm.ac.id/wp-content/uploads/sites/228/2021/08/profile.jpg" style="width:25%" class="rounded-circle" alt="">
+                                    @endif
                                 </div>
 
                                 <h4 class="fs-22 text-black mb-1">{{Auth::user()->nama}}</h4>
@@ -61,14 +65,14 @@
                                     <a class="contact-icon mr-3" href="#"><i class="fas fa-birthday-cake"></i></a>
                                     <span class="text-black">{{Auth::user()->b_tanggal}} - {{Auth::user()->b_bulan}} - {{Auth::user()->b_tahun}}</span>
                                 </div>
-                                @foreach($brand as $b)
+                                {{-- @foreach($brand as $b)
                                 <div class="d-flex mb-3 align-items-center" style="color:black">
                                     <img src="{{$b->icon}}" alt="" class="contact-icon mr-3" style="width:3%">
                                     <!-- <img href="{{$b->icon}}" class="contact-icon mr-3"></a> -->
                                     <label for="">{{$b->brand}} :
                                     <a href="{{$b->link}}?ref={{Auth::user()->kode_ref ?? Auth::user()->phone}}">{{$b->link}}?ref={{Auth::user()->kode_ref ?? Auth::user()->phone}}</a> </label>
                                 </div>
-                                @endforeach <br><br>
+                                @endforeach <br><br> --}}
                                 <center> <a href="{{url('profile/edit')}}" class="btn btn-sm btn-info btn-rounded">Edit Profile</a></center>
                             </div>
                         </div>

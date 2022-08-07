@@ -16,8 +16,10 @@
         "laravel/tinker": "^2.5",
         "maatwebsite/excel": "^3.1",
         "macsidigital/laravel-zoom": "^4.1",
-        "rap2hpoutre/fast-excel": "^3.1",
-        "simplesoftwareio/simple-qrcode": "~4"
+        "pion/laravel-chunk-upload": "^1.5",
+        "rap2hpoutre/fast-excel": "^3.2",
+        "simplesoftwareio/simple-qrcode": "~4",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

@@ -205,6 +205,7 @@
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="{{url('asset/js/plugins-init/datatables.init.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.14/dist/sweetalert2.all.min.js"></script>
     <!-- pusher -->
     <!-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script> -->
     <script src="{{url('asset/js/custom.min.js')}}"></script>

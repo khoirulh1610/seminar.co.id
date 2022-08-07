@@ -3,6 +3,9 @@
 namespace App\Helpers;
 
 use App\Models\Device;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class Whatsapp
 {
@@ -18,12 +21,33 @@ class Whatsapp
 
     public static function send($data)
     {
+        self::saveNotif([
+            "token" => $data['token'] ?? 0,
+            "phone" => $data['phone'] ?? 0,
+            "message" => $data['message'] ?? 0,
+        ]);
         return self::curl("api/send", $data);
     }
 
     public static function group($data)
     {
-        return self::curl("api/group-list", $data);
+        return self::curl("api/group-list-with-contact", $data);
+    }
+
+    public static function isWA($data)
+    {
+        if ($data['phone'] ?? false) {
+            $data = self::curl("api/iswa", $data);
+            if (gettype($data) == "string") {
+                return json_decode($data, true);
+            }
+            return $data;
+        } else {
+            return [
+                'status' => false,
+                'message' => 'Phone number is required',
+            ];
+        }
     }
 
     public static function queue($data)
@@ -44,31 +68,33 @@ class Whatsapp
     public static function cpu()
     {
         $device = Device::first();
-        return self::curl("cpu", ['token'=>$device->id], "GET");
+        return self::curl("cpu", ['token' => $device->id], "GET");
     }
 
     public static function list()
     {
         $device = Device::first();
-        return self::curl("api/devices", ['token'=>$device->id], "GET");
+        return self::curl("api/devices", ['token' => $device->id], "GET");
     }
 
     public static function servers()
     {
         $device = Device::first();
-        return self::curl("api/servers", ['token'=>$device->id], "GET");
+        return self::curl("api/servers", ['token' => $device->id], "GET");
     }
 
     public static function restart()
     {
         $device = Device::first();
-        return self::curl("api/restart", ['token'=>$device->id]);
+        return self::curl("api/restart", ['token' => $device->id]);
     }
 
     static function curl($url, $data, $method = "POST")
     {
         $device = Device::where('id', $data['token'])->first();
         // return $device;
+
+
         if ($device) {
             $curl = curl_init();
             curl_setopt_array($curl, [
@@ -92,15 +118,55 @@ class Whatsapp
             curl_close($curl);
 
             if ($err) {
-                return [
+                return json_encode([
                     'status' => false,
                     'message' => "cURL Error #:" . $err,
-                ];
+                ]);
             } else {
                 return $response;
             }
         } else {
-            return $data;
+            return json_encode($data);
         }
+    }
+
+    public static function saveNotif(array $data)
+    {
+        $device_id = $data['token'];
+        $device = Device::find($device_id);
+        $now = Carbon::now();
+        return DB::table("zu{$device->user_id}_antrians")->insert([
+            'user_id' => $device->user_id,
+            'device_id' => $device_id,
+            'phone' => $data['phone'],
+            'type' => 'Notification',
+            'type_message' => 'text',
+            'message' => $data['message'],
+            'status' => 2,
+            'pause' => 1,
+            'priority' => 1,
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+    }
+
+    public function kemaxwin($data)
+    {
+        # code...
+        $curl           = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://membermaxwin.my.id/api/aktivasi',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $data
+        ));
+
+        $data = curl_exec($curl);
+        curl_close($curl);
     }
 }

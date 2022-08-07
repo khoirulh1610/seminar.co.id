@@ -11,7 +11,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Semua Peserta</h4>
+                        <h4 class="card-title">Peserta Seminar Online</h4>
+                        {{-- <a href="{{ url('exportOnline') }}" class="btn btn-primary btn-sm btn-rounded">Export Data</a> --}}
+                        <a class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="#ModalExport">Export Data</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -26,16 +28,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $no = 1;?>
                                     @foreach($event as $us)
-                                    <tr>
-                                        <td style="text-align:center">{{ $loop->iteration }}</td>
-                                        <td style="text-align:center">{{ $us->seminar->kode_event }}</td>
-                                        <td style="text-align:center">{{ $us->seminar->nama }}</td>
-                                        <td style="text-align:center">{{ $us->seminar->phone }} <br><small>{{ $us->seminar->email }}</small></td>
-                                        <td style="text-align:center">
-                                            <a href="{{url('semuaPeserta/remove/'.$us->seminar->id)}}" class="btn btn-xs btn-danger btn-rounded m-1"><i class="fa fa-trash">&nbsp;</i>Delete</a>
-                                        </td>												
-                                    </tr>
+                                        @foreach ($us->seminar as $item)
+                                        {{-- @dump($item) --}}
+                                            @if ($item != null)
+                                            <tr>
+                                                <td style="text-align:center">{{ $no++ }}</td>
+                                                <td style="text-align:center">{{ $item->kode_event ?? '' }}</td>
+                                                <td style="text-align:center">{{ $item->nama ?? '' }}</td>
+                                                <td style="text-align:center">{{ $item->phone ?? '' }} <br><small>{{ $item->email ?? '' }}</small></td>
+                                                <td style="text-align:center">
+                                                </td>												
+                                            </tr>        
+                                            @endif
+                                        @endforeach
                                     @endforeach
                                 </tbody>
                             </table>
@@ -46,6 +53,38 @@
         </div>
     </div>
 </div>
+
+<form action="{{ url('exportOnline') }}" method="post">
+    @csrf
+    <div class="modal fade" id="ModalExport">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Export Seminar Online</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Pilih Seminar</label>
+                            <select name="kode_event" id="kode_event" class="form-control">
+                                @foreach ($event as $item)
+                                    <option value="{{ $item->kode_event }}">{{ $item->event_title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-rounded light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-rounded">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
 @endsection
 
 @section('js')

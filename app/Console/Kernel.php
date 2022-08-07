@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('mutasi')->everyminute();
+        $schedule->command('mutasi')->everyTenMinutes();
         $schedule->command('InfoServer')->everyFiveMinutes();
         
     }

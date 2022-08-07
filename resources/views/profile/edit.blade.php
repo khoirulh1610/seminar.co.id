@@ -64,7 +64,7 @@
                                                 <input type="text" class="form-control" name="rek_bank" value="{{$edit->rek_bank}}" placeholder="123123123">
                                             </div>
                                         </div>
-                                        <div class="col-xl-4 col-sm-6">
+                                        {{-- <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Brand</label>
                                                 <select name="brand" id="brand" class="form-control" {{Auth::user()->role_id<=2 ? '' : 'disabled'}}>
@@ -74,8 +74,8 @@
                                                 </select>
                                                 <!-- <input type="text" class="form-control" name="brand" value="{{$edit->brand}}" placeholder="Type here"> -->
                                             </div>
-                                        </div>
-                                        <div class="col-xl-4 col-sm-6">
+                                        </div> --}}
+                                        {{-- <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Kode Referal</label>
                                                 @if(Auth::user()->role_id==1)
@@ -84,7 +84,7 @@
                                                     <input type="text" class="form-control" name="referal" value="{{$edit->kode_ref ?? $edit->phone}}" placeholder="kode" readonly>
                                                 @endif
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-xl-4 col-sm-6">
                                             <div class="form-group">
                                                 <label>Whatsapp</label>
@@ -128,7 +128,7 @@
                                                     ?>
                                                 </select>
                                                 @else
-                                                    <input type="text" name="role_id" class="form-control" value="{{$edit->role->id}}" readonly>
+                                                    <input type="text" name="role_id" class="form-control" value="{{$edit->role_id}}" readonly>
                                                 @endif
                                             </div>
                                         </div>
@@ -138,7 +138,7 @@
                                                 <input type="password" class="form-control" name="password" value="" id="">
                                             </div>
                                         </div>
-                                        <div class="col-xl-4 col-sm-6">
+                                        <div class="col-xl-12 col-sm-6">
                                             <div class="form-group">
                                                 <label>Masukkan Link Foto Profil</label>
                                                 <input type="text" class="form-control" name="link" value="{{$edit->foto_profile}}" id="">

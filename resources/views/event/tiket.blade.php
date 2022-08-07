@@ -17,12 +17,15 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <style>
         .bg-ticket {
-            background: linear-gradient(30deg, rgb(209, 198, 110) 0%, rgb(206, 178, 17) 35%, rgb(134, 148, 11) 100%);
+            background-image: url('/ticket/tiket_magelang.png');
+            background-size: 100%;
+            background-repeat: no-repeat;
+            /* background: linear-gradient(30deg, rgb(209, 198, 110) 0%, rgb(206, 178, 17) 35%, rgb(134, 148, 11) 100%); */
             position: relative !important;
             overflow: hidden;
         }
         .bg-ticket::before {
-            content: 'Ticket';
+            /* content: 'Ticket'; */
             position: absolute;
             font-size: 70px;
             font-weight: 500px;
@@ -33,7 +36,7 @@
             transform: rotate(90deg)
         }
         .bg-ticket::after {
-            content: 'Ticket';
+            /* content: 'Ticket'; */
             position: absolute;
             font-size: 80px;
             font-weight: 500px;
@@ -53,16 +56,16 @@
             @if ($peserta)
             <div class="bg-ticket text-white rounded-sm shadow-sm border mx-auto">
                 <div class="p-3 text-end">
-                    <h2 class="w-100 text-white mb-0">{{ $event->tema }}</h2>
-                    <div class="w-100">{{ $event->event_title }}</div>
+                    {{-- <h2 class="w-100 text-white mb-0">{{ $event->tema }}</h2> --}}
+                    {{-- <div class="w-100">{{ $event->event_title }}</div> --}}
                 </div>
                 <div class="d-flex justify-content-center flex-column align-items-center">
                     <div class="w-100 text-center d-none">{{ $peserta->nama }}</div>
-                    <div class="bg-white rounded-sm p-2" style="max-width: 300px; z-index: 3">
+                    <div class="bg-white rounded-sm p-2" style="max-width: 300px; z-index: 3; margin-top: 73px">
                         {{ $qrcode }}
                     </div>
                 </div>
-                <div class="px-3 pb-1 pt-3">
+                <div class="px-5 pb-1 pt-3">
                     <h3 class="text-dark-50">{{ $event->tgl_event->format('M d, Y') }} | {{ $event->jadwal }}</h3>
                     <div class="w-100 d-flex justify-content-between">
                         <small>BIAYA : @if ($event->harga == 0) GRATIS @else @rupiah($event->harga) @endif</small>

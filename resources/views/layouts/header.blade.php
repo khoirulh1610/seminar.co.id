@@ -110,7 +110,12 @@
                     </li>
                     <li class="nav-item dropdown header-profile">
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                            <img src="{{Auth::user()->foto_profile}}" width="20" alt=""/>
+                            @if (Auth::user()->foto_profile)
+                                <img src="{{Auth::user()->foto_profile}}" alt="profile" class="rounded-circle" width="20">
+                            @else
+                                <img src="https://hmsai.geografi.ugm.ac.id/wp-content/uploads/sites/228/2021/08/profile.jpg" alt="profile" class="rounded-circle" width="20">
+                            @endif
+                            {{-- <img src="{{Auth::user()->foto_profile}} ?? {{url('asset/images/avatar/1.jpg')}}" width="20" alt=""/> --}}
                             <div class="header-info">
                                 <span class="text-black">{{Auth::user()->nama ?? ''}}</span>
                                 <p class="fs-12 mb-0">{{Auth::user()->role->description ?? ''}}</p>

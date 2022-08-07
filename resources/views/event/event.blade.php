@@ -32,22 +32,30 @@
                                         <p class="price">GRATIS</p>
                                         <p class="review-text">{{number_format($ev->seminar->count('id'))}} Registrant</p>
                                     @endif
-                                    
                                     <p>Status : 
-                                        @if($ev->status)
+                                        @if($ev->status == '1')
                                         <span class="item"> Available <i class="fa fa-check-circle text-success"></i></span>
                                         @else
                                         <span class="item"> Closed <i class="fa fa-check-circle text-danger"></i></span>
                                         @endif
                                     </p>
-                                    <p>Event code: <span class="item">{{$ev->kode_event}}</span> </p>
-                                    <p>Brand: <span class="item">{{$ev->brand}}</span></p>
-                                    <p>Peserta : ({{$ev->seminar->where('status',1)->count('id')}} Payment) / ({{$ev->seminar->count('id')}} Registrant)</p>
-                                    <br>
+                                    <p>Link Referral : <span class="item">{{ 'https://'.$ev->sub_domain.'.seminar.co.id?ref='.Auth::user()->phone }} </span></p>
+                                    <p>Tanggal : <span class="item">{{ $ev->tgl_event }}</span> </p>
+                                    @if (Auth::user()->role_id == '1')
+                                        <p>Sub domain : <span class="item">{{ $ev->sub_domain }}</span> </p>
+                                        <p>Event code: <span class="item">{{$ev->kode_event}}</span> </p>
+                                        <p>Brand: <span class="item">{{$ev->brand}}</span></p>
+                                        <p>Peserta : 
+                                            @if(Auth::user()->role_id <= 2)
+                                                ({{$ev->seminar->where('status',1)->count('id')}} Payment) / 
+                                            @endif
+                                            ({{$ev->seminar->count('id')}} Registrant)</p>
+                                        <br>
+                                    @endif
                                     <center><button type="button" class="btn btn-info btn-sm btn-rounded" data-toggle="collapse" data-target="#demo{{ $ev->id }}">Detail Seminar</button>
                                     @if(Auth::user()->role_id<=2)
-                                    <a href="{{ route('event.absen', ['event' => $ev->kode_event]) }}" class="btn btn-primary btn-rounded btn-sm">Absen</a>
-                                    <a href="{{url('event/edit/'.$ev->id)}}" class="btn btn-sm btn-success btn-rounded">Edit</a>
+                                        <a href="{{ route('event.absen', ['event' => $ev->kode_event]) }}" class="btn btn-primary btn-rounded btn-sm">Absen</a>
+                                        <a href="{{url('event/edit/'.$ev->id)}}" class="btn btn-sm btn-success btn-rounded">Edit</a>
                                     @endif
                                     </center>
                                     <div id="demo{{ $ev->id }}" class="collapse text-content">{!!nl2br($ev->event_detail)!!}</div>                                    

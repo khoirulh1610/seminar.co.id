@@ -82,7 +82,7 @@ class ApiseminarController extends Controller
         $Access->user_agent = $request->header('User-Agent');
         $Access->ip = $request->ip();
         $Access->save();
-        Log::info($request->all());
+        // Log::info($request->all());
 
         $nama       = $request->nama;
         $email      = strtolower($request->email);
@@ -100,7 +100,7 @@ class ApiseminarController extends Controller
             }
             $referal = Seminar::where('phone',$ref)->where('kode_event',$request->kode_event)->first();
         }        
-        Log::info($referal);
+        // Log::info($referal);
         $panggilan  = $request->panggilan;
         $sapaan     = $request->sapaan;
         $kode_event = $request->kode_event;

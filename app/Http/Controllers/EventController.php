@@ -17,6 +17,9 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Helpers\Notifikasi;
 use App\Helpers\Whatsapp;
 use App\Models\Device;
+use App\Models\Lfwuser;
+use App\Models\Produk;
+use App\Models\Zoom;
 use Illuminate\Support\Str;
 
 class EventController extends Controller
@@ -25,9 +28,15 @@ class EventController extends Controller
     {
         $status = $request->status ?? 1;
         if (Auth::user()->role_id == 1) {
-            $event  = Event::where('status', $status)->orderBy('id','desc')->get();
+            $event  = Event::where('status', $status)->orderBy('tgl_event', 'desc')->get();
         } else {
-            $event  = Event::where('status', $status)->orderBy('id','desc')->get();
+            $user_lfw   = Lfwuser::where('email', Auth::user()->email)->first();
+            $cek_user   = User::where('email', $user_lfw->email)->first();
+            if ($cek_user) {
+                $event  = Event::where('brand', 'lfw')->where('status', $status)->orderBy('tgl_event', 'desc')->get();
+            } else {
+                $event  = Event::where('status', $status)->orderBy('tgl_event', 'desc')->get();
+            }
         }
         $title      = "Event";
         return view('event.event', compact('event', 'title'));
@@ -35,39 +44,63 @@ class EventController extends Controller
 
     public function baru(Request $request)
     {
-        $user   = User::where('role_id', 4)->get();
-        $type   = Event::where('id', $request->id)->groupBy('type')->select('type')->get();
-        $notif  = Device::get();
-        $title  = "Event Baru";
-        return view('event.eventbaru', compact('notif', 'title', 'type', 'user'));
+        $user       = User::where('role_id', 4)->get();
+        $type       = Event::where('id', $request->id)->groupBy('type')->select('type')->get();
+        $notif      = Device::get();
+        $title      = "Event Baru";
+        $produk_id  = Produk::get();
+        $zoom_id    = Zoom::get();
+        return view('event.eventbaru', compact('notif', 'title', 'type', 'user', 'produk_id', 'zoom_id'));
     }
 
     public function edit(Request $request)
     {
-        $user   = User::where('role_id', 4)->get();
-        $type   = Event::where('id', $request->id)->groupBy('type')->select('type')->get();
-        $event  = Event::where('id', $request->id)->first();
-        $notif  = Device::get();
-        return view('event.eventedit', compact('event', 'notif', 'type', 'user'));
+        $user       = User::where('role_id', 4)->get();
+        $type       = Event::where('id', $request->id)->groupBy('type')->select('type')->get();
+        $event      = Event::where('id', $request->id)->first();
+        $notif      = Device::get();
+        $produk_id  = Produk::get();
+        $zoom_id    = Zoom::get();
+        return view('event.eventedit', compact('event', 'notif', 'type', 'user', 'zoom_id', 'produk_id'));
     }
 
     public function save(Request $request)
     {
         if ($request->id) {
-            $event                  = Event::find($request->id);
+            $event                      = Event::find($request->id);
         } else {
-            $event                  = new Event();
-            $event->kode_event      = Str::random(5);
+            $event                      = new Event();
+            $event->kode_event          = Str::random(5);
         }
         if ($request->flayer) {
-            $file                   = $request->file('flayer');
-            $filepath               = 'uploads/';
-            $fileName               = 'file_name' . time() . "." . $file->getClientOriginalExtension();
-            $getClientOriginalName  = $file->getClientOriginalName();
+            $file                       = $request->file('flayer');
+            $filepath                   = 'uploads/';
+            $fileName                   = 'file_name' . time() . "." . $file->getClientOriginalExtension();
+            $getClientOriginalName      = $file->getClientOriginalName();
             $file->move('uploads/', $fileName);
-            $filename               = url('uploads/' . $fileName);
-            $path_file              = 'uploads/' . $fileName;
+            $filename                   = url('uploads/' . $fileName);
+            $path_file                  = 'uploads/' . $fileName;
             $event->flayer              = $filename;
+        }
+        if ($request->flayer_fb) {
+            $file                       = $request->file('flayer_fb');
+            $filepath                   = 'uploads/';
+            $fileName                   = 'file_name' . time() . "." . $file->getClientOriginalExtension();
+            $getClientOriginalName      = $file->getClientOriginalName();
+            $file->move('uploads/', $fileName);
+            $filename                   = url('uploads/' . $fileName);
+            $path_file                  = 'uploads/' . $fileName;
+            $event->flayer_facebook     = $filename;
+        }
+        if ($request->flayer_ig) {
+            $file                       = $request->file('flayer_ig');
+            $filepath                   = 'uploads/';
+            $fileName                   = 'file_name' . time() . "." . $file->getClientOriginalExtension();
+            $getClientOriginalName      = $file->getClientOriginalName();
+            $file->move('uploads/', $fileName);
+            $filename                   = url('uploads/' . $fileName);
+            $path_file                  = 'uploads/' . $fileName;
+            $event->flayer_instagram    = $filename;
         }
 
         $event->event_title         = $request->nama;
@@ -80,7 +113,10 @@ class EventController extends Controller
         $event->cw_referral         = $request->pendaftaran_ref;
         $event->cw_payment          = $request->pembayaran;
         $event->cw_payment_ref      = $request->pembayaran_ref;
+        $event->cw_tagihan          = $request->tagihan;
         $event->cw_absen            = $request->absen;
+        $event->cw_facebook         = $request->cw_fb;
+        $event->cw_instagram        = $request->cw_ig;
         $event->mitra_id            = $request->mitra_id;
         $event->komisi_mitra        = $request->komisi_mitra;
         $event->cw_absen_ref        = $request->absen_ref;
@@ -93,7 +129,11 @@ class EventController extends Controller
         $event->lokasi              = $request->lokasi;
         $event->device_id           = $request->notif ?? 3;
         $event->event_detail        = $request->event_detail;
-        // return $event;
+        $event->link_zoom           = $request->link_zoom;
+        $event->meeting_id          = $request->meet_id;
+        $event->zoom_id             = $request->zoom_id;
+        $event->produk              = $request->produk;
+        $event->status              = $request->status;
         $event->save();
         try {
             Cloudflare::add_dns($request->sub_domain);
@@ -148,11 +188,12 @@ class EventController extends Controller
         return response()->download($file, $name);
     }
 
-    public function cw(Request $request)
+    public function cw(Request $request, $kode_event)
     {
-        $cw     = ReplaceArray(Auth::user(), Setting::first()->cw);
-        $cw2    = ReplaceArray(Auth::user(), Setting::first()->cw2);
-        return view('event.copywriting', compact('cw', 'cw2'));
+        $event = Event::where('kode_event', $kode_event)->first();
+        $cw = '';
+        $cw2 = '';
+        return view('event.copywriting', compact('cw', 'cw2', 'event'));
     }
 
 
@@ -166,37 +207,37 @@ class EventController extends Controller
 
     public function absenAdd(Request $request, Event $event)
     {
-        $phone   = preg_replace('/^0/','62',$request->id);
-        $peserta = Seminar::where('phone',$phone)->first();        
+        $phone   = preg_replace('/^0/', '62', $request->id);
+        $peserta = Seminar::where('phone', $phone)->first();
         if ($peserta) {
-            $cekAbsen = Absensi::where('kode_event', $event->kode_event)->where('seminar_id', $peserta->id)->whereDate('created_at', Carbon::now())->first();            
+            $cekAbsen = Absensi::where('kode_event', $event->kode_event)->where('seminar_id', $peserta->id)->whereDate('created_at', Carbon::now())->first();
             if (!$cekAbsen) {
                 # Lakukan Absensi Kehadiran
                 $hadir = Absensi::create([
                     'seminar_id' => $peserta->id,
                     'kode_event' => $event->kode_event,
-                    "tgl_absen"=>Date('Y-m-d')
+                    "tgl_absen" => Date('Y-m-d')
                 ]);
                 // $notif   = Notifikasi::send(["device_key"=>'8niD7OgjZ737XWh',"phone"=>$peserta->phone,"message"=>ReplaceArray($peserta,$event->cw_absen),"engine"=>'quods',"delay"=>1]);                    
-                Whatsapp::send(["token"=>$event->device_id,"phone"=>$peserta->phone,"message"=>ReplaceArray($peserta,$event->cw_absen)]);
-                if($peserta->ref){
-                    $peng = Seminar::where('phone',$peserta->ref)->first();
-                    if(!$peng){
-                        $peng = User::where('phone',$peserta->ref)->first();
+                Whatsapp::send(["token" => $event->device_id, "phone" => $peserta->phone, "message" => ReplaceArray($peserta, $event->cw_absen)]);
+                if ($peserta->ref) {
+                    $peng = Seminar::where('phone', $peserta->ref)->first();
+                    if (!$peng) {
+                        $peng = User::where('phone', $peserta->ref)->first();
                     }
-                    if($peng){
+                    if ($peng) {
                         $pengundang = [
-                            "ref_sapaan"=>$peng->sapaan,
-                            "ref_nama"  =>$peng->nama,
-                            "ref_panggilan"=>$peng->panggilan,
-                            "nama"=>$peserta->nama,
-                            "sapaan"=>$peserta->sapaan,
-                            "panggilan"=>$peserta->panggilan,
-                            "phone"=>$peserta->phone
+                            "ref_sapaan" => $peng->sapaan,
+                            "ref_nama"  => $peng->nama,
+                            "ref_panggilan" => $peng->panggilan,
+                            "nama" => $peserta->nama,
+                            "sapaan" => $peserta->sapaan,
+                            "panggilan" => $peserta->panggilan,
+                            "phone" => $peserta->phone
                         ];
                         // $notif_ref = Notifikasi::send(["device_key"=>'8niD7OgjZ737XWh',"phone"=>$peng->phone,"message"=>ReplaceArray($pengundang,$event->cw_absen_ref),"engine"=>'quods',"delay"=>1]);                    
-                        Whatsapp::send(["token"=>$event->device_id,"phone"=>$peng->phone,"message"=>ReplaceArray($pengundang,$event->cw_absen_ref)]);
-                    }                    
+                        Whatsapp::send(["token" => $event->device_id, "phone" => $peng->phone, "message" => ReplaceArray($pengundang, $event->cw_absen_ref)]);
+                    }
                 }
                 return view('event.tbody-absen', [
                     'peserta' => Absensi::with('seminar')->today($event->kode_event)->get()
@@ -208,7 +249,7 @@ class EventController extends Controller
                     'phone' => $request->id
                 ];
             }
-        }else{
+        } else {
             return [
                 'status' => 'tidak-ada',
                 'phone' => $request->id
@@ -248,8 +289,8 @@ class EventController extends Controller
 
     public function tiketall(Request $request)
     {
-        $seminar = Seminar::phone($request->phone)->orderBy('id','desc')->first();
-        $event   = Event::where('kode_event',$seminar->kode_event)->first() ?? null;
+        $seminar = Seminar::phone($request->phone)->orderBy('id', 'desc')->first();
+        $event   = Event::where('kode_event', $seminar->kode_event)->first() ?? null;
         if ($seminar) {
             $qrcode = QrCode::size(250)->generate($seminar->phone);
         } else {
@@ -284,12 +325,12 @@ class EventController extends Controller
 
     public function pesertaDelete(Request $request, Event $event)
     {
-        $absen = Absensi::where('id', $request->id)->first();        
-        if ($absen) {            
+        $absen = Absensi::where('id', $request->id)->first();
+        if ($absen) {
             if ($absen) {
                 $absen->delete();
             }
-            $peserta = Absensi::where('kode_event',$event->kode_event)->get();
+            $peserta = Absensi::where('kode_event', $event->kode_event)->get();
             return view('event.tbody-absen', [
                 'peserta' => $peserta
             ]);
@@ -297,5 +338,63 @@ class EventController extends Controller
         } else {
             return false;
         }
+    }
+
+
+
+    public function ticket(Request $request, $subdomain, $phone)
+    {
+        $event = Event::firstWhere('sub_domain', $subdomain);
+        if (!$event) abort(404);
+
+        $peserta_seminar = Seminar::where('kode_event', $event->kode_event)->where('phone', $phone)->first();
+        // dd($peserta_seminar);
+        if (!$peserta_seminar) abort(404);
+
+        // view Blade
+        $view_blade = "ticket.{$subdomain}";
+
+        // buat format file path from blade
+        $view_path = resource_path("views/") . str_replace('.', '/', $view_blade) . ".blade.php";
+        // cek file blade ada gak
+        $view_exist = file_exists($view_path);
+        // jika gak ada return 404
+        if (!$view_exist) abort(404);
+
+        // dd($peserta_seminar->status == 1);
+        if ($peserta_seminar->status == 1) {
+            $qr = "https://chart.googleapis.com/chart?chs=290&cht=qr&chl={$peserta_seminar->phone}&choe=UTF-8";
+        } else {
+            if($peserta_seminar->total==0){
+                $qr = "https://chart.googleapis.com/chart?chs=290&cht=qr&chl={$peserta_seminar->phone}&choe=UTF-8";
+            }else{
+                $qr = url('/ticket/qrcode.jpg');
+            }
+        }
+        return view($view_blade, [
+            'event' => $event,
+            'lunas' => $peserta_seminar->total==0 ? true : $peserta_seminar->status == 1,
+            'peserta' => $peserta_seminar,
+            'qr' => $qr
+        ]);
+    }
+
+    public function depan(Request $request)
+    {
+        # code...
+        $status = 1;
+        // if (Auth::user()->role_id == 1) {
+        $event  = Event::where('status', 1)->orderBy('tgl_event', 'desc')->get();
+        // } else {
+        //     $user_lfw   = Lfwuser::where('email', Auth::user()->email)->first();
+        //     $cek_user   = User::where('email', $user_lfw->email)->first();
+        //     if($cek_user){
+        //         $event  = Event::where('brand', 'lfw')->where('status', $status)->orderBy('tgl_event', 'desc')->get();
+        //     } else {
+        //         $event  = Event::where('status', $status)->orderBy('tgl_event', 'desc')->get();
+        //     }
+        // }
+        $title      = "Event";
+        return view('depan', compact('event', 'title'));
     }
 }

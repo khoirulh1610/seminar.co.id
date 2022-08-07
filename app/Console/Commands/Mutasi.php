@@ -14,6 +14,7 @@ use App\Helpers\Wa;
 use App\Models\Event;
 use App\Helpers\Notifikasi;
 use App\Helpers\Whatsapp;
+use Carbon\Carbon;
 
 class Mutasi extends Command
 {
@@ -52,9 +53,10 @@ class Mutasi extends Command
         foreach ($bnk as $bank) {
             $Parser = new BCAParser($bank->username,$bank->password);
             $saldo = $Parser->getSaldo();
-            $Html =  $Parser->getTransaksiCredit(Date('Y-m-d',strtotime("-1 days")), Date('Y-m-d'));
+            $Html =  $Parser->getTransaksiCredit(Date('Y-m-d',strtotime("0 days")), Date('Y-m-d'));
             $Parser->logout();
-            // echo $saldo[0]->saldo;
+            echo $saldo[0]['saldo']."\r\n";
+            print_r($Html);
             foreach ($Html as $row) {
                 $jj = count($row['description']) - 1;            
                 $nominal_trf =(Int) str_replace(['.00',','],'',$row['description'][$jj]??0);
@@ -70,10 +72,11 @@ class Mutasi extends Command
                     $mts->deskripsi = $dec;
                     $mts->nominal   = $nominal_trf;
                     $mts->save();
-                    $notifMutasi =  Whatsapp::send(["token"=>3,"phone"=>'6281228060666-1635994060@g.us',"message"=>$dec."\r\n".$tgl."\r\n".$nominal_trf]);
+                    $notifMutasi =  Whatsapp::send(["token"=>3,"phone"=>'6285232843165@c.us',"message"=>$dec."\r\n".$tgl."\r\n".$nominal_trf]);
                 }
-                
-                $peserta    = Seminar::where('status',0)->where('total',$nominal_trf)->first();
+                $ambil = Carbon::today(); //->subDays(2);
+                // echo $ambil;
+                $peserta    = Seminar::where('status',0)->where('total',$nominal_trf)->whereDate('created_at' , '>=', $ambil)->first();
                 if($peserta){      
                     echo "Ada";
                     $peserta->status        = '1';

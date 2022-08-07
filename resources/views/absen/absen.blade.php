@@ -15,16 +15,16 @@
                             <table id="" class="table-export table display table-responsive-lg">
                                 <thead>
                                     <tr>                                        
-                                        <th style="text-align:center">Sapaan</th>
-                                        <th style="text-align:center">Panggilan</th>
-                                        <th style="text-align:center">Nama</th>
-                                        <th style="text-align:center">Phone</th>
-                                        <th style="text-align:center">Email</th>
-                                        <th style="text-align:center">Kota</th>
-                                        <th style="text-align:center">Profesi</th>                                        
-                                        <th style="text-align:center">Tgl Lahir</th>
-                                        <th style="text-align:center">Absen</th>
-                                        <th style="text-align:center">Action</th>
+                                        <th style="text-align:center">sapaan</th>
+                                        <th style="text-align:center">panggilan</th>
+                                        <th style="text-align:center">nama</th>
+                                        <th style="text-align:center">phone</th>
+                                        <th style="text-align:center">email</th>
+                                        <th style="text-align:center">kota</th>
+                                        <th style="text-align:center">profesi</th>                                        
+                                        <th style="text-align:center">tgl Lahir</th>
+                                        <th style="text-align:center">absen</th>
+                                        <th style="text-align:center">action</th>
                                     </tr>
                                 </thead>
                                 <tbody>

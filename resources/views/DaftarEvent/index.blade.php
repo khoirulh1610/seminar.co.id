@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Workshop Toko Online">
-  <meta name="keywords" content="Workshop Toko Online">
+  <meta name="description" content="{{ $event->event_title ?? '' }}">
+  <meta name="keywords" content="{{ $event->event_title ?? '' }}">
   <meta name="author" content="pixelstrap">  
   <link rel="icon" href="{{asset('sub_assets/images/favicon.png')}}" type="image/x-icon">
   <link rel="shortcut icon" href="{{asset('sub_assets/images/favicon.png')}}" type="image/x-icon">
@@ -89,6 +89,7 @@
             <div class="col-12 col-lg-6">
               <div class="position-relative">
                 <img class="img-parten bottom-parten" src=".{{asset('sub_assets/images/landing/landing-home/home-position/img-parten.png')}}" alt="" style="left: -30px;bottom: -20px; top: auto; height: 90px;">
+                <br><br><br><br><br><br>
                 <img class="img5 img-fluid h-auto m-2" src="{{$event->flayer ?? ''}}" alt="" style="border: 5px solid #e6edef; border-radius: 15px;">
               </div>
             </div>
@@ -142,6 +143,11 @@
 
 
       <section class="demo-section section-py-space" id="Applications">
+        @if (session()->has('warning'))
+            <div class="alert alert-warning">
+                {{ session()->get('warning') }}
+            </div>
+        @endif
         <div class="title text-center">
           <h2>Registrasi</h2>
           <?php if($pengundang_nama) {
@@ -155,7 +161,7 @@
               <div>
                 <div class="register-sec-details">
                   <form method="post" action="{{asset('seminar-register')}}" autocomplete="off">
-					  @csrf
+					           @csrf
                     <fieldset <?= ($buka_pendaftaran) ? '' : 'disabled' ?>>
 		  			        <input type="hidden" class="form-control" name="kode_event" value="{{$event->kode_event}}">
                       <div class="row">
@@ -209,6 +215,42 @@
                               </div>
                               <!--form-field end-->
                             </div>
+                            @if ($event->produk=='maxwin')
+                                <div class="col-sm-12">
+                                  <div class="wow fadeInUp" data-wow-duration="200ms">
+                                    <br><label for="profesi" style="color:black;">Jabatan</label><br>
+                                    <select type="text" name="jabatan" class="form-control form-select">
+                                      <option value="Owner">Owner</option>
+                                      <option value="Direktur">Direktur</option>
+                                      <option value="Karyawan">Karyawan</option>
+                                      <option value="Lain-lain">Lain-lain</option>                                      
+                                    </select>
+                                  </div>
+                                  <!--form-field end-->
+                                </div>
+                                <div class="col-sm-12">
+                                  <div class="wow fadeInUp" data-wow-duration="200ms">
+                                    <br><label for="profesi" style="color:black;">Bidang usaha</label><br>
+                                    <select type="text" name="bidang_usaha" class="form-control form-select">
+                                      <option value="Kuliner">Kuliner</option>
+                                      <option value="Property">Property</option>
+                                      <option value="Tour Travel">Tour Travel</option>
+                                      <option value="Toko">Toko</option>
+                                      <option value="Tour Travel">Tour Travel</option>
+                                      <option value="Online shop">Online shop</option>
+                                      <option value="Pendidikan">Pendidikan</option>
+                                      <option value="ASN">ASN</option>
+                                      <option value="TNI">TNI</option>
+                                      <option value="POLRI">POLRI</option>
+                                      <option value="Petani/Nelayan">Petani/Nelayan</option>
+                                      <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
+                                      <option value="MLM">MLM</option>
+                                      <option value="Lain-lain">Lain-lain</option>                                      
+                                    </select>
+                                  </div>
+                                  <!--form-field end-->
+                                </div>
+                            @endif
                           </div>
                           <div class="row">
                             <div class="col-sm-6">
@@ -263,7 +305,14 @@
                                 <div class="col-6">
                                   <div class="wow fadeInUp" data-wow-duration="200ms">
                                     <label for="datepicker2">Tahun</label>
-                                    <input type="number" class="form-control" name="tahun" id="tahun" placeholder="----" min="1945" max="2010" />
+                                    <select name="tahun" id="" class="form-control">
+                                        <option value="">--</option>
+                                        <?php
+                                        for ($i = 12; $i <= 100; $i++) {
+                                            echo '<option value='.(Date('Y') - $i).'>'.(Date('Y') - $i).'</option>';
+                                        }
+                                        ?>
+                                    </select>
                                   </div>
                                   <!--form-field end-->
                                 </div>
@@ -300,12 +349,12 @@
 
                           <div class="col-sm-12">
                             <div class="form-field text-center mgt-40 wow fadeInUp m-2" data-wow-duration="300ms">
-                              <span class="text-danger">
+                              <span class="text-primary">
                                 <!-- <p>Pastikan Email & No. Whatsapp Benar, Karena Link ZOOM & Bonus dikirim melalui Email & Whatsapp</p> -->
                               </span>
-                              <button type="submit" class="btn btn-success">Daftar Sekarang <i class="fa fa-arrow-circle-right"></i></button><br><br>
+                              <button type="submit" class="btn btn-success mt-3">Daftar Sekarang <i class="fa fa-arrow-circle-right"></i></button><br><br>
                               <center>
-                                <p>Butuh Bantuan ? <a href="{{$link}}"><i class="fa fa-whatsapp"></i> Klik disini</a></p>
+                                <p>Butuh Bantuan ? <a href="{{$link}}" target="_blank"><i class="fa fa-whatsapp"></i> Klik disini</a></p>
                               </center>
                             </div>
                           </div>
@@ -359,7 +408,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body text-danger">
+      <div class="modal-body" style="color: rgb(34, 9, 2)">
           <?php
           $subject = \Session::get('message') ?? '';
           $styles = array ( '*' => 'strong', '_' => 'i', '~' => 'strike');
@@ -481,6 +530,7 @@ var _mstring = document.getElementById('panggilan');
 _mstring.addEventListener('keyup', function(evt){                    
     _mstring.value = this.value.replace(/[^a-zA-Z]/g,'');        
 }, false);   
+
 </script>  
 
 

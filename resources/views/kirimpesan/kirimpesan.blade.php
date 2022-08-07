@@ -12,8 +12,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Data Kirim Pesan</h4>
-                        <div class="form-group">
+                        <div class="form-group">                            
+                            @if(Auth::id() !== 15057)
                             <a href="{{url('kirimpesan/baru')}}" class="btn btn-xs btn-success btn-rounded m-1">Buat Pesan</a>    
+                            @endif                                                        
+                            <a href="{{url('kirimpesan/pause')}}" class="btn btn-xs btn-warning btn-rounded m-1" style="color: white">Pause</a>    
+                            <a href="{{url('kirimpesan/lanjut')}}" class="btn btn-xs btn-info btn-rounded m-1" style="color: white">Lanjutkan</a>    
                             <a class="btn btn-xs btn-rounded btn-danger m-1" data-toggle="modal" data-target="#ModalDelete">Delete</a>                     
                         </div>
                     </div>

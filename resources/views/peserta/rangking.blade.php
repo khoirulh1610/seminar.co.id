@@ -23,7 +23,8 @@
         <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Data Pengundang tertinggi</h4>
+                        <h4 class="card-title">Data Pengundang tertinggi</h4> <br>
+                        <small>Tanggal Event : {{ $event->tgl_event,'d/M/Y' }}</small>
                         <p>Total Peserta : {{ $jpeserta }}</p>
                     </div>
                     <div class="card-body">
@@ -31,23 +32,25 @@
                             <table id="" class="table display table-responsive-lg">
                                 <thead>
                                     <tr>
-                                        <th>No.</th>
-                                        <th>Kode Event</th>
+                                        <th>No.</th>                                       
                                         <th>Pengundang</th>
-                                        <th>phone</th>
-                                        <th>Payment</th>
-                                        <th class="text-right">Undangan</th>
+                                        <th>Kota</th>
+                                        <th>phone</th>                                       
+                                        <th class="text-center">Undangan</th>
+                                        <th class="text-center">Payment</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($peserta as $p)
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$p->kode_event}} <br><small> {{$p->tgl_seminar}} </small></td>
+                                        <td>{{$loop->iteration}}</td>                                        
                                         <td>{{$p->user->nama ?? $p->pengundang->nama ?? ''}}</td>
-                                        <td>{{$p->ref}}</td>                                        
-                                        <td>{{$p->pay ?? 0}}</td>
-                                        <td class="text-right">{{$p->peserta ?? 0}}</td>                                       					
+                                        <td>
+                                            {{$p->user->kota ?? $p->pengundang->kota ?? ''}}
+                                        </td>
+                                        <td>{{$p->ref}}</td>                                                                                
+                                        <td class="text-right">{{$p->peserta ?? 0}}</td>            
+                                        <td>{{$p->pay ?? 0}}</td>                           					
                                     </tr>
                                     @endforeach
                                 </tbody>

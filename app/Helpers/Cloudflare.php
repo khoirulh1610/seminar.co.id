@@ -46,7 +46,7 @@ class Cloudflare{
 		CURLOPT_TIMEOUT => 30,
 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		CURLOPT_CUSTOMREQUEST => "POST",
-		CURLOPT_POSTFIELDS => "{\"type\":\"A\",\"name\":\"$sub_domain\",\"content\":\"103.167.35.213\",\"ttl\":3600,\"priority\":10,\"proxied\":true}",
+		CURLOPT_POSTFIELDS => "{\"type\":\"A\",\"name\":\"$sub_domain\",\"content\":\"194.233.68.179\",\"ttl\":3600,\"priority\":10,\"proxied\":true}",
 		// CURLOPT_COOKIE => "__cflb=0H28vgHxwvgAQtjUGU4vq74ZFe3sNVUZaBWKx96PShs; __cfruid=43bcaff57609dcbe147067bd947b4041caa61415-1645376691",
 		CURLOPT_HTTPHEADER => [
 			"Authorization: Bearer 4a46b3a6dfffa3aaa79dedd7f9fe3f732aef7",

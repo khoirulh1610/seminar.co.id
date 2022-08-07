@@ -60,9 +60,12 @@ class ProfileController extends Controller
         $profile->phone         = $request ->phone;
         $profile->email         = $request ->email;
         if($request ->role_id){
-            $profile->role_id   = $request ->role_id;
+            if(Auth::user()->role_id <= 3){
+                $profile->role_id   = $request->role_id;
+            }else{
+                $profile->role_id   = $profile->role_id;
+            }
         }
-
         $profile->save();
         return redirect('/profile');
     }

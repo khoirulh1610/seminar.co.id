@@ -39,5 +39,6 @@ class InfoServer extends Command
     public function handle()
     {
         $notif = Whatsapp::send(["token" => "3", "phone" => "6281228060666-1635994060@g.us", "message" => "Info server whatsapp from https://seminar.co.id"]);
+            $notif = Whatsapp::send(["token" => "35", "phone" => "6281228060666-1635994060@g.us", "message" => "Info server whatsapp from https://seminar.co.id"]);    
     }
 }

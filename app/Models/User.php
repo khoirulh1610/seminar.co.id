@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use Carbon\Carbon;
+use Exception;
 
 class User extends Authenticatable
 {
@@ -22,12 +24,14 @@ class User extends Authenticatable
      *
      * @var string[]
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'device_token',
-    ];
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    //     'device_token',
+    // ];
+
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -52,4 +56,52 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+
+
+
+    /**
+     * Mitra Relations
+     */
+    public function mitra()
+    {
+        return $this->belongsToMany(Mitra::class);
+    }
+
+    public function getMitraName()
+    {
+        return $this->mitra->pluck('nama') ?? null;
+    }
+
+    /**
+     * @method public assignMitra($mitra sting|ing|Model)
+     * @param kode_mitra|id|App\Models\Mitra
+     */
+    public function assignMitra($mitra)
+    {
+        $mitra = Mitra::findMitra($mitra);
+        return $this->mitra()->attach($mitra, [
+            'nama_user' => $this->nama,
+            'mitra_kode' => $mitra->kode_mitra,
+            'created_at' => Carbon::now()
+        ]);
+    }
+
+    public function dropMitra($mitra = null): Int
+    {
+        if ($mitra === null) {
+            return $this->mitra()->detach();
+        } else {
+            $mitra = Mitra::findMitra($mitra);
+            return $this->mitra()->detach($mitra);
+        }
+    }
+
+    // public function hasMitra()
+    // {
+    //     self::whereHas('roles', function($query) {
+    //         $query->where('id', 3);
+    //     })
+    //     ->get();
+    // }
 }
