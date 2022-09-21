@@ -17,7 +17,7 @@ class Regzoom extends Command
      *
      * @var string
      */
-    protected $signature = 'regzoom';
+    protected $signature = 'reg {kode_event}';
 
     /**
      * The console command description.
@@ -43,7 +43,8 @@ class Regzoom extends Command
      */
     public function handle()
     {
-        $event = Event::where('kode_event','LifeForWin')->first();
+        $kode_event = $this->argument('kode_event');
+        $event = Event::where('kode_event',$kode_event)->first();
         if($event){
             $myzoom = Zoom::where('id',$event->zoom_id)->first();
             if($myzoom){
@@ -56,7 +57,7 @@ class Regzoom extends Command
                         try {                    
                             $registrant = $meeting->find($event->meeting_id)->registrants()->create(['first_name' => $p->sapaan, 'last_name' => $p->panggilan.', '.$p->kota, 'email' => $p->email]);
                             Seminar::where('id',$p->id)->update(['join_zoom'=>$registrant->join_url]);
-                            echo $p->email.'=>'.$registrant->join_url."\r\n";
+                            $this->info($p->email.'=>'.$registrant->join_url);
                         } catch (\Throwable $th) {
                             Seminar::where('id',$p->id)->update(["join_zoom"=>'-']);      
                         }
@@ -66,27 +67,6 @@ class Regzoom extends Command
                 
             }
         }
-        
-        
-        
-
-        // $event = Event::where('kode_event','pIXYB')->first();
-        // if($event){
-        //     $peserta = Seminar::whereNull('join_zoom')->where('kode_event',$event->kode_event)->get();
-        //     foreach ($peserta as $p) {
-        //         try {
-        //             $sapaan = $p->sapaan;
-        //             $nama   = $p->nama;
-        //             $email  = $p->email;            
-        //             $link   = HelperZoom::join($sapaan,$nama,$email,$event->meeting_id);
-        //             echo $sapaan.$nama.$email."=>".$link."\r\n";
-        //             Seminar::where('id',$p->id)->update(["join_zoom"=>$link]);
-        //             // sleep(rand(1,3));
-        //         } catch (\Throwable $th) {
-        //             Seminar::where('id',$p->id)->update(["join_zoom"=>'-']);
-        //         }
-        //     }
-        // }
-        
+                
     }
 }

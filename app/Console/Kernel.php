@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('mutasi')->everyTenMinutes();
         $schedule->command('InfoServer')->everyFiveMinutes();
-        
+        // $schedule->command('inject:peserta')->everyFiveMinutes();
     }
 
     /**

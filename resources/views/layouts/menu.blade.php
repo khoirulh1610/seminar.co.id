@@ -146,6 +146,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{url('users')}}">All</a></li>
+                    <li><a href="{{url('komi/member')}}">Member Komi</a></li>
                 </ul>
             </li>
             @endif
@@ -165,8 +166,9 @@
                 </ul>
             </li>
             @endif
-            @if (Auth::user()->role_id <= 2) 
+            @if (Auth::user()->role_id <= 2 && Auth::user()->access_wa=='Y') 
             <li>
+                
                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="fab fa-whatsapp"></i>
                     <span class="nav-text">Whatsapp</span>
@@ -193,6 +195,7 @@
                     <!-- <li><a href="#">Grab Group</a></li> -->
                     <li><a href="{{url('/device/device')}}">Device</a></li>
                 </ul>
+
             </li>
             @endif
             @if(Auth::user()->role_id==1)
@@ -206,6 +209,12 @@
                 <a href="{{ url('dashboardbeta') }}" aria-expanded="false">
                     <i class="flaticon-381-book"></i>
                     <span class="nav-text">Dahsboard Beta</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url('notifikasi') }}" aria-expanded="false">
+                    <i class="flaticon-381-notification"></i>
+                    <span class="nav-text">Notifikasi</span>
                 </a>
             </li>
             @endif

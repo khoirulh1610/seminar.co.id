@@ -10,7 +10,7 @@
                     <div class="card-header">
                         <h4 class="card-title">Data Produk</h4>
                         <div class="form-group">
-                            <a href="{{url('produk/baru')}}" class="btn btn-xs btn-success btn-rounded m-1">Tambah Produk</a>
+                            <a href="{{url('produk/baru')}}" class="btn btn-xs btn-success btn-rounded m-1"><i class="fa fa-plus"></i> Tambah Produk</a>
                             {{-- <a class="btn btn-xs btn-rounded btn-danger m-1" data-toggle="modal" data-target="#ModalDelete">Delete</a> --}}
                         </div>
                     </div>
@@ -48,8 +48,10 @@
                                             <td class="text-center">{{ $item->harga }}</td>
                                             <td class="text-center">{{ $item->exp_referral }}</td>
                                             <td class="text-center">
-                                                <a href="{{ url('produk/edit/'.$item->id) }}" class="btn btn-info btn-sm btn-rounded"><i class="fa fa-pen"></i></a>
-                                                <a href="{{ url('produk/hapus/'.$item->id) }}" class="btn btn-danger btn-sm btn-rounded delete-confirm"><i class="fa fa-trash"></i></a>
+                                                <div class="btn-group">
+                                                    <a href="{{ url('produk/edit/'.$item->id) }}" class="btn btn-info btn-sm" style="border-radius: 10px 0 0 10px;"><i class="fa fa-pen"></i></a>
+                                                    <a href="{{ url('produk/hapus/'.$item->id) }}" class="btn btn-danger btn-sm delete-confirm" style="border-radius: 0 10px 10px 0;"><i class="fa fa-trash"></i></a>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

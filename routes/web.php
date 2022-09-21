@@ -37,6 +37,11 @@ Route::get('/lp', function () {
 Route::get('landingpage', 'LandingpageController@index')->name('landingpage');
 Route::get('/kabupaten', 'DaftarEventController@kabupaten');
 
+Route::get('/komi', 'KomiController@register')->name('komi');
+Route::get('/komi-get-peserta', 'KomiController@getPeserta')->name('getkomi');
+Route::post('/komi', 'KomiController@createMember');
+
+
 Route::get('daftar/lfw', 'DaftarflwController@daftarBaru')->name('daftar.lfw');
 Route::post('daftar/lfw/store', 'DaftarflwController@daftarStore')->name('daftar.lfw.store');
 Route::get('absen/lfw', 'DaftarflwController@absenLfw')->name('absen.lfw');
@@ -45,14 +50,19 @@ Route::post('absen/lfw/store', 'DaftarflwController@absenStore')->name('absen.lf
 
 Route::group(array('domain' => '{subdomain}.seminar.co.id'), function ($subdomain) {
     if ($subdomain) {
-        Route::get('/', 'DaftarEventController@index');
+        Route::get('/r5', 'DaftarEventController@index');
+        Route::get('/', 'DaftarEventController@index_new');
+        Route::get('/r2', 'DaftarEventController@index_new');
+        Route::get('/cekwa', 'DaftarEventController@cekwa');
         Route::get('/testing', 'DaftarEventController@testing');
         Route::get('/absen', 'DaftarEventController@absen');
+        Route::get('/daftar2', 'DaftarEventController@daftar2');
         Route::get('/daftar', 'DaftarEventController@daftar_akun');
         Route::get('/ulang', 'DaftarEventController@daftar_ulang');
         Route::post('/daftar', 'DaftarEventController@daftar_akun_save');
         Route::post('/absen-save', 'DaftarEventController@absen_save');
         Route::post('/seminar-register', 'DaftarEventController@register');
+        Route::post('/seminar-multi-register', 'DaftarEventController@multi_register');
         Route::get('/sertifikat', 'DaftarEventController@download_sertifikat');
         Route::get('/join/{id}', 'DaftarEventController@jointl');
         Route::get('/zoom/{kode_event}/{phone}', 'DaftarEventController@joinzoom');
@@ -113,6 +123,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/sertifikat-download/{id}', 'EventController@download')->name('sertifikat.download');
     Route::get('cw/{kode_event}', 'EventController@cw')->name('cw');
     Route::put('cw/{kode_event}', 'EventController@cw_save');
+
+    Route::prefix('komi')->group(function () {
+        Route::get('/member', 'KomiController@index')->name('komi.CodeMirror-linenumber');
+        Route::get('/member/export', 'KomiController@exportToExcel');
+        Route::post('/approve/{member:id}', 'KomiController@approve');
+    });
+
+    Route::prefix('notifikasi')->group(function () {
+        Route::get('/', 'NotificationController@index')->name('notifikasi.indexs');
+        Route::post('/', 'NotificationController@save');
+        Route::get('/save/{notification:id?}', 'NotificationController@create')->name('notifikasi.edit');
+        Route::delete('/{notification:id}', 'NotificationController@delete')->name('notifikasi.delete');
+    });
 
     Route::get('/event/{event:kode_event}/absen', 'EventController@absen')->name('event.absen');
     Route::post('/event/{event:kode_event}/absen', 'EventController@absenAdd');
@@ -179,6 +202,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/inject/upload', 'InjectZoomController@upload')->name('inject.upload');
     Route::post('/inject/progress', 'InjectZoomController@progresInject')->name('inject.progress');
     Route::post('/inject/export', 'InjectZoomController@export')->name('inject.export');
+    Route::post('/inject/delete', 'InjectZoomController@delete')->name('inject.delete');
 
     Route::get('/eventbaru', function () {
         return view('event.eventbaru');

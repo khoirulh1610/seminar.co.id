@@ -82,7 +82,7 @@ class ApimaxwinController extends Controller
         $data = Seminar::where('ref', $phone)
             // ->orwhere('kode_event','Mjztg')
             // ->orwhere('kode_event','pIXYB')
-            ->where('kode_event', 'VFhqY')
+            ->where('kode_event', 'bNeKp')
             // ->orwhere('kode_event','QDLZF')
             //->where('kode_event','rM519')
             ->orderBy('id', 'DESC')->get();
@@ -93,7 +93,7 @@ class ApimaxwinController extends Controller
     {
         # code...
         $ref = $phone ?? '-';
-        $kode_event = 'VFhqY';
+        $kode_event = 'bNeKp';
         $data  = DB::select("select b.*,a.created_at masuk from absensis a left join seminars b on a.seminar_id=b.id where a.kode_event='$kode_event' and b.ref = $ref ORDER BY a.id DESC");
         return Datatables::of($data)->make(true);
     }
@@ -102,7 +102,7 @@ class ApimaxwinController extends Controller
     {
         # code...
         $ref = $phone;
-        $kode_event = 'VFhqY';
+        $kode_event = 'bNeKp';
         $data  = DB::select("select b.*,a.created_at masuk from absensis a left join seminars b on a.seminar_id=b.id where a.kode_event='$kode_event' and b.ref = $ref ORDER BY a.id DESC");
         return Datatables::of($data)->make(true);
     }
@@ -110,7 +110,7 @@ class ApimaxwinController extends Controller
     public function ceklink($phone)
     {
         # code...
-        $link = Seminar::where('kode_event', 'VFhqY')
+        $link = Seminar::where('kode_event', 'bNeKp')
             ->where('phone', $phone)
             ->first();
 

@@ -33,7 +33,7 @@ class LaporanController extends Controller
     public function exportSemua(Request $request)
     {
         // $data    = DB::select("select b.event_title,a.tgl_seminar,b.lokasi,a.sapaan,a.nama,a.panggilan,a.phone,a.email,a.profesi,a.provinsi,a.kota,concat(a.b_tanggal,'/',a.b_bulan,'/',a.b_tahun)tgl_lahir,a.status,a.created_at from seminars a left JOIN `events` b on a.kode_event=b.kode_event");
-        if($request->kode_event == 'all'){
+        if ($request->kode_event == 'all') {
             $event      = Event::with('seminar')->get();
             $data       = [];
             foreach ($event as $key) {
@@ -63,39 +63,39 @@ class LaporanController extends Controller
                     'Nomor Pengundang'      => $pengundang->phone ?? '',
                 ];
             }
-        }else{
-            $event      = Event::with('seminar')->where('kode_event', $request->kode_event)->get();
+            return (new FastExcel($data))->download('Data_Peserta_Seminar.xlsx');
+        } elseif ($request->kode_event) {
+            $event      = Event::where('kode_event', $request->kode_event)->first();
             $data       = [];
-            foreach ($event as $item) {
-                foreach ($item->seminar as $key) {
-                    $pengundang         = User::where('phone', $key->ref)->first();
-                    $data[]     = [
-                        'Kode Event'            => $key->kode_event,
-                        'Nama Seminar'          => $key->event->event_title ?? '',
-                        'Lokasi'                => $key->event->lokasi ?? '',
-                        'Tema Seminar'          => $key->event->tema ?? '',
-                        'Tipe Seminar'          => $key->event->type ?? '',
-                        'Harga Seminar'         => $key->event->harga ?? '',
-                        'Narasumber Seminar'    => $key->event->narasumber ?? '',
-                        'Tanggal Seminar'       => $key->tgl_seminar,
-                        'Nama Lengkap'          => $key->nama,
-                        'Nama Panggilan'        => $key->panggilan,
-                        'Sapaan'                => $key->sapaan ?? '',
-                        'Nomor Handphone'       => $key->phone,
-                        'Email'                 => $key->email,
-                        'Tanggal Lahir'         => $key->b_tahun . '-' . $key->b_bulan . '-' . $key->b_tanggal,
-                        'Profesi'               => $key->profesi,
-                        'Nama Pengundang'       => $pengundang->nama ?? '',
-                        'Sapaan Pengundang'     => $pengundang->sapaan ?? '',
-                        'Panggilan Pengundang'  => $pengundang->panggilan ?? '',
-                        'Nomor Pengundang'      => $pengundang->phone ?? '',
-                        'Kota'                  => $key->kota,
-                        'Provinsi'              => $key->provinsi,
-                    ];
-                }
+            $seminar    = Seminar::where('kode_event', $event->kode_event)->get();
+            foreach ($seminar as $item) {
+                $pengundang         = User::where('phone', $item->ref)->first();
+                $data[]     = [
+                    'Kode Event'            => $item->kode_event,
+                    'Nama Seminar'          => $item->event->event_title ?? '',
+                    'Lokasi'                => $item->event->lokasi ?? '',
+                    'Tema Seminar'          => $item->event->tema ?? '',
+                    'Tipe Seminar'          => $item->event->type ?? '',
+                    'Harga Seminar'         => $item->event->harga ?? '',
+                    'Narasumber Seminar'    => $item->event->narasumber ?? '',
+                    'Tanggal Seminar'       => $item->tgl_seminar,
+                    'Nama Lengkap'          => $item->nama,
+                    'Nama Panggilan'        => $item->panggilan,
+                    'Sapaan'                => $item->sapaan ?? '',
+                    'Nomor Handphone'       => $item->phone,
+                    'Email'                 => $item->email,
+                    'Tanggal Lahir'         => $item->b_tahun . '-' . $item->b_bulan . '-' . $item->b_tanggal,
+                    'Profesi'               => $item->profesi,
+                    'Nama Pengundang'       => $pengundang->nama ?? '',
+                    'Sapaan Pengundang'     => $pengundang->sapaan ?? '',
+                    'Panggilan Pengundang'  => $pengundang->panggilan ?? '',
+                    'Nomor Pengundang'      => $pengundang->phone ?? '',
+                    'Kota'                  => $item->kota,
+                    'Provinsi'              => $item->provinsi,
+                ];
             }
+            return (new FastExcel($data))->download('Data_Peserta_Seminar.xlsx');
         }
-        return (new FastExcel($data))->download('Data_Peserta_Seminar.xlsx');
     }
 
     public function pesertaOffline(Request $request)
@@ -106,7 +106,7 @@ class LaporanController extends Controller
 
     public function exportOffline(Request $request)
     {
-        if($request->kode_event == 'all'){
+        if ($request->kode_event == 'all') {
             $event      = Event::with('seminar')->where('jenis_seminar', 'offline')->get();
             $data       = [];
             foreach ($event as $item) {
@@ -137,8 +137,8 @@ class LaporanController extends Controller
                         ];
                     }
                 }
-            }            
-        }else{
+            }
+        } else {
             $event      = Event::with('seminar')->where('jenis_seminar', 'offline')->where('kode_event', $request->kode_event)->get();
             $data       = [];
             foreach ($event as $item) {
@@ -169,7 +169,7 @@ class LaporanController extends Controller
                         ];
                     }
                 }
-            }    
+            }
         }
 
         $header_style = (new StyleBuilder())->setFontBold()->build();
@@ -184,7 +184,7 @@ class LaporanController extends Controller
 
     public function exportOnline(Request $request)
     {
-        if($request->kode_event == 'all'){
+        if ($request->kode_event == 'all') {
             $event      = Event::with('seminar')->where('jenis_seminar', 'online')->get();
             $data       = [];
             foreach ($event as $item) {
@@ -216,7 +216,7 @@ class LaporanController extends Controller
                     }
                 }
             }
-        }else{
+        } else {
             $event      = Event::with('seminar')->where('jenis_seminar', 'online')->where('kode_event', $request->kode_event)->get();
             $data       = [];
             foreach ($event as $item) {
@@ -349,7 +349,7 @@ class LaporanController extends Controller
         $resWAG = Whatsapp::send([
             'token' => 73,
             'phone' => '120363042948087196@g.us',
-            'message' => '*Pembayaran* diterima dari *' . $transaksiSeminar->nama . '* untuk produk ' . $transaksiSeminar->produk . ' Senilai *Rp. ' . number_format($transaksiSeminar->bayar) . '*' . "\r\n" .'=================='. "\r\n" . "\r\n" . $transaksiSeminar->msg_bayar
+            'message' => '*Pembayaran* diterima dari *' . $transaksiSeminar->nama . '* untuk produk ' . $transaksiSeminar->produk . ' Senilai *Rp. ' . number_format($transaksiSeminar->bayar) . '*' . "\r\n" . '==================' . "\r\n" . "\r\n" . $transaksiSeminar->msg_bayar
         ]);
         Log::info([$resWA, $resWAG]);
 
@@ -422,8 +422,6 @@ class LaporanController extends Controller
         ]);
         return redirect()->back();
     }
-
-
 }
 
 

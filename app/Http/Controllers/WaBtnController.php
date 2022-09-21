@@ -278,32 +278,47 @@ class WaBtnController extends Controller
     public function send(Request $request)
     {
         $antrian = Antrian::where('user_id', Auth::id())->where('type_message', 'Button')->where('id', $request->id)->first();
-        Log::info('this is data', $antrian);
+        Log::info('this is data', [$antrian]);
         if ($antrian) {
             $data = [
                 "token"     => $antrian->device_id,
+                "type"      => "Button",
                 "phone"     => $antrian->phone,
                 "message"   => $antrian->message,
                 "file_url"  => $antrian->file,
                 "file_name" => $antrian->file_name,
-
+                "payload"   => [],
             ];
 
-            Log::info('this is data', $data);
+            if ($antrian->btn1) {
+                array_push($data['payload'], [
+                    "id" => $antrian->id . '<|>1<|>' . $antrian->reply1,
+                    "text" => $antrian->btn1
+                ]);
+            }
+            if ($antrian->btn2) {
+                array_push($data['payload'], [
+                    "id" => $antrian->id . '<|>2<|>' . $antrian->reply2,
+                    "text" => $antrian->btn2
+                ]);
+            }
+            if ($antrian->btn3) {
+                array_push($data['payload'], [
+                    "id" => $antrian->id . '<|>3<|>' . $antrian->reply3,
+                    "text" => $antrian->btn3
+                ]);
+            }
 
             $notif = Whatsapp::send($data);
             $r = json_decode($notif);
+
+            // Log::debug("SEND BUTTON:", [$r->message, $r->status, $r]);
             if ($r) {
-                if ($r->message == 'Terkirim') {
-                    $antrian->status = 2;
-                    $antrian->messageid = $r->data->messageid ?? '';
-                    $antrian->report = $r->data->message ?? '';
-                    $antrian->save();
-                } else {
-                    $antrian->status = 2;
-                    $antrian->report = $r->data->message ?? '';
-                    $antrian->save();
-                }
+                $antrian->update([
+                    'status' => $r->message == 'Terkirim' ? 2 : 3,
+                    'report' => $r->message ?? null,
+                    'messageid' => $r->data->messageid ?? null,
+                ]);
             }
             return $notif;
         } else {
@@ -315,15 +330,12 @@ class WaBtnController extends Controller
     {
 
         if ($request->status == "semua") {
-            $antrian = Antrian::where("user_id", Auth::id())->where('type_message', 'Button');
+            $antrian = Antrian::where("user_id", Auth::id())->where('type_message', 'Button')->delete();
         } else {
-            $antrian = Antrian::where("user_id", Auth::id())->where('type_message', 'Button')->where('status', $request->status);
+            $antrian = Antrian::where("user_id", Auth::id())->where('type_message', 'Button')->where('status', $request->status)->delete();
             if ($request->id) {
-                $antrian = Antrian::where("user_id", Auth::id())->where('type_messsage', 'Button')->where('id', $request->id);
+                $antrian = Antrian::where("user_id", Auth::id())->where('type_message', 'Button')->where('id', $request->id)->delete();
             }
-        }
-        if ($antrian) {
-            $antrian->delete();
         }
         return redirect('/button');
     }

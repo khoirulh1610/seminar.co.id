@@ -19,14 +19,17 @@ class Whatsapp
         return self::curl("api/qrcode", $data, "GET");
     }
 
-    public static function send($data)
+    public static function send($data, $save_response = false)
     {
-        self::saveNotif([
-            "token" => $data['token'] ?? 0,
-            "phone" => $data['phone'] ?? 0,
-            "message" => $data['message'] ?? 0,
-        ]);
-        return self::curl("api/send", $data);
+        $res =  self::curl("api/send", $data);
+        if ($save_response) {
+            self::saveNotif([
+                "token" => $data['token'] ?? 0,
+                "phone" => $data['phone'] ?? 0,
+                "message" => $data['message'] ?? 0,
+            ], $res);
+        }
+        return $res;
     }
 
     public static function group($data)
@@ -130,8 +133,10 @@ class Whatsapp
         }
     }
 
-    public static function saveNotif(array $data)
+    public static function saveNotif(array $data, $res)
     {
+        $res = json_decode($res, true);
+
         $device_id = $data['token'];
         $device = Device::find($device_id);
         $now = Carbon::now();
@@ -139,10 +144,12 @@ class Whatsapp
             'user_id' => $device->user_id,
             'device_id' => $device_id,
             'phone' => $data['phone'],
-            'type' => 'Notification',
+            'type' => 'wa auto-save',
             'type_message' => 'text',
             'message' => $data['message'],
-            'status' => 2,
+            'status' => $res['message'] == 'Terkirim' ? 2 : 3,
+            'report' => $res['message'] ?? null,
+            'messageid' => $res['messageid'] ?? null,
             'pause' => 1,
             'priority' => 1,
             'created_at' => $now,

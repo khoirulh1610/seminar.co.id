@@ -31,73 +31,53 @@ class LoginController extends Controller
         ]);
 
         $email      = $request->email;
-        $user       = User::firstWhere('email', $email);
-        if(!$user){
-            $peserta    = Seminar::firstWhere('email', $email);
-            $event      = Event::firstWhere('kode_event', $peserta->kode_event);
-            $cek_user   = User::firstWhere('phone', $peserta->phone);
-            if(!$cek_user){
-                // craete user from seminar
-                $user            = new User();
-                $user->sapaan    = $peserta->sapaan;
-                $user->panggilan = $peserta->panggilan;
-                $user->nama      = $peserta->nama;
-                $user->email     = strtolower($peserta->email);
-                $user->phone     = $peserta->phone;
-                $user->profesi   = $peserta->profesi;
-                $user->prov_id   = $peserta->prov_id;
-                $user->provinsi  = $peserta->provinsi;
-                $user->kota_id   = $peserta->kota_id;
-                $user->kota      = $peserta->kota;
-                $user->b_tanggal = $peserta->b_tanggal;
-                $user->b_bulan   = $peserta->b_bulan;
-                $user->b_tahun   = $peserta->b_tahun;
-                $user->kode_ref  = Str::random(8);
-                $user->password  = Hash::make('12345678');
-                $user->role_id   = 4;
-                $user->brand     = $event->produk ?? $event->brand ?? ''; 
-                $user->save();
+        // $user       = User::firstWhere('email', $email);
+        // if(!$user){
+        //     $peserta    = Seminar::firstWhere('email', $email);
+        //     $event      = Event::firstWhere('kode_event', $peserta->kode_event);
+        //     $cek_user   = User::firstWhere('phone', $peserta->phone);
+        //     if(!$cek_user){
+        //         // craete user from seminar
+        //         $user            = new User();
+        //         $user->sapaan    = $peserta->sapaan;
+        //         $user->panggilan = $peserta->panggilan;
+        //         $user->nama      = $peserta->nama;
+        //         $user->email     = strtolower($peserta->email);
+        //         $user->phone     = $peserta->phone;
+        //         $user->profesi   = $peserta->profesi;
+        //         $user->prov_id   = $peserta->prov_id;
+        //         $user->provinsi  = $peserta->provinsi;
+        //         $user->kota_id   = $peserta->kota_id;
+        //         $user->kota      = $peserta->kota;
+        //         $user->b_tanggal = $peserta->b_tanggal;
+        //         $user->b_bulan   = $peserta->b_bulan;
+        //         $user->b_tahun   = $peserta->b_tahun;
+        //         $user->kode_ref  = Str::random(8);
+        //         $user->password  = Hash::make('12345678');
+        //         $user->role_id   = 4;
+        //         $user->brand     = $event->produk ?? $event->brand ?? ''; 
+        //         $user->save();
 
-                // Cek Device User Baru
-                $cek_device         = Device::where('user_id', $user->id)->first();
-                if(!$cek_device){
-                    $device             = new Device();
-                    $device->user_id    = $user->id;
-                    $device->phone      = $user->phone;
-                    $device->label      = Str::random(10);
-                    $device->server_id  = '3';
-                    $device->mode       = 'md';
-                    $device->created_at = Carbon::now();
-                    $device->updated_at = Carbon::now();
-                    $device->save();
-                }
-            }else{
-                return redirect()->back()->with('error', 'Nomor ' . $cek_user->phone . $cek_user->email. ' sudah terdaftar di Seminar');
-            }
-        }else{
-            // Cek Device User Lama
-            $cek_device_ul           = Device::where('user_id', $user->id)->first();
-            if(!$cek_device_ul){
-                $device              = new Device();
-                $device->user_id     = $user->id;
-                $device->phone       = $user->phone;
-                $device->label       = Str::random(10);
-                $device->server_id   = '3';
-                $device->mode        = 'md';
-                $device->created_at  = Carbon::now();
-                $device->updated_at  = Carbon::now();
-                $device->save();
-            }
+        //         // Cek Device User Baru
+        //         $cek_device         = Device::where('user_id', $user->id)->first();
+        //         if(!$cek_device){
+        //             $device             = new Device();
+        //             $device->user_id    = $user->id;
+        //             $device->phone      = $user->phone;
+        //             $device->label      = Str::random(10);
+        //             $device->server_id  = '3';
+        //             $device->mode       = 'md';
+        //             $device->created_at = Carbon::now();
+        //             $device->updated_at = Carbon::now();
+        //             $device->save();
+        //         }
+        //     }else{
+        //         return redirect()->back()->with('error', 'Nomor ' . $cek_user->phone . $cek_user->email. ' sudah terdaftar di Seminar');
+        //     }
+        // }else{
+        //     // Cek Device User Lama
+        // }
 
-            // Update Data Brand User Sesuai dengan seminar yang diikuti
-            $cek    = Seminar::firstWhere('email', $email);
-            $event  = Event::firstWhere('kode_event');
-            if ($cek) {
-                $update = $user->update([
-                    'brand' => $event->produk ?? $event->brand ?? '',
-                ]);
-            }
-        }
 
         // $cek1   = User::where('email', $email)->first();
         // if (!$cek1) {
@@ -175,7 +155,7 @@ class LoginController extends Controller
         //     }
         // }
 
-        
+
 
         // if ($cek1->status !== 1) {
         //     return redirect()->back()->with('error', 'Mohon maaf email ' . $email . ' tidak diijinkan login, Silahkan hubungi admin');
@@ -189,6 +169,28 @@ class LoginController extends Controller
 
         //LAKUKAN LOGIN
         if (auth()->attempt($login)) {
+            $user = User::firstWhere('email', $email);
+            $cek_device_ul           = Device::where('user_id', $user->id)->first();
+            if (!$cek_device_ul) {
+                $device              = new Device();
+                $device->user_id     = $user->id;
+                $device->phone       = $user->phone;
+                $device->label       = Str::random(10);
+                $device->server_id   = '3';
+                $device->mode        = 'md';
+                $device->created_at  = Carbon::now();
+                $device->updated_at  = Carbon::now();
+                $device->save();
+            }
+
+            // Update Data Brand User Sesuai dengan seminar yang diikuti
+            $cek    = Seminar::firstWhere('email', $email);
+            $event  = Event::firstWhere('kode_event');
+            if ($cek) {
+                $update = $user->update([
+                    'brand' => $event->produk ?? $event->brand ?? '',
+                ]);
+            }
             return redirect('/dashboard');
         }
         //JIKA SALAH, MAKA KEMBALI KE LOGIN DAN TAMPILKAN NOTIFIKASI 

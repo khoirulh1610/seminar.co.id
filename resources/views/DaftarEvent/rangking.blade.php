@@ -8,11 +8,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>RANGKIN</title>
+    <title>RANGKING</title>
   </head>
   <body>
 	<div class="col-sm-12 text-center">
-		<h1>Rangkin Undangan {{ $event->event_title }}</h1>
+		<h1>Rangking Undangan {{ $event->event_title }}</h1>
 		<h5>Tanggal Seminar : {{ Date('d/m/Y H:i',strtotime($event->tgl_event)) }}</h5>
 		<h5>Tanggal Update : {{ Date('d/m/Y H:i') }}</h5>
 		<h5>Total Undangan : {{ $j ?? 0 }}</h5>
@@ -23,15 +23,15 @@
 		<tr>
 		  <th scope="col">No</th>
 		  <th scope="col">Nama</th>
-		  <th scope="col">Ref</th>
+		  <th scope="col">Kota</th>
+		  <th scope="col">No WA / Ref</th>
 		  <th scope="col">Jumlah</th>		  
 		</tr>
 	  </thead>
 	  <tbody>
+		<?php $no=1; ?>
 		@foreach ($data as $r)
-		<tr>
-		  <th scope="row">{{ $loop->iteration }}</th>
-		  @php
+		@php
 			$cek = DB::table('users')->where('id', $r->ref)->first();
 			if(!$cek){
 				$cek = DB::table('seminars')->where('phone', $r->ref)->first();
@@ -41,13 +41,17 @@
 			}			
 			$nama = $cek->name ?? $cek->nama ?? '-';;	
 			$phone = $cek->phone ?? $cek->phone ?? '-';;	
-			$phone = substr($phone, 0, -2) . 'xx';
-		  @endphp
-		  <td>{{ $nama ?? '' }}</td>
+			$phone = substr($phone, 0, -2) . 'xx';			
+		@endphp
+		@if($nama!=='-' && $no <=10)
+		<tr>
+		  <th scope="row">{{ $no++ }}</th>
+		  <td>{{ strtoupper($nama) ?? '' }}</td>
+		  <td>{{ $cek->kota ?? '' }}</td>
 		  <td>{{ $phone ?? '' }}</td>
 		  <td>{{ $r->j }}</td>
-		  
 		</tr>
+		@endif
 		@endforeach
 	  </tbody>
 

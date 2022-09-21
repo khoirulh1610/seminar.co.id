@@ -1,5 +1,17 @@
 <?php
 
+function str()
+{
+    return new \Illuminate\Support\Str();
+}
+
+function notification(String $notification_name)
+{
+    $notification = new \App\Helpers\Notification();
+    $notification->name($notification_name);
+    return $notification;
+}
+
 
 function Encript($string)
 {
@@ -113,4 +125,10 @@ function formatPhone(String $numberPhone, String $countryCode = '62'): String
         $numberPhone = $countryCode . substr($numberPhone, 1, 20);
     }
     return $numberPhone;
+}
+
+
+function addZero($num, $length = 3)
+{
+    return str_pad($num, $length, '0', STR_PAD_LEFT);
 }

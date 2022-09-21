@@ -30,12 +30,21 @@ class EventController extends Controller
         if (Auth::user()->role_id == 1) {
             $event  = Event::where('status', $status)->orderBy('tgl_event', 'desc')->get();
         } else {
+
             $user_lfw   = Lfwuser::where('email', Auth::user()->email)->first();
-            $cek_user   = User::where('email', $user_lfw->email)->first();
-            if ($cek_user) {
-                $event  = Event::where('brand', 'lfw')->where('status', $status)->orderBy('tgl_event', 'desc')->get();
+            if ($user_lfw) {
+                $cek_user   = User::where('email', $user_lfw->email)->first();
+                if ($cek_user) {
+                    $event  = Event::where('brand', 'lfw')->where('status', $status)->orderBy('tgl_event', 'desc')->get();
+                } else {
+                    $event  = Event::where('status', $status)->orderBy('tgl_event', 'desc')->get();
+                }
             } else {
-                $event  = Event::where('status', $status)->orderBy('tgl_event', 'desc')->get();
+                if (Auth::user()->role_id == 2) {
+                    $event  = Event::where('brand', Auth::user()->brand)->where('status', $status)->orderBy('tgl_event', 'desc')->get();
+                } else {
+                    $event  = Event::where('status', $status)->orderBy('tgl_event', 'desc')->get();
+                }
             }
         }
         $title      = "Event";
@@ -67,7 +76,7 @@ class EventController extends Controller
     public function save(Request $request)
     {
         if ($request->id) {
-            $event                      = Event::find($request->id);
+            $event                      = Event::where('id', $request->id)->first();
         } else {
             $event                      = new Event();
             $event->kode_event          = Str::random(5);
@@ -127,7 +136,7 @@ class EventController extends Controller
         $event->tema                = $request->tema;
         $event->type                = $request->type;
         $event->lokasi              = $request->lokasi;
-        $event->device_id           = $request->notif ?? 3;
+        $event->device_id           = $request->notif;
         $event->event_detail        = $request->event_detail;
         $event->link_zoom           = $request->link_zoom;
         $event->meeting_id          = $request->meet_id;
@@ -365,16 +374,23 @@ class EventController extends Controller
         if ($peserta_seminar->status == 1) {
             $qr = "https://chart.googleapis.com/chart?chs=290&cht=qr&chl={$peserta_seminar->phone}&choe=UTF-8";
         } else {
-            if($peserta_seminar->total==0){
+            if ($peserta_seminar->total == 0) {
                 $qr = "https://chart.googleapis.com/chart?chs=290&cht=qr&chl={$peserta_seminar->phone}&choe=UTF-8";
-            }else{
+            } else {
                 $qr = url('/ticket/qrcode.jpg');
             }
         }
+
+        $absen = Absensi::where('seminar_id', $peserta_seminar->id)
+            ->where('kode_event', $event->kode_event)
+            ->whereDate('tgl_absen', Carbon::today())
+            ->first();
+
         return view($view_blade, [
             'event' => $event,
-            'lunas' => $peserta_seminar->total==0 ? true : $peserta_seminar->status == 1,
+            'lunas' => $peserta_seminar->total == 0 ? true : $peserta_seminar->status == 1,
             'peserta' => $peserta_seminar,
+            'absen' => $absen ?? false,
             'qr' => $qr
         ]);
     }

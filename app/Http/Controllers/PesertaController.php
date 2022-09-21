@@ -8,18 +8,23 @@ use App\Models\Event;
 use App\Helpers\Notifikasi;
 use App\Helpers\Whatsapp;
 use App\Models\User;
-use Hash, DB, Illuminate\Support\Facades\Auth, Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Rap2hpoutre\FastExcel\Facades\FastExcel;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class PesertaController extends Controller
 {
     public function index(Request $request, $kode_event)
     {
+        $peserta    = Seminar::where("kode_event", "like", $kode_event)->where("leader", 1);
         if (Auth::user()->role_id <= 2) {
-            $peserta    = Seminar::where("kode_event", "like", $kode_event)->orderBy('id', 'desc')->get();
+            $peserta->orderBy('id', 'desc');
         } else {
-            $peserta    = Seminar::where("kode_event", "like", $kode_event)->where('ref', Auth::user()->phone)->orderBy('id', 'desc')->get();
+            $peserta->where('ref', Auth::user()->phone)->orderBy('id', 'desc');
         }
+        $peserta    = $peserta->get();
         $title      = "Data Seminar";
         return view('peserta.peserta', compact('peserta', 'title', 'kode_event'));
     }
@@ -163,11 +168,21 @@ class PesertaController extends Controller
         // return $request->all();
         $peserta                    = Seminar::where('status', 0)->where('id', $request->id)->first();
         if ($peserta) {
-            $peserta->total         = $request->harga;
-            $peserta->status        = '1';
-            $peserta->catatan       = $request->catatan;
-            $peserta->type_bayar    = 'Manual';
-            $peserta->save();
+            if ($peserta->leader === 1 && is_int(strpos($peserta->flag, "order-group"))) {
+                Seminar::where('flag', $peserta->flag)->update([
+                    'total'      => $request->harga,
+                    'status'     => 1,
+                    'catatan'    => $request->catatan,
+                    'type_bayar' => 'Manual',
+                ]);
+            } else {
+                $peserta->total         = $request->harga;
+                $peserta->status        = '1';
+                $peserta->catatan       = $request->catatan;
+                $peserta->type_bayar    = 'Manual';
+                $peserta->save();
+            }
+
             $event = Event::where('kode_event', $peserta->kode_event)->first();
             if ($event) {
                 $message                    = ReplaceArray($peserta, $event->cw_payment);
@@ -183,10 +198,23 @@ class PesertaController extends Controller
                         }
                         if ($ref) {
                             $komisi_total   = Seminar::where('ref', $peserta->ref)->where('kode_event', $peserta->kode_event)->where('status', 1)->sum('fee_referral') ?? 0;
-                            $pengundang     = ["nama" => $peserta->nama, "sapaan" => $peserta->sapaan, "panggilan" => $peserta->panggilan, "pengundang_nama" => $ref->nama, "pengundang_sapaan" => $ref->sapaan, "pengundang_panggilan" => $ref->panggilan, "komisi" => number_format($event->fee_referral), "komisi_total" => number_format($komisi_total)];
+                            $pengundang     = [
+                                "nama" => $peserta->nama,
+                                "sapaan" => $peserta->sapaan,
+                                "panggilan" => $peserta->panggilan,
+                                "pengundang_nama" => $ref->nama,
+                                "pengundang_sapaan" => $ref->sapaan,
+                                "pengundang_panggilan" => $ref->panggilan,
+                                "komisi" => number_format($event->fee_referral),
+                                "komisi_total" => number_format($komisi_total)
+                            ];
                             $cw_payment_ref = ReplaceArray($pengundang, $event->cw_payment_ref);
                             // $notif          = Notifikasi::send(["device_key"=>$event->notifikasi_key,"phone"=>$peserta->ref,"message"=>$cw_payment_ref,"engine"=>$event->notifikasi,"delay"=>1]);
-                            $notif3 =  Whatsapp::send(["token" => $event->device_id, "phone" => $peserta->ref, "message" => $cw_payment_ref]);
+                            $notif3 =  Whatsapp::send([
+                                "token" => $event->device_id,
+                                "phone" => $peserta->ref,
+                                "message" => $cw_payment_ref
+                            ]);
                         }
                     }
                 }

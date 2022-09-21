@@ -212,7 +212,7 @@ class KirimpesanController extends Controller
                 }
             }else if($request->target == "Seminar"){
                 if($request->target_kirim == "Semua Peserta"){
-                    $peserta    = DB::select("select * from seminars where kode_event like '%".$request->kode_event."%'");
+                    $peserta    = DB::select("select * from seminars where isnull(deleted_at)  and  kode_event like '%".$request->kode_event."%'");
                     foreach($peserta as $participt){
                         $phone               = preg_replace('/^0/','62',$participt->phone);
                         if($phone){
@@ -285,7 +285,7 @@ class KirimpesanController extends Controller
                         }
                     }
                 }else if($request->target_kirim == "Belum Absen"){
-                    $peserta    = DB::select("select * from seminars where id Not In (select seminar_id from absensis where kode_event like '".$request->kode_event."') and kode_event like '%".$request->kode_event."%'");
+                    $peserta    = DB::select("select * from seminars where id Not In (select seminar_id from absensis where kode_event like '".$request->kode_event."') and isnull(deleted_at)  and kode_event like '%".$request->kode_event."%'");
                     foreach($peserta as $participt){
                         $phone               = preg_replace('/^0/','62',$participt->phone);
                         if($phone){
@@ -319,6 +319,47 @@ class KirimpesanController extends Controller
                                 $antrian->save();                    
                             }
                         }
+                    }
+                }elseif ($request->target_kirim == "Pengundang") {
+                    $peserta    = DB::select("select phone,count(*) undangan from seminars where phone in (select ref from seminars where kode_event like '%".$request->kode_event."%') group by phone");                    
+                    foreach($peserta as $d){
+                        $participt = DB::table('seminars')->where('phone',$d->phone)->first();
+                        // var_dump($participt);
+                        if($participt){
+                            $phone               = preg_replace('/^0/','62',$participt->phone);
+                            if($participt->phone){
+                                $antrian                = new Antrian();
+                                $antrian->user_id       = Auth::id();
+                                $antrian->device_id     = $request->device_id;
+                                $antrian->phone         = $participt->phone;
+                                $antrian->message       = ReplaceArray((Array)$participt, $request->message1);
+                                $antrian->status        = 0;
+                                $antrian->pause         = rand($request->min ?? 0,$request->max ?? 10);
+                                $antrian->file          = $lampiran1;
+                                $antrian->file_name     = $file_name1;
+                                $antrian->file_path     = $path_lampiran1;
+                                $antrian->type_message  = $type;
+                                $antrian->save();                    
+                            }
+
+                            if ($request->message2) {
+                                if($participt->phone){
+                                    $antrian                = new Antrian();
+                                    $antrian->user_id       = Auth::id();
+                                    $antrian->device_id     = $request->device_id;
+                                    $antrian->phone         = $participt->phone;
+                                    $antrian->message       = ReplaceArray((Array)$participt, $request->message2);
+                                    $antrian->status        = 0;
+                                    $antrian->pause         = rand($request->min ?? 0,$request->max ?? 10);
+                                    $antrian->file          = $lampiran2;
+                                    $antrian->file_name     = $file_name2;
+                                    $antrian->file_path     = $path_lampiran2;
+                                    $antrian->type_message  = $type;
+                                    $antrian->save();                    
+                                }
+                            }
+                        }
+                        
                     }
                 }
             }

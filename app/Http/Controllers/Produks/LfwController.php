@@ -72,7 +72,7 @@ Atas Nama: PT Graha Sukses Mendunia
 Setelah Transfer Mohon konfirmasi Bukti Transfer ke Nomor Whatsapp ini
 ';
             $resWA = Whatsapp::send([
-                'token' => 7,
+                'token' => 4,
                 'phone' => $request->phone,
                 'message' => $pesan
             ]);
@@ -86,7 +86,7 @@ Setelah Transfer Mohon konfirmasi Bukti Transfer ke Nomor Whatsapp ini
                 'msg_tagihan' =>$pesan
             ]);
             $resWAG = Whatsapp::send([
-                'token' => 7,
+                'token' => 4,
                 'phone' => '120363027570714751@g.us',
                 'message' => $pesan
             ]);

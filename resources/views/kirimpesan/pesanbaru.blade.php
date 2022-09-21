@@ -63,6 +63,7 @@
                                             <option value="Semua Peserta">Semua Peserta</option>
                                             <option value="Sudah Absen">Sudah Absen</option>
                                             <option value="Belum Absen">Belum Absen</option>
+                                            <option value="Pengundang">Pengundang</option>
                                         </select>
                                     </div>
                                 </div>

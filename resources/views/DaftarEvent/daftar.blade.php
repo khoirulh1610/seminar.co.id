@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>KOMI DAFTAR</title>
+	<title>DAFTAR EVENT</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
@@ -127,7 +127,7 @@
 						<select name="prov" id="prov_id" class="form-control input1" required data-value="{{ $data->provinsi ?? '' }}">
 							<option disabled selected>Provinsi</option>
 							@foreach ($provinsi as $item)
-							<option value="{{ $item->name }}">{{ $item->name }}</option>
+							<option value="{{ $item->id }}">{{ $item->name }}</option>
 							@endforeach
 						</select>
 						<span class="shadow-input1"></span>
@@ -335,7 +335,7 @@ $('#prov_id').change(function(){
 </script>
 
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
+	<!-- <script src="js/main.js"></script> -->
 
 	<script>
 		$('select').each((index, el) => {

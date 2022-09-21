@@ -43,8 +43,14 @@ class InjectPeseta extends Command
     {
         $peserta = PesertaInject::whereNull('link_zoom')->get();
         foreach ($peserta as $p) {
-            $event              = Event::where('id', $p->event_id)->first();
+	    echo json_encode($p);
+            $event              = Event::where('id', $p->event->id)->first();
+	    if(!$event){
+	      $this->info("Event tidak ditemukan".$p->event->id);
+	      exit;
+	    }
             sleep(rand(1, 3));
+	    $this->info($event->id."=>".$event->meeting_id);
             try {
                 $sapaan         = $p->sapaan;
                 $nama           = $p->panggilan.', '.$p->kota;
@@ -53,7 +59,7 @@ class InjectPeseta extends Command
                 $meeting_id     = $event->meeting_id;
                 // $link           = HelperZoom::join(2, $sapaan, $nama, $email, '95053083168');
                 $link           = HelperZoom::join($zoom_id, $sapaan, $nama, $email, $meeting_id);
-                echo $email . "=>" . $link . "\r\n";
+                $this->info($email . "=>" . $link);
                 PesertaInject::where('id', $p->id)->update(["link_zoom" => $link ?? null]);
             } catch (\Throwable $th) {
                 PesertaInject::where('id', $p->id)->update(["link_zoom" => null]);

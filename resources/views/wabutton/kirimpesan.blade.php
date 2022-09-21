@@ -27,21 +27,21 @@
                         <div class="table-responsive">                            
                             <table id="example1" class="table table-hover table-sm">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th>No</th>
                                         <th>Phone</th>                                        
                                         <th>Pesan</th>
                                         <th>Tgl Dibuat</th>
-                                        <th>Report</th>
-                                        <th>status</th>
+                                        {{-- <th>Report</th> --}}
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($kirimpesan as $e)
                                     <tr>
-                                        <td >{{$loop->iteration}}</td>
-                                        <td >{{$e->phone}}</td>                                        
+                                        <td class="text-center" >{{$loop->iteration}}</td>
+                                        <td class="text-center">{{$e->phone}}</td>                                        
                                         <td> 
                                             <a class="btn btn-xs btn-default" data-toggle="collapse" href="#col_{{$e->id}}" role="button" aria-expanded="false" aria-controls="collapseExample">Show Message</a>
                                             <div class="collapse" id="col_{{$e->id}}">
@@ -51,8 +51,7 @@
                                             </div>
                                         </td>
                                         <td>{{$e->created_at}}</td>
-                                        <td>{{$e->report}}/{{$e->messageid}}</td>
-                                        <td>
+                                        <td class="text-center">
                                             @if($e->status==0)
                                             <a href="javascript:void()" class="badge badge-rounded badge-warning">Preview</a> 
                                             @elseif($e->status==1)
@@ -63,7 +62,7 @@
                                             <a href="javascript:void()" class="badge badge-rounded badge-danger">Gagal</a> 
                                             @endif
                                         </td>
-                                        <td >
+                                        <td class="text-center">
                                             <!-- <a href="{{url('event/resend/'.$e->id)}}" class="btn btn-sm btn-info btn-rounded"><i class="fa fa-pen"></i></a> -->
                                             <a href="javascript:void(0)" onclick="send({{$e->id}})" class="btn btn-sm btn-info btn-rounded"><i class="fa fa-paper-plane"></i></a>
                                             <a href="{{url('button/remove?id='.$e->id)}}" onclick="return confirm('Are you sure, you want to delete it?')" class="btn btn-sm btn-danger btn-rounded"><i class="fa fa-trash"></i></a>

@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::any('testing', 'TestController@index');
+Route::any('test', 'TestController@test');
 
 Route::get('/event', 'ApiseminarController@index');
 Route::post('/register', 'ApiseminarController@register');

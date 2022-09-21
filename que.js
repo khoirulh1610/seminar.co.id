@@ -32,15 +32,15 @@ class Kirim {
         this.data = data;
     }
     AsynKirim() {
-        console.log(this.data.token);
+        console.log('token:', this.data.token);
         let data = this.data;
         let token = this.data.token;
         let tb = `zu${data.user_id}_antrians`;
-        con.query(`select * from ${tb} where device_id = '${token}' and status=1 limit 0,1`, (err, result) => {
+        con.query(`select * from ${tb} where device_id = '${token}' and status=1 limit 0,1`, async (err, result) => {
             if (err) throw err;
             if (result.length > 0) {
                 var row = result[0];
-                
+
                 var data_kirim = {
                     "token": String(row.device_id),
                     "id": row.id,
@@ -55,8 +55,8 @@ class Kirim {
                     data_kirim.payload = this.formatButton(row);
                 }
 
-                console.log(data_kirim);
-                
+                console.log('data_kirim:', data_kirim);
+
                 var options = {
                     method: 'POST',
                     url: `http://${data.ip}:${data.port}/api/send`,
@@ -64,9 +64,13 @@ class Kirim {
                     data: data_kirim
                 };
 
-                axios.request(options).then(async function(response) {
-                    let message = response.data?.message || "";
-                    let msgid = response?.data?.data?.messageid || "";
+                const res_axios = await axios.request(options).catch(function (error) {
+                    console.log('axios send WA:', error);
+                })
+
+                try {
+                    let message = res_axios.data?.message || "";
+                    let msgid = res_axios?.data?.data?.messageid || "";
                     // console.log(`${data.token} - ${message} - ${msgid}`);
                     if (message == 'device offline') {
                         await query(`update devices set status='NOT AUTHENTICATED' where id=${token}`);
@@ -77,14 +81,14 @@ class Kirim {
                     } else {
                         await query(`update ${tb} set status=3,report='${message}' where id=${row.id}`);
                     }
-                    if (ant[token]) ant[token].Next(row.pause * 1000);
-                }).catch(function(error) {
-                    console.log(error);
-                })
+                } catch (error) {
+                    console.error(`error save to ${tb} :`, error);
+                }
 
-
+                if (ant[token]) return ant[token].Next(row.pause * 1000);
             } else {
                 setTimeout(() => {
+                    console.log('Kosong', token);
                     if (ant[token]) ant[token].AsynKirim();
                 }, 1000 * 30);
             }
@@ -96,27 +100,30 @@ class Kirim {
      */
     formatButton(dataPesan) {
         let payload = [];
+
         function addPayload(text, id) {
             var r = payload.push({
-                buttonId: id,
-                buttonText: {displayText: text}
+                id,
+                text
             })
         }
         if (!isNull(dataPesan.btn1)) {
-        addPayload(dataPesan.btn1, `${dataPesan.id}<|>1<|>${dataPesan.reply1}`)
+            addPayload(dataPesan.btn1, `${dataPesan.id}<|>1<|>${dataPesan.reply1}`)
         }
         if (!isNull(dataPesan.btn2)) {
-        addPayload(dataPesan.btn2, `${dataPesan.id}<|>2<|>${dataPesan.reply2}`)
+            addPayload(dataPesan.btn2, `${dataPesan.id}<|>2<|>${dataPesan.reply2}`)
         }
         if (!isNull(dataPesan.btn3)) {
-        addPayload(dataPesan.btn3, `${dataPesan.id}<|>3<|>${dataPesan.reply3}`)
+            addPayload(dataPesan.btn3, `${dataPesan.id}<|>3<|>${dataPesan.reply3}`)
         }
         return payload
     }
 
-    
+
     Next(delay) {
-        setTimeout(this.AsynKirim(), delay);
+        return setTimeout(() => {
+            return this.AsynKirim()
+        }, delay);
     }
 }
 
@@ -151,7 +158,7 @@ function TimeReplace(mystr) {
 }
 
 
-(async() => {
+(async () => {
     getDevice();
     setInterval(() => {
         getDevice();
@@ -160,9 +167,9 @@ function TimeReplace(mystr) {
 
 
 function isNull(data) {
-	return (
-	  (data === '') || 
-	  (data === null) ||
-	  (data === 0)
-	);
+    return (
+        (data === '') ||
+        (data === null) ||
+        (data === 0)
+    );
 }

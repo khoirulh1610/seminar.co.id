@@ -54,6 +54,7 @@
                                 @if (Auth::user()->role_id == 1)
                                     <button data-toggle="modal" data-target="#modalUploadConfirm" class="btn btn-info btn-sm btn-rounded float-right mr-1">Upload Data</button>
                                     <button data-toggle="modal" data-target="#modalExport" class="btn btn-success btn-sm btn-rounded float-right mr-1">Export Data</button>
+                                    <button data-toggle="modal" data-target="#ModalHapus" class="btn btn-danger btn-sm btn-rounded float-right mr-1">Hapus</button>
                                 @endif
                             </div>
                         {{-- </div> --}}
@@ -74,6 +75,7 @@
                                         <th class="text-center">Kontak</th>
                                         <th class="text-center">Kota</th>
                                         <th class="text-center">Seminar</th>
+                                        <th class="text-center">Link</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -84,6 +86,7 @@
                                             <td class="text-center">{{ $item->email }} <br> {{ $item->phone }}</td>
                                             <td class="text-center">{{ $item->kota }}</td>
                                             <td class="text-center">{{ $item->event['event_title'] ?? ''}}</td>
+                                            <td class="text-center">{{ $item->link_zoom ? 'Y' : '-' }}</td>
                                         </tr>
                                     @endforeach	
                                 </tbody>                                
@@ -168,6 +171,34 @@
                   <button class="btn btn-success btn-rounded float-right mx-auto" type="button" onclick="startUpload()">Upload sekarang</button>
                 </div>
               {{-- </form> --}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ModalHapus -->
+<div class="modal fade" tabindex="-1" id="ModalHapus">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <em class="icon ni ni-cross"></em>
+                </a>
+            </div>
+            <div class="modal-body">
+              <form action="{{ url('inject/delete') }}" method="POST" enctype="multipart/form-data" class="text-center">
+                @csrf
+                <label for="">Pilih Event</label>
+                <select class="form-control" name="event_id" id="event_id">
+                    @foreach ($gInject as $item)
+                        <option value="{{ $item->event_id }}">{{ $item->event_title }}</option>
+                    @endforeach
+                </select>                
+                <div class="w-100 center p-2">
+                  <button class="btn btn-danger btn-rounded float-right mx-auto" type="submit">Delete</button>
+                </div>
+              </form>
             </div>
         </div>
     </div>

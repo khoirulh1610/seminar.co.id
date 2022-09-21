@@ -15,15 +15,18 @@ use Pion\Laravel\ChunkUpload\Exceptions\UploadFailedException;
 use Pion\Laravel\ChunkUpload\Handler\AbstractHandler;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
+use DB;
 
 class InjectZoomController extends Controller
 {
     public function index(Request $request)
     {
         $peserta        = PesertaInject::get();
-        $event          = Event::where('status',1)->get();
+        $event          = Event::where('status',1)->orderBy('tgl_event','asc')->where('tgl_event','>=',Date('Y-m-d H:00'))->get();
         $notNullLink    = PesertaInject::where('event_id', $request->event_id)->whereNotNull('link_zoom')->count();
-        return view('injectzoom.inject', compact('peserta', 'event'));
+        $gInject        = DB::select("select a.event_id,b.event_title from peserta_injects a left join events b on a.event_id=b.id group by a.event_id");
+        // return  $gInject;
+        return view('injectzoom.inject', compact('peserta', 'event','gInject'));
     }
 
     function inject(Request $request)
@@ -32,18 +35,23 @@ class InjectZoomController extends Controller
         $data           = (new FastExcel)->import($file);
 
         foreach ($data as $key) {
-            $data = PesertaInject::insert([
-                'event_id'      => $request->event_id,
-                'sapaan'        => $key['sapaan'],
-                'panggilan'     => $key['panggilan'],
-                'nama'          => $key['nama'],
-                'email'         => $key['email'],
-                'phone'         => $key['phone'],
-                'tgl_lahir'     => $key['tgl_lahir'],
-                'kota'          => $key['kota'],
-                'created_at'    => Carbon::now(),
-                'updated_at'    => Carbon::now(),
-            ]);
+            try {
+                $data = PesertaInject::insert([
+                    'event_id'      => $request->event_id,
+                    'sapaan'        => $key['sapaan'],
+                    'panggilan'     => $key['panggilan'],
+                    'nama'          => $key['nama'],
+                    'email'         => $key['email'],
+                    'phone'         => $key['phone'],
+                    'tgl_lahir'     => $key['tgl_lahir'] ?? null,
+                    'kota'          => $key['kota'] ?? null,
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now(),
+                ]);
+            } catch (\Throwable $th) {
+                Log::emergency("Inject error : ".$th->getMessage());
+            }
+            
         }
         Artisan::call("inject:peserta");
         return redirect('inject/zoom')->with('success', 'Inject data sedang di proses');
@@ -122,19 +130,27 @@ class InjectZoomController extends Controller
     public function export(Request $request)
     {
         $data   =   PesertaInject::where('event_id', $request->event_id)->get();
-        foreach ($data as $key) {
-            $peserta[] = [
-                'Sapaan'        => $key->sapaan,
-                'Panggilan'     => $key->panggilan,
-                'Nama'          => $key->nama,
-                'Email'         => $key->email,
-                'Phone'         => $key->phone,
-                'Tgl lahir'     => $key->tgl_lahir,
-                'Kota'          => $key->kota,
-                'Link zoom'     => $key->link_zoom,
-            ];
-            $event  =   Event::where('id', $request->event_id)->first();
-            return (new FastExcel($peserta))->download('Data_Inject_'.$event->event_title.'.xlsx');
-        }
+        $event  =   Event::where('id', $request->event_id)->first(); 
+        // $peserta = [];
+        // foreach ($data as $key) {
+        //     $peserta[] = [
+        //         'Sapaan'        => $key->sapaan,
+        //         'Panggilan'     => $key->panggilan,
+        //         'Nama'          => $key->nama,
+        //         'Email'         => $key->email,
+        //         'Phone'         => $key->phone,
+        //         'Tgl lahir'     => $key->tgl_lahir,
+        //         'Kota'          => $key->kota,
+        //         'Link zoom'     => $key->link_zoom,
+        //     ];
+        //     $event  =   Event::where('id', $request->event_id)->first();            
+        // }
+        return (new FastExcel($data))->download('Data_Inject_'.$event->event_title.'.xlsx');
     }
+
+    public function delete(Request $request)
+    {
+        $data = PesertaInject::where('event_id', $request->event_id)->delete();
+        return redirect('inject/zoom')->with('success', 'Data berhasil di hapus');
+    }   
 }

@@ -10,9 +10,11 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    #protected $guarded = ['id'];
     protected $casts = [
-        'tgl_event' => 'datetime'
+        'tgl_event' => 'datetime',
+        'open_register' => 'datetime',
+        'close_register' => 'datetime',
     ];
 
     protected $hidden = [
@@ -49,7 +51,6 @@ class Event extends Model
         "notifikasi_att1",
         "reg_absen",
         "login_ref",
-        "zoom_id",
         "required_ref",
         "group_info",
         "cw_fb",

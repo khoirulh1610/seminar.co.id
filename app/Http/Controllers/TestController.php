@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Notification;
 use App\Mail\NotifMail;
 use App\Models\Event;
 use App\Models\Lfwuser;
@@ -11,17 +12,22 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class TestController extends Controller
 {
     public function index()
     {
-        $user = User::find(2);
-        // $mitra = Mitra::find(1);
+        $text = "order-group(fwef7ti7nguYBFVYTD)";
 
-        // dd($user->assignMitra($mitra));
-        // dd($user->dropMitra('lfw'));
+        $pass   = Hash::make('12345678');
+        return $pass;
+    }
+
+    public function test()
+    {
+        return abort(404);
     }
 
 
@@ -38,7 +44,6 @@ class TestController extends Controller
 
     public function dashview(Request $request)
     {
-
         // if ($request->ajax()) {
         //     $event_m      = Event::where('mitra_id', Auth::user()->phone)->pluck('kode_event');
         //     if (Auth::user()->role_id == 1) {
@@ -63,9 +68,6 @@ class TestController extends Controller
         //     return view('dashview', compact('seminar', 'event', 'title', 'absen', 'komisi', 'komisi_mitra', 'event_m'));
         // }
     }
-
-
-
 
     public function betaPage()
     {

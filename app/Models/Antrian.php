@@ -12,7 +12,8 @@ class Antrian extends Model
 {
     use HasFactory;
     protected $table = "antrians";
-    
+    protected $guarded = ['id'];
+
     public function __construct()
     {
         $tb = "zu" . Auth::id() . "_antrians";
